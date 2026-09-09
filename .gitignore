@@ -1,0 +1,7 @@
+.DS_Store
+._*
+node_modules/
+# Runtime data written by chat.php / presence.php on the live host —
+# never in git (the .htaccess inside is tracked via the exception).
+webinar/live/data/*
+!webinar/live/data/.htaccess

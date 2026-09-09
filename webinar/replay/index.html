@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Session Replay | Vitalis Tower Webinar</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="stylesheet" href="/css/brand.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/webinar/replay/style.css?v=1">
+</head>
+<body>
+
+  <div class="announce" role="note">
+    <span class="announce-dot" aria-hidden="true"></span>
+    <span id="announce-text">Session replay</span>
+  </div>
+
+  <main>
+    <section class="rp-hero theme-dark section-photo" aria-labelledby="rp-heading">
+      <img class="section-bg" src="/images/renders/exterior-lawn.webp" alt="" style="object-position: 50% 40%" fetchpriority="high">
+      <div class="section-veil veil-photo" aria-hidden="true"></div>
+      <div class="dust" id="hero-dust" aria-hidden="true"></div>
+
+      <div class="cf-header rise rise-1">
+        <a href="https://vitalistower.com" aria-label="Vitalis Tower home">
+          <img src="/images/brand/logo-gold.png" alt="Vitalis Tower" width="982" height="894">
+        </a>
+      </div>
+
+      <div class="container rp-inner">
+        <p class="eyebrow rise rise-2" id="rp-kicker">The Replay</p>
+        <h1 id="rp-heading" class="rise rise-3">Catch Every Minute.</h1>
+        <p class="rp-sub rise rise-4" id="rp-sub">Loading your replay&hellip;</p>
+
+        <!-- STATE: replay available -->
+        <div class="rp-player-wrap rise rise-5" id="rp-available" hidden>
+          <p class="rp-window" id="rp-window"></p>
+          <div class="rp-frame">
+            <video id="rp-video" controls playsinline preload="metadata" poster="/images/renders/exterior-dusk.webp"></video>
+          </div>
+          <div class="rp-cta-row">
+            <a class="btn btn-glow" id="rp-book-cta" href="/consultation/" data-cta="replay-book">Schedule a Private Presentation</a>
+            <a class="btn btn-ghost" href="/webinar/" data-cta="replay-register">Join the Next Live Session</a>
+          </div>
+        </div>
+
+        <!-- STATE: session upcoming -->
+        <div class="rp-state" id="rp-upcoming" hidden>
+          <p class="rp-state-title">This session hasn&rsquo;t happened yet.</p>
+          <p class="rp-state-sub" id="rp-upcoming-sub"></p>
+          <a class="btn" id="rp-upcoming-link" href="/webinar/confirmed/">View My Confirmation</a>
+        </div>
+
+        <!-- STATE: live right now -->
+        <div class="rp-state" id="rp-live" hidden>
+          <p class="rp-state-title">It&rsquo;s happening right now.</p>
+          <p class="rp-state-sub">Skip the replay &mdash; join the session while it&rsquo;s on.</p>
+          <a class="btn btn-glow" id="rp-live-link" href="/webinar/live/">Join the Session</a>
+        </div>
+
+        <!-- STATE: replay being prepared -->
+        <div class="rp-state" id="rp-pending" hidden>
+          <p class="rp-state-title">The replay is being prepared.</p>
+          <p class="rp-state-sub">It&rsquo;ll land in your inbox as soon as it&rsquo;s ready. In the meantime, the next step doesn&rsquo;t need the video:</p>
+          <a class="btn" href="/consultation/" data-cta="replay-pending-book">Schedule a Private Presentation</a>
+        </div>
+
+        <!-- STATE: replay expired -->
+        <div class="rp-state" id="rp-expired" hidden>
+          <p class="rp-state-title">This replay window has closed.</p>
+          <p class="rp-state-sub" id="rp-expired-sub">Replays stay up for a limited time after each session &mdash; but the next live session is open for registration.</p>
+          <a class="btn btn-glow" href="/webinar/" data-cta="replay-expired-register">Register for the Next Session</a>
+        </div>
+
+        <!-- STATE: no registration found -->
+        <div class="rp-state" id="rp-none" hidden>
+          <p class="rp-state-title">Looking for your replay?</p>
+          <p class="rp-state-sub">Open the replay link from your email &mdash; it carries your session. Or register for the next live session below.</p>
+          <a class="btn" href="/webinar/" data-cta="replay-none-register">See the Next Session</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="seam seam-dark-cream" aria-hidden="true"></div>
+
+    <section class="section theme-cream" aria-labelledby="next-heading">
+      <div class="palm-drift" aria-hidden="true"></div>
+      <div class="container container-narrow" style="position:relative;z-index:2;text-align:center">
+        <h2 id="next-heading">While It&rsquo;s Fresh</h2>
+        <p class="section-lede">The session ends with one question: is a private presentation worth your time? If the answer is yes, the calendar is one click away.</p>
+        <div class="rp-next-grid" data-reveal-group>
+          <article class="rp-next-card" data-reveal>
+            <h3>Owner&ndash;users</h3>
+            <p>Bring your space needs and timeline &mdash; the team walks you through floor plans from 500 to 20,000 SF and what delivery in Q1 2029 means for your planning.</p>
+          </article>
+          <article class="rp-next-card" data-reveal>
+            <h3>Investors</h3>
+            <p>Bring your questions on tenants and lease structures &mdash; the team covers how medical office assets are underwritten and what&rsquo;s available.</p>
+          </article>
+        </div>
+        <a class="btn btn-glow" href="/consultation/" data-cta="replay-bottom-book" style="margin-top:26px">Schedule a Private Presentation</a>
+      </div>
+    </section>
+
+    <div class="seam seam-cream-dark" aria-hidden="true"></div>
+  </main>
+
+  <footer class="site-footer theme-dark">
+    <div class="container">
+      <div class="footer-logo"><img src="/images/brand/logo-gold.png" alt="Vitalis Tower" width="982" height="894" loading="lazy"></div>
+      <p class="footer-district">Aventura Medical District</p>
+      <p class="copyright">&copy; <span id="year"></span> Vitalis Tower. All rights reserved. &middot; Renderings are artist&rsquo;s conceptual illustrations; details subject to change.</p>
+    </div>
+  </footer>
+
+  <script src="/config/funnel.js"></script>
+  <script src="/js/attribution.js" defer></script>
+  <script src="/js/core.js" defer></script>
+  <script src="/webinar/replay/app.js?v=1" defer></script>
+</body>
+</html>

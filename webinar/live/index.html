@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Session Room | Vitalis Tower Webinar</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="stylesheet" href="/css/brand.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/webinar/live/style.css?v=1">
+</head>
+<body>
+
+  <!-- ============ Room bar ============ -->
+  <header class="room-bar">
+    <a class="room-logo" href="https://vitalistower.com" aria-label="Vitalis Tower home">
+      <img src="/images/brand/logo-gold.png" alt="Vitalis Tower" width="982" height="894">
+    </a>
+    <div class="room-status">
+      <span class="live-pill" id="live-pill" hidden>
+        <span class="live-dot" aria-hidden="true"></span> LIVE
+      </span>
+      <!-- Real presence only (presence.php count) — never simulated. -->
+      <span class="watching" id="watching" hidden>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-6 6.2C2 11.6 4.7 10 8 10s6 1.6 6 4.2c0 .5-.4.8-.9.8H2.9c-.5 0-.9-.3-.9-.8Z"/></svg>
+        <span id="watching-num">0</span> <span id="watching-label">in the room</span>
+      </span>
+    </div>
+  </header>
+
+  <main class="room">
+    <div class="room-grid">
+
+      <!-- ============ Stage ============ -->
+      <section class="stage" aria-label="Webinar session">
+
+        <div class="player" id="player">
+          <video id="live-video" playsinline preload="metadata"
+                 disablepictureinpicture disableremoteplayback
+                 controlslist="nodownload noplaybackrate nofullscreen"></video>
+
+          <!-- Pre-session: countdown -->
+          <div class="overlay overlay-pre" id="overlay-pre">
+            <img class="overlay-bg" src="/images/renders/exterior-hero.webp" alt="" loading="lazy">
+            <div class="overlay-inner">
+              <p class="overlay-kicker">Webinar &middot; <span id="pre-date">Loading session&hellip;</span></p>
+              <h1 class="overlay-title">The Session Starts Soon.</h1>
+              <div class="countdown" id="countdown" aria-label="Time until the session begins">
+                <div class="count-chip"><span class="count-num" data-count="d">0</span><span class="count-label">Days</span></div>
+                <div class="count-chip"><span class="count-num" data-count="h">00</span><span class="count-label">Hrs</span></div>
+                <div class="count-chip"><span class="count-num" data-count="m">00</span><span class="count-label">Min</span></div>
+                <div class="count-chip"><span class="count-num" data-count="s">00</span><span class="count-label">Sec</span></div>
+              </div>
+              <p class="overlay-note">Keep this page open &mdash; the session starts on its own.</p>
+            </div>
+          </div>
+
+          <!-- In session: tap for sound -->
+          <button class="overlay overlay-sound" id="overlay-sound" hidden>
+            <span class="sound-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4Zm12.5 3a3.5 3.5 0 0 0-2-3.2v6.4a3.5 3.5 0 0 0 2-3.2Zm-2-7.6v2.1a5.5 5.5 0 0 1 0 11v2.1a7.5 7.5 0 0 0 0-15.2Z"/></svg>
+              The session is playing &mdash; tap for sound
+            </span>
+          </button>
+
+          <!-- Post-session: ended slate -->
+          <div class="overlay overlay-post" id="overlay-post" hidden>
+            <img class="overlay-bg" src="/images/renders/exterior-dusk.webp" alt="" loading="lazy">
+            <div class="overlay-inner">
+              <p class="overlay-kicker">That&rsquo;s a wrap</p>
+              <h1 class="overlay-title">This Session Has Ended.</h1>
+              <p class="overlay-note" id="post-note">Your next step is right below &mdash; and the replay link arrives by email.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session header under the player -->
+        <div class="session-head">
+          <div class="session-titles">
+            <h2>An Introduction to Medical Office Ownership in Aventura</h2>
+            <p>Own vs. lease, what a medical building must get right, the investor&rsquo;s lens, and where Vitalis Tower fits.</p>
+          </div>
+          <div class="session-hosts" aria-label="Your presenters">
+            <span data-presenter="name">The Vitalis Tower Sales Team</span>
+            <em data-presenter="sub">Fortune Development Sales</em>
+          </div>
+        </div>
+
+        <!-- ============ Private presentation booking: unlocks mid-session ============ -->
+        <section class="book" id="book" aria-labelledby="book-heading">
+
+          <div class="book-locked" id="book-locked">
+            <div class="lock-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Zm3 4a1.8 1.8 0 0 1 1 3.3V19a1 1 0 1 1-2 0v-1.7a1.8 1.8 0 0 1 1-3.3Z"/></svg>
+            </div>
+            <h3 id="book-heading">Private Presentation Booking Opens During the Session</h3>
+            <p class="book-locked-note" id="book-locked-note">The booking calendar unlocks live, partway through the session.</p>
+          </div>
+
+          <div class="book-open" id="book-open" hidden>
+            <p class="book-chip"><span class="live-dot" aria-hidden="true"></span> Booking is open</p>
+            <h3 id="book-open-title">Schedule Your Private Presentation</h3>
+            <p class="book-lede" id="book-open-lede">A one-on-one with the sales team &mdash; your questions, the floor plans, current availability. Pick any time that works.</p>
+            <div class="book-embed" id="book-embed">
+              <div class="book-loading" aria-live="polite">
+                <span class="spinner" aria-hidden="true"></span>
+                <p>Loading the calendar&hellip;</p>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </section>
+
+      <!-- ============ Session chat (host-moderated; admin-only feed) ============ -->
+      <aside class="chat" id="chat" aria-label="Session chat">
+        <div class="chat-head">
+          <span class="chat-title"><span class="live-dot" aria-hidden="true"></span> Session Chat</span>
+          <span class="chat-mod">
+            <svg class="chat-lock" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg>
+            Moderated
+          </span>
+        </div>
+
+        <div class="chat-feed" id="chat-feed" role="log" aria-live="polite">
+          <div class="msg msg-host">
+            <span class="msg-name">Vitalis Tower Team</span>
+            <p>Welcome &#128075; The chat is in <strong>moderated mode</strong> &mdash; your messages go straight to the team, so you won&rsquo;t see other attendees typing here. Ask anything about the building, the district, or the ownership process; we&rsquo;re reading every message.</p>
+          </div>
+        </div>
+
+        <div class="chat-join" id="chat-join">
+          <label id="chat-join-label" for="chat-name">Join the chat</label>
+          <p class="chat-join-note">Add your name and number so the team can follow up with answers.</p>
+          <input id="chat-name" class="chat-field" type="text" maxlength="40" autocomplete="given-name" placeholder="Your first name">
+          <input id="chat-phone" class="chat-field" type="tel" maxlength="24" autocomplete="tel" inputmode="tel" placeholder="Mobile number">
+          <button id="chat-join-btn" class="chat-join-btn" type="button">Join the Chat</button>
+          <p class="chat-join-err" id="chat-join-err" hidden></p>
+        </div>
+
+        <div class="chat-compose" id="chat-compose" hidden>
+          <div class="chat-row">
+            <input id="chat-input" type="text" maxlength="280" autocomplete="off" placeholder="Ask the team anything&hellip;">
+            <button id="chat-send" type="button" aria-label="Send message">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3.4 20.6 21.8 12 3.4 3.4 3.3 10l13 2-13 2z"/></svg>
+            </button>
+          </div>
+          <p class="chat-compose-note">
+            <svg class="chat-lock" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg>
+            Moderated &mdash; only the team sees your messages.
+          </p>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="room-foot">
+    <p>Educational session &middot; Renderings are artist&rsquo;s conceptual illustrations &middot; &copy; <span id="year"></span> Vitalis Tower &middot; <a href="/webinar/">Back to registration</a></p>
+  </footer>
+
+  <script src="/config/funnel.js"></script>
+  <script src="/js/attribution.js" defer></script>
+  <script src="/js/core.js" defer></script>
+  <script src="/webinar/live/app.js?v=1" defer></script>
+</body>
+</html>

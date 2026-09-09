@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Chat Console | Vitalis Tower Live</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="stylesheet" href="/css/brand.css">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body { background: #17191C; color: var(--v-cream); font-family: var(--font-brand); min-height: 100vh; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    header img { width: 92px; height: auto; display: block; }
+    h1 { font-size: 16px; font-weight: 800; margin: 0; color: #fff; text-transform: none; letter-spacing: 0; }
+    .sub { color: rgba(242,236,223,.55); font-size: 12.5px; margin: 2px 0 0; }
+
+    .panel {
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(194,162,100,.22);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .gate { max-width: 420px; margin: 12vh auto 0; text-align: center; }
+    .gate h1 { margin-bottom: 6px; }
+    .gate p { color: rgba(242,236,223,.6); font-size: 13.5px; margin: 0 0 16px; }
+    .row { display: flex; gap: 8px; }
+    input, select {
+      font-family: var(--font-brand); font-size: 15px; color: var(--v-cream);
+      background: rgba(16,18,20,.6); border: 1px solid rgba(242,236,223,.18);
+      border-radius: 10px; padding: 11px 13px;
+    }
+    input { flex: 1; min-width: 0; }
+    input:focus, select:focus { outline: none; border-color: rgba(194,162,100,.6); }
+    button {
+      font-family: var(--font-brand); font-weight: 800; font-size: 14px; color: #1B1508;
+      background: linear-gradient(135deg, #D9BE85, #C2A264); border: 0; border-radius: 10px;
+      padding: 11px 18px; cursor: pointer;
+    }
+    button.ghost { background: transparent; border: 1px solid rgba(242,236,223,.25); color: rgba(242,236,223,.75); }
+    .err { color: #F2A0A0; font-size: 13px; margin-top: 10px; min-height: 1em; }
+
+    .bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .bar .spacer { flex: 1; }
+    .stat { font-size: 12.5px; color: rgba(242,236,223,.6); }
+    .stat strong { color: #fff; font-weight: 800; }
+    .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #58d68d; margin-right: 5px; vertical-align: 1px; }
+    .dot.off { background: #F2A0A0; }
+    .online-pill {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 5px 12px; border-radius: 999px;
+      background: rgba(88,214,141,.12); border: 1px solid rgba(88,214,141,.4);
+      color: rgba(242,236,223,.8); font-size: 12.5px;
+    }
+    .online-pill strong { color: #fff; font-weight: 800; font-size: 14px; margin: 0 2px; }
+    .online-pill .dot { animation: op-pulse 1.8s ease-out infinite; }
+    @keyframes op-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(88,214,141,.5); }
+      70% { box-shadow: 0 0 0 6px rgba(88,214,141,0); }
+      100% { box-shadow: 0 0 0 0 rgba(88,214,141,0); }
+    }
+
+    .feed { display: flex; flex-direction: column; gap: 8px; }
+    .msg {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(194,162,100,.14);
+      border-radius: 10px; padding: 9px 12px; font-size: 14px; line-height: 1.45;
+    }
+    .msg .meta { display: flex; gap: 8px; align-items: baseline; margin-bottom: 2px; flex-wrap: wrap; }
+    .msg .name { font-weight: 800; color: var(--v-gold-bright); font-size: 13px; }
+    .msg .phone {
+      color: var(--v-gold); font-size: 12.5px; font-weight: 700;
+      text-decoration: none; border-bottom: 1px dashed rgba(194,162,100,.45);
+    }
+    .msg .phone:hover { color: #fff; border-bottom-color: #fff; }
+    .msg .nophone { color: rgba(242,160,160,.8); font-size: 11.5px; }
+    .msg .time { color: rgba(242,236,223,.45); font-size: 11.5px; }
+    .msg .mark {
+      color: var(--v-gold); font-size: 11px; font-weight: 700;
+      border: 1px solid rgba(194,162,100,.4); border-radius: 999px; padding: 1px 8px;
+    }
+    .msg p { margin: 0; overflow-wrap: anywhere; }
+    .empty { text-align: center; color: rgba(242,236,223,.5); font-size: 13.5px; padding: 30px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- Key gate -->
+    <div class="gate" id="gate">
+      <h1>Vitalis Tower Chat Console</h1>
+      <p>Enter the admin key to open the live feed.</p>
+      <div class="panel">
+        <div class="row">
+          <input id="key-input" type="password" placeholder="Admin key" autocomplete="off">
+          <button id="key-btn" type="button">Open</button>
+        </div>
+        <p class="err" id="gate-err"></p>
+      </div>
+    </div>
+
+    <!-- Console -->
+    <div id="console" hidden>
+      <header>
+        <div>
+          <h1>Session Chat Console</h1>
+          <p class="sub"><span class="dot" id="poll-dot"></span><span id="poll-note">refreshing every 4s</span></p>
+        </div>
+        <img src="/images/brand/logo-gold.png" alt="Vitalis Tower">
+      </header>
+
+      <div class="panel">
+        <div class="bar">
+          <span class="online-pill" id="online-pill" title="Real people with the session room open right now">
+            <span class="dot"></span><strong id="stat-online">0</strong> on the page now
+          </span>
+          <select id="day-select" aria-label="Day"></select>
+          <span class="stat"><strong id="stat-count">0</strong> messages · <strong id="stat-people">0</strong> chatting</span>
+          <span class="spacer"></span>
+          <button class="ghost" id="logout-btn" type="button">Lock</button>
+        </div>
+        <div class="feed" id="feed">
+          <p class="empty">No messages yet.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+    var ENDPOINT = '/webinar/live/chat.php';
+    var KEY_STORE = 'vitalis.live.adminKey';
+    var POLL_MS = 4000;
+
+    var key = '';
+    var day = '';
+    var timer = 0;
+    var lastCount = -1;
+
+    function $(id) { return document.getElementById(id); }
+
+    function etDay() {
+      var p = {};
+      new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'
+      }).formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      return p.year + '-' + p.month + '-' + p.day;
+    }
+
+    function fmtTime(ts) {
+      return new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit', second: '2-digit'
+      }).format(new Date(ts * 1000));
+    }
+
+    function render(data) {
+      var feed = $('feed');
+      var msgs = data.messages || [];
+
+      var sel = $('day-select');
+      var days = data.days && data.days.length ? data.days : [data.day];
+      if (days.indexOf(data.day) < 0) days.unshift(data.day);
+      var want = days.join('|');
+      if (sel.dataset.days !== want) {
+        sel.dataset.days = want;
+        sel.innerHTML = '';
+        days.forEach(function (d) {
+          var o = document.createElement('option');
+          o.value = d; o.textContent = d + (d === etDay() ? ' (today)' : '');
+          sel.appendChild(o);
+        });
+      }
+      sel.value = data.day;
+
+      var people = {};
+      msgs.forEach(function (m) { people[m.p || m.n] = 1; });
+      $('stat-count').textContent = msgs.length;
+      $('stat-people').textContent = Object.keys(people).length;
+      $('stat-online').textContent = (data.online != null ? data.online : '—');
+
+      if (msgs.length === lastCount) return; // nothing new — don't repaint
+      lastCount = msgs.length;
+
+      var pinned = feed.scrollHeight - feed.scrollTop - feed.clientHeight < 80;
+      feed.innerHTML = '';
+      if (!msgs.length) {
+        var e = document.createElement('p');
+        e.className = 'empty';
+        e.textContent = 'No messages yet.';
+        feed.appendChild(e);
+        return;
+      }
+      msgs.forEach(function (m) {
+        var div = document.createElement('div');
+        div.className = 'msg';
+        var meta = document.createElement('div');
+        meta.className = 'meta';
+        var name = document.createElement('span');
+        name.className = 'name'; name.textContent = m.n || '—';
+        meta.appendChild(name);
+        if (m.p) {
+          var tel = document.createElement('a');
+          tel.className = 'phone';
+          tel.href = 'sms:' + m.p.replace(/[^\d+]/g, '');
+          tel.textContent = m.p;
+          meta.appendChild(tel);
+        } else {
+          var np = document.createElement('span');
+          np.className = 'nophone'; np.textContent = 'no number';
+          meta.appendChild(np);
+        }
+        var time = document.createElement('span');
+        time.className = 'time'; time.textContent = fmtTime(m.t) + ' ET';
+        meta.appendChild(time);
+        if (m.at && /^\d\d:\d\d$/.test(m.at)) {
+          var mark = document.createElement('span');
+          mark.className = 'mark'; mark.textContent = '▶ ' + m.at;
+          meta.appendChild(mark);
+        }
+        var p = document.createElement('p');
+        p.textContent = m.m || '';
+        div.appendChild(meta); div.appendChild(p);
+        feed.appendChild(div);
+      });
+      window.scrollTo(0, pinned ? document.body.scrollHeight : window.scrollY);
+    }
+
+    function poll() {
+      clearTimeout(timer);
+      fetch(ENDPOINT + '?key=' + encodeURIComponent(key) + '&day=' + encodeURIComponent(day || etDay()),
+            { cache: 'no-store' })
+        .then(function (r) {
+          if (r.status === 403) throw new Error('forbidden');
+          return r.json();
+        })
+        .then(function (data) {
+          if (!data.ok) throw new Error(data.error || 'error');
+          day = data.day;
+          $('poll-dot').className = 'dot';
+          $('poll-note').textContent = 'refreshing every 4s · ' + day;
+          render(data);
+          timer = setTimeout(poll, POLL_MS);
+        })
+        .catch(function (err) {
+          if (String(err.message) === 'forbidden') { lock('Wrong key.'); return; }
+          $('poll-dot').className = 'dot off';
+          $('poll-note').textContent = 'connection hiccup — retrying';
+          timer = setTimeout(poll, POLL_MS * 2);
+        });
+    }
+
+    function open() {
+      $('gate').hidden = true;
+      $('console').hidden = false;
+      lastCount = -1;
+      poll();
+    }
+
+    function lock(msg) {
+      clearTimeout(timer);
+      try { localStorage.removeItem(KEY_STORE); } catch (e) {}
+      key = '';
+      $('console').hidden = true;
+      $('gate').hidden = false;
+      $('gate-err').textContent = msg || '';
+    }
+
+    $('key-btn').addEventListener('click', function () {
+      key = $('key-input').value.trim();
+      if (!key) return;
+      try { localStorage.setItem(KEY_STORE, key); } catch (e) {}
+      $('key-input').value = '';
+      open();
+    });
+    $('key-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') $('key-btn').click();
+    });
+    $('logout-btn').addEventListener('click', function () { lock(); });
+    $('day-select').addEventListener('change', function () {
+      day = this.value;
+      lastCount = -1;
+      poll();
+    });
+
+    try { key = localStorage.getItem(KEY_STORE) || ''; } catch (e) {}
+    if (key) open();
+  })();
+  </script>
+</body>
+</html>

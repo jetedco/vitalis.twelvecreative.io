@@ -1,0 +1,8 @@
+# HTML must revalidate on every visit so page updates reach returning
+# visitors immediately. Static assets keep the host's long cache and are
+# cache-busted with ?v= query params in the HTML.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>

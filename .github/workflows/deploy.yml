@@ -1,0 +1,36 @@
+# Deploys the Vitalis funnel to its web host on every push to main.
+# [VITALIS-SETUP] add FTP_SERVER / FTP_USERNAME / FTP_PASSWORD secrets for
+# the VITALIS hosting account (never reuse JetEdCo's credentials or server).
+name: Deploy to Web Server
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: FTP Deploy
+    # Skips cleanly until the Vitalis FTP secrets are configured — until
+    # then the site is served by GitHub Pages from the main branch.
+    if: ${{ secrets.FTP_SERVER != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            webinar/live/data/**

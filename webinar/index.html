@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Webinar: Medical Office Ownership in Aventura | Vitalis Tower</title>
+  <meta name="description" content="Vitalis Tower: An Introduction to Medical Office Ownership in Aventura. A free educational webinar for physicians, practice owners, and investors — how to evaluate owning your office versus leasing, and what to look for in a medical office asset.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vitalis.twelvecreative.io/webinar/">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vitalis.twelvecreative.io/webinar/">
+  <meta property="og:title" content="Vitalis Tower: An Introduction to Medical Office Ownership in Aventura">
+  <meta property="og:description" content="A free educational webinar for physicians, practice owners, and investors — in the heart of the Aventura Medical District.">
+  <meta property="og:image" content="https://vitalis.twelvecreative.io/images/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preload" href="/images/renders/exterior-hero.webp" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="/css/brand.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/webinar/style.css?v=1">
+</head>
+<body>
+
+  <!-- ============ Announce bar — next session, filled by app.js ============ -->
+  <div class="announce" role="note">
+    <span class="announce-dot" aria-hidden="true"></span>
+    Free Educational Webinar &middot; <span data-session="bar">Loading the next session&hellip;</span>
+  </div>
+
+  <!-- ============ Header ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="https://vitalistower.com" class="header-logo" aria-label="Vitalis Tower home">
+        <img src="/images/brand/logo-gold.png" alt="Vitalis Tower — Aventura Medical District" width="982" height="894">
+      </a>
+      <a href="#register" class="btn btn-small" data-cta="header">Reserve My Seat</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ Hero — the tower at golden hour ============ -->
+    <section class="hero-v theme-dark section-photo" aria-labelledby="hero-heading">
+      <img class="section-bg" src="/images/renders/exterior-hero.webp" alt=""
+           style="object-position: 50% 62%" fetchpriority="high">
+      <div class="section-veil veil-hero" aria-hidden="true"></div>
+      <div class="dust" id="hero-dust" aria-hidden="true"></div>
+
+      <!-- The pulse line: a heartbeat that becomes the tower skyline -->
+      <svg class="pulse-svg" id="pulse-svg" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <defs>
+          <filter id="pulse-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path class="pulse-path" filter="url(#pulse-glow)"
+              d="M -40 300 L 205 300 L 224 300 L 240 254 L 258 336 L 274 300 L 420 300
+                 L 430 300 L 430 152 L 470 152 L 470 138 L 566 138 L 566 152 L 700 152
+                 L 700 126 L 824 126 L 824 152 L 956 152 L 956 140 L 1012 140 L 1012 152
+                 L 1052 152 L 1052 300 L 1180 300 L 1198 300 L 1211 270 L 1225 318 L 1238 300 L 1480 300"/>
+        <g class="pulse-orb" opacity="0">
+          <circle r="10" class="orb-halo"/>
+          <circle r="3.5" class="orb-core"/>
+        </g>
+      </svg>
+
+      <div class="container hero-v-grid">
+        <div class="hero-v-copy">
+          <p class="eyebrow rise rise-1">Free Webinar &middot; Aventura Medical District</p>
+          <h1 id="hero-heading">
+            <span class="h1-line rise rise-2">Own Where</span>
+            <span class="h1-line h1-shimmer rise rise-3">You Practice.</span>
+          </h1>
+          <p class="hero-v-sub rise rise-4">An introduction to medical office ownership at Vitalis Tower &mdash; for physicians and practice owners planning their next move, and investors evaluating medical office real estate.</p>
+
+          <div class="session-pill rise rise-5" aria-live="polite">
+            <span class="session-pill-live" aria-hidden="true"></span>
+            <span><strong data-session="hero">Next session loading&hellip;</strong></span>
+            <span class="session-pill-sep" aria-hidden="true">&middot;</span>
+            <span>60 minutes &middot; Free</span>
+          </div>
+
+          <div class="countdown rise rise-5" id="countdown" aria-label="Time until the next session begins">
+            <div class="count-chip" data-chip="d"><span class="count-num" data-count="d">0</span><span class="count-label">Days</span></div>
+            <div class="count-chip"><span class="count-num" data-count="h">00</span><span class="count-label">Hrs</span></div>
+            <div class="count-chip"><span class="count-num" data-count="m">00</span><span class="count-label">Min</span></div>
+            <div class="count-chip"><span class="count-num" data-count="s">00</span><span class="count-label">Sec</span></div>
+          </div>
+
+          <div class="hero-v-actions rise rise-6">
+            <a href="#register" class="btn btn-glow" data-cta="hero">Reserve My Seat</a>
+            <p class="disclosure" role="note">An educational session about the project and this property category. Your confirmation and access details arrive by email&nbsp;&mdash; and by text if you opt in.</p>
+          </div>
+        </div>
+
+        <div class="hero-v-card rise rise-4" aria-hidden="false">
+          <figure class="tower-card">
+            <img src="/images/renders/exterior-dusk.webp" alt="Vitalis Tower — artist's conceptual rendering" width="1400" height="1242" loading="eager">
+            <figcaption>
+              <span class="tower-card-name">Vitalis Tower</span>
+              <span class="tower-card-sub">Professional Office &amp; Retail &middot; For Sale</span>
+            </figcaption>
+          </figure>
+          <span class="float-chip float-chip-1">Offices from 500&ndash;20,000 SF</span>
+          <span class="float-chip float-chip-2">Occupancy Q1 2029</span>
+          <span class="float-chip float-chip-3">Heart of the medical district</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ District marquee ============ -->
+    <section class="marquee-band theme-dark" aria-label="The Aventura Medical District">
+      <p class="marquee-eyebrow">Minutes from the district&rsquo;s anchors</p>
+      <div class="marquee"><ul class="marquee-track" id="marquee-track"></ul></div>
+      <p class="marquee-footnote">Neighboring institutions shown in the project brochure&rsquo;s district overview. No affiliation implied.</p>
+    </section>
+
+    <div class="seam seam-dark-cream" aria-hidden="true"></div>
+
+    <!-- ============ What you'll learn ============ -->
+    <section class="section section-learn theme-cream" aria-labelledby="learn-heading">
+      <div class="palm-drift" aria-hidden="true"></div>
+      <div class="container container-narrow" style="position:relative;z-index:2">
+        <p class="eyebrow" style="text-align:center">The Session</p>
+        <h2 id="learn-heading" style="text-align:center">What You&rsquo;ll Learn</h2>
+        <p class="section-lede">One focused hour on the decision itself &mdash; not a sales pitch dressed up as a class.</p>
+        <ol class="learn-list" data-reveal-group>
+          <li class="learn-item" data-reveal>
+            <span class="learn-num" aria-hidden="true">1</span>
+            <p><strong>Own vs. lease, in real numbers.</strong> How practice owners actually compare a mortgage on their own office against decades of rent &mdash; and where each option wins.</p>
+          </li>
+          <li class="learn-item" data-reveal>
+            <span class="learn-num" aria-hidden="true">2</span>
+            <p><strong>What a medical building must get right.</strong> Ceiling heights, corridor widths, patient drop-off, parking, telemedicine infrastructure &mdash; the features that decide whether a space works for care.</p>
+          </li>
+          <li class="learn-item" data-reveal>
+            <span class="learn-num" aria-hidden="true">3</span>
+            <p><strong>Why location compounds.</strong> What being inside an established medical ecosystem does for referrals, recruiting, and patient convenience.</p>
+          </li>
+          <li class="learn-item" data-reveal>
+            <span class="learn-num" aria-hidden="true">4</span>
+            <p><strong>The investor&rsquo;s lens.</strong> What to investigate in medical office assets &mdash; tenant quality, lease structures, and the questions to ask before committing.</p>
+          </li>
+          <li class="learn-item" data-reveal>
+            <span class="learn-num" aria-hidden="true">5</span>
+            <p><strong>Where Vitalis Tower fits.</strong> The project, the district, the delivery timeline &mdash; presented plainly, so you can judge the fit yourself.</p>
+          </li>
+          <li class="learn-item" data-reveal>
+            <span class="learn-num" aria-hidden="true">6</span>
+            <p><strong>Your next step, if you want one.</strong> What a private presentation covers and how to arrange a conversation with the sales team.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ Who should attend ============ -->
+    <section class="section section-audience theme-cream" aria-labelledby="audience-heading" style="padding-top:0">
+      <div class="container">
+        <h2 id="audience-heading" style="text-align:center">Built for Two Kinds of Buyers</h2>
+        <p class="section-lede">Owner-users and investors weigh this decision differently. The session speaks to both &mdash; separately.</p>
+        <div class="fit-cards" data-reveal-group>
+          <article class="fit-card" data-reveal>
+            <p class="fit-kicker">Owner&ndash;Users</p>
+            <h3>Your practice, in your building.</h3>
+            <p>Physicians, dentists, wellness and professional practices weighing a move or expansion &mdash; and tired of renewing someone else&rsquo;s lease. You&rsquo;ll leave knowing how to run the own-vs-lease comparison for your own numbers.</p>
+          </article>
+          <article class="fit-card" data-reveal>
+            <p class="fit-kicker">Investors</p>
+            <h3>An asset with tenants who stay.</h3>
+            <p>Investors evaluating medical and professional office ownership &mdash; a category built on solid tenants, long-term leases, and NNN structures. You&rsquo;ll leave with the due-diligence questions that matter.</p>
+          </article>
+          <article class="fit-card" data-reveal>
+            <p class="fit-kicker">Exploring Both</p>
+            <h3>Occupy part. Hold the rest.</h3>
+            <p>Professionals considering a space for their own use today and an income asset over time. The session shows how both lenses apply to the same building.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="seam seam-cream-panel" aria-hidden="true"></div>
+
+    <!-- ============ Inside the tower — render gallery ============ -->
+    <section class="section section-gallery theme-panel" aria-labelledby="gallery-heading">
+      <div class="container">
+        <p class="eyebrow" style="text-align:center">The Project</p>
+        <h2 id="gallery-heading" style="text-align:center">Healing Begins <span class="script-accent" style="color:var(--v-gold-bright)">with Architecture.</span></h2>
+        <p class="section-lede">A first look at the spaces the webinar walks through &mdash; artist&rsquo;s conceptual renderings from the project brochure.</p>
+
+        <div class="gallery" data-reveal-group>
+          <figure class="g-item g-wide" data-reveal>
+            <img src="/images/renders/arrival.webp" alt="Covered arrival court with patient drop-off — artist's conceptual rendering" loading="lazy" width="1800" height="1203">
+            <figcaption>Covered patient drop&#8209;off &amp; arrival court</figcaption>
+          </figure>
+          <figure class="g-item" data-reveal>
+            <img src="/images/renders/lobby.webp" alt="Lobby atrium with landscaped interior — artist's conceptual rendering" loading="lazy" width="1400" height="936">
+            <figcaption>Lobby atrium</figcaption>
+          </figure>
+          <figure class="g-item" data-reveal>
+            <img src="/images/renders/conference.webp" alt="Conference and telemedicine facility — artist's conceptual rendering" loading="lazy" width="1400" height="932">
+            <figcaption>Conference &amp; telemedicine facilities</figcaption>
+          </figure>
+          <figure class="g-item" data-reveal>
+            <img src="/images/renders/dining.webp" alt="On-site restaurant — artist's conceptual rendering" loading="lazy" width="1400" height="933">
+            <figcaption>First&#8209;class on&#8209;site restaurant</figcaption>
+          </figure>
+          <figure class="g-item" data-reveal>
+            <img src="/images/renders/gym.webp" alt="Fitness facility — artist's conceptual rendering" loading="lazy" width="1400" height="933">
+            <figcaption>Gym &amp; wellness facilities</figcaption>
+          </figure>
+          <figure class="g-item g-wide" data-reveal>
+            <img src="/images/renders/lounge.webp" alt="Lounge seating — artist's conceptual rendering" loading="lazy" width="1400" height="933">
+            <figcaption>Lounge seating on every floor</figcaption>
+          </figure>
+        </div>
+
+        <div class="stat-band" data-reveal-group>
+          <div class="stat" data-reveal><span class="stat-num">500&ndash;20,000</span><span class="stat-label">SF office spaces</span></div>
+          <div class="stat" data-reveal><span class="stat-num">Q1 2029</span><span class="stat-label">Occupancy</span></div>
+          <div class="stat" data-reveal><span class="stat-num">12&#8209;ft</span><span class="stat-label">Ceiling heights</span></div>
+          <div class="stat" data-reveal><span class="stat-num">6.5&#8209;ft</span><span class="stat-label">Wide hallways</span></div>
+        </div>
+        <p class="gallery-note">Renderings are artist&rsquo;s conceptual illustrations; details are subject to change. Building features per the current project brochure.</p>
+      </div>
+    </section>
+
+    <!-- ============ Presenter ============ -->
+    <section class="section section-host theme-panel" aria-labelledby="host-heading" style="padding-top:0">
+      <div class="container container-narrow">
+        <div class="host-card" data-reveal>
+          <img class="host-photo" src="/images/renders/district-aerial.webp" alt="Aerial view of the Aventura Medical District with Vitalis Tower marked" loading="lazy" width="1800" height="1433">
+          <div class="host-copy">
+            <p class="eyebrow">Your Presenters</p>
+            <h2 id="host-heading" data-presenter="name">The Vitalis Tower Sales Team</h2>
+            <p class="host-sub" data-presenter="sub">Fortune Development Sales</p>
+            <p>The team that walks buyers through the building every day &mdash; floor plans, delivery timeline, the district, and the ownership process. Live Q&amp;A included: bring the questions you&rsquo;d ask before any real estate decision.</p>
+            <p class="host-team">Developed by <strong>Arcadia Real Estate Developers</strong> &middot; Architecture by <strong>Caymares Martin</strong> &middot; Sales by <strong>Fortune Development Sales</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="seam seam-panel-cream" aria-hidden="true"></div>
+
+    <!-- ============ Registration ============ -->
+    <section class="section section-register theme-cream" id="register" aria-labelledby="register-heading">
+      <div class="palm-drift" aria-hidden="true"></div>
+      <div class="container container-narrow" style="position:relative;z-index:2">
+        <p class="eyebrow" style="text-align:center">Reserve Your Seat</p>
+        <h2 id="register-heading" style="text-align:center">Join the Next Session</h2>
+        <p class="section-lede">Free &middot; online &middot; 60 minutes. Your confirmation and calendar invitation arrive immediately.</p>
+
+        <!-- Shown instead of the form when this visitor already registered
+             for the current session (duplicate-submission recovery). -->
+        <div class="already-card" id="already-card" hidden>
+          <p class="already-title">You&rsquo;re already registered for this session.</p>
+          <p class="already-sub" id="already-sub"></p>
+          <a class="btn" id="already-link" href="/webinar/confirmed/">View My Confirmation &amp; Calendar Links</a>
+          <button class="already-again" id="already-again" type="button">Register different details instead</button>
+        </div>
+
+        <div class="reg-card" data-reveal id="reg-card">
+          <div class="reg-session" aria-live="polite">
+            <p class="reg-session-label">Next session</p>
+            <p class="reg-session-date" data-session="reg-date">Loading the next session&hellip;</p>
+            <p class="reg-session-time" data-session="reg-time">&nbsp;</p>
+            <p class="reg-session-local" data-session="reg-local"></p>
+            <p class="reg-session-note">Registration closes 15 minutes before start.</p>
+          </div>
+
+          <form id="reg-form" class="reg-form" novalidate>
+            <!-- Kept in sync by app.js; submitted to the CRM so the registrant
+                 stays assigned to THIS session even after the page rolls over. -->
+            <input type="hidden" name="webinar_session_iso" id="webinar_session_iso" value="">
+
+            <div class="field-row">
+              <div class="field">
+                <label for="first_name">First name</label>
+                <input id="first_name" name="first_name" type="text" autocomplete="given-name" required aria-describedby="err-first_name">
+                <p class="field-error" id="err-first_name" hidden>Please enter your first name.</p>
+              </div>
+              <div class="field">
+                <label for="last_name">Last name</label>
+                <input id="last_name" name="last_name" type="text" autocomplete="family-name" required aria-describedby="err-last_name">
+                <p class="field-error" id="err-last_name" hidden>Please enter your last name.</p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="err-email">
+              <p class="field-error" id="err-email" hidden>Please enter a valid email address.</p>
+            </div>
+
+            <div class="field">
+              <label for="phone">Mobile phone</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="err-phone">
+              <p class="field-error" id="err-phone" hidden>Please enter a valid phone number.</p>
+            </div>
+
+            <div class="field">
+              <span class="field-legend" id="interest-legend">I&rsquo;m exploring Vitalis Tower for&hellip;</span>
+              <div class="seg" role="radiogroup" aria-labelledby="interest-legend">
+                <input type="radio" name="buyer_interest" id="int-practice" value="practice" checked>
+                <label for="int-practice">My practice or business<small>A space I&rsquo;d occupy</small></label>
+                <input type="radio" name="buyer_interest" id="int-investment" value="investment">
+                <label for="int-investment">Investment<small>An asset I&rsquo;d lease out</small></label>
+                <input type="radio" name="buyer_interest" id="int-both" value="both">
+                <label for="int-both">Exploring both<small>Occupy and invest</small></label>
+              </div>
+            </div>
+
+            <div class="consent-row">
+              <input type="checkbox" id="sms_consent" name="sms_consent">
+              <label for="sms_consent">Also text me my access link and session reminders. Message and data rates may apply; reply STOP anytime to opt out.</label>
+            </div>
+
+            <!-- honeypot: humans never see or fill this -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn reg-submit" id="reg-submit">Reserve My Seat</button>
+
+            <div class="form-error" id="form-error" role="alert" hidden></div>
+
+            <p class="consent">By registering you agree to receive your webinar confirmation, access information, and reminders by email &mdash; and by text only if you check the box above. <a href="https://vitalistower.com" target="_blank" rel="noopener">vitalistower.com</a> &middot; <!-- [VITALIS-SETUP] point at the real privacy policy URL --><a href="#" data-placeholder="privacy-url">Privacy Policy</a></p>
+          </form>
+        </div>
+
+        <div class="after-reg" data-reveal>
+          <h3>After registering, you&rsquo;ll receive:</h3>
+          <ul class="after-list">
+            <li>Immediate confirmation</li>
+            <li>One-tap calendar invitations</li>
+            <li>Your session access link</li>
+            <li>Reminders before the session</li>
+          </ul>
+          <p class="already">Already registered? Your access link is in your confirmation email or texts.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section section-faq theme-cream" aria-labelledby="faq-heading" style="padding-top:0">
+      <div class="container container-narrow">
+        <h2 id="faq-heading" style="text-align:center">Before You Ask</h2>
+        <div class="faq">
+          <details>
+            <summary>Is this free? What&rsquo;s the catch?</summary>
+            <p class="faq-a">It&rsquo;s free, and the format is education first: the ownership decision, the building, and the district. At the end there&rsquo;s one optional next step &mdash; booking a private presentation with the sales team. No purchase discussions happen on the webinar itself.</p>
+          </details>
+          <details>
+            <summary>Will pricing and availability be covered?</summary>
+            <p class="faq-a">Current pricing and unit availability change as the project sells, so they&rsquo;re handled in private presentations where the team can show you exactly what&rsquo;s open. The webinar covers everything you need to decide whether that conversation is worth your time.</p>
+          </details>
+          <details>
+            <summary>I&rsquo;m a physician evaluating space for my own practice. Is this for me?</summary>
+            <p class="faq-a">Yes &mdash; owner-users are the session&rsquo;s primary audience. The own-vs-lease comparison, the clinical building features, and the district walkthrough are built around a practice owner&rsquo;s decision.</p>
+          </details>
+          <details>
+            <summary>I&rsquo;m an investor, not a practitioner. Will I get anything out of it?</summary>
+            <p class="faq-a">A dedicated segment covers the investor&rsquo;s lens: what makes medical office tenants distinctive, how lease structures in this category work, and the due-diligence questions to bring to any project &mdash; including this one.</p>
+          </details>
+          <details>
+            <summary>What time is the webinar in my timezone?</summary>
+            <p class="faq-a">Sessions run on Eastern Time (Miami&rsquo;s timezone). The registration box above shows the next date, and your confirmation page and calendar invitation translate it into your local time automatically.</p>
+          </details>
+          <details>
+            <summary>What if I register and can&rsquo;t make it?</summary>
+            <p class="faq-a">You&rsquo;ll receive a replay link after the session, valid for a limited window &mdash; and you can register again for a future date at any time.</p>
+          </details>
+          <details>
+            <summary>How do I join on the day?</summary>
+            <p class="faq-a">Your confirmation email (and text, if you opt in) contains your personal access link. It opens the session room, which unlocks shortly before start time.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="seam seam-cream-dark" aria-hidden="true"></div>
+  </main>
+
+  <!-- Mobile sticky CTA -->
+  <a href="#register" class="sticky-cta" id="sticky-cta" data-cta="sticky">
+    <span class="sticky-cta-label">Reserve My Seat</span>
+    <span class="sticky-cta-session" data-session="short"></span>
+  </a>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer theme-dark">
+    <div class="container">
+      <div class="footer-logo"><img src="/images/brand/logo-gold.png" alt="Vitalis Tower" width="982" height="894" loading="lazy"></div>
+      <p class="footer-district">Aventura Medical District</p>
+      <nav class="footer-nav" aria-label="Site">
+        <a href="https://vitalistower.com" target="_blank" rel="noopener">vitalistower.com</a>
+        <a href="https://www.instagram.com/vitalistoweraventura" target="_blank" rel="noopener">Instagram</a>
+        <!-- [VITALIS-SETUP] real privacy/terms URLs -->
+        <a href="#" data-placeholder="privacy-url">Privacy Policy</a>
+      </nav>
+      <p class="footer-addresses">
+        Sales Center: 2820 NE 214th St, Suite 903, Aventura, FL 33180<br>
+        Site: 21291 NE 28th Ave, Aventura, FL 33180
+      </p>
+      <p class="copyright">&copy; <span id="year"></span> Vitalis Tower. All rights reserved.</p>
+      <p class="footer-legal">This webinar is an educational presentation about the Vitalis Tower project and medical office ownership generally; it is not an offer to sell where prohibited by law, and nothing presented constitutes financial, legal, or tax advice. All renderings are artist&rsquo;s conceptual illustrations intended to depict the general character of the proposed development; actual construction, design, dimensions, amenities, and features may vary and are subject to change without notice. Square footages and delivery dates are approximate. Prospective purchasers should rely solely on the terms of an executed purchase agreement and the official project documents provided by the developer. We are not affiliated with, endorsed by, or associated with any neighboring institution referenced in district descriptions, or with Meta Platforms, Inc.; such references are geographic and illustrative only.</p>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript-note">This page needs JavaScript to show the next session date and register you. Please enable JavaScript, or contact us via vitalistower.com.</div>
+  </noscript>
+
+  <script src="/config/funnel.js"></script>
+  <script src="/js/attribution.js" defer></script>
+  <script src="/js/core.js" defer></script>
+  <script src="/webinar/app.js?v=1" defer></script>
+</body>
+</html>

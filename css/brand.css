@@ -1,0 +1,77 @@
+/* ============================================================
+   VITALIS TOWER — BRAND FOUNDATION
+   Palette + typography derived from the approved brochure
+   (Vitalis_Tower_Brochure_English_P8_V5): gold script wordmark,
+   Montserrat type family, warm cream, dusk charcoal, greenery.
+   Link this first on every page.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap');
+
+:root {
+  /* ---- Core palette ---- */
+  --v-ink:        #15171A;   /* page-dark ground (render dusk) */
+  --v-charcoal:   #1E2226;   /* raised dark surfaces */
+  --v-slate:      #2A2F34;   /* borders / dark card edges */
+  --v-cream:      #F2ECDF;   /* palm-shadow cream (brochure bg) */
+  --v-cream-deep: #E8DFC9;   /* deeper cream wash */
+  --v-paper:      #FBF8F1;   /* warm near-white */
+  --v-gold:       #C2A264;   /* wordmark gold */
+  --v-gold-bright:#DCC28C;   /* highlight gold */
+  --v-gold-deep:  #9A7E45;   /* pressed gold */
+  --v-palm:       #4C5D4A;   /* landscape green accent */
+  --v-palm-deep:  #33402F;
+
+  /* ---- Semantic aliases ---- */
+  --color-bg:      var(--v-ink);
+  --color-surface: var(--v-charcoal);
+  --color-text:    var(--v-cream);
+  --color-accent:  var(--v-gold);
+  --color-soft:    rgba(242, 236, 223, .62);
+
+  /* ---- Typography ---- */
+  --font-brand: 'Montserrat', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-script: 'Cormorant Garamond', Georgia, serif;
+  --weight-title: 800;
+  --weight-subtitle: 600;
+  --weight-body: 400;
+
+  /* ---- Rhythm ---- */
+  --radius: 18px;
+  --radius-sm: 12px;
+  --container: 1160px;
+  --container-narrow: 880px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  font-family: var(--font-brand);
+  font-weight: var(--weight-body);
+  font-size: 16.5px;
+  line-height: 1.6;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-weight: var(--weight-title);
+  text-transform: uppercase;
+  letter-spacing: .015em;
+  line-height: 1.08;
+  margin: 0 0 .5em;
+}
+h4, h5, h6, .subtitle { font-weight: var(--weight-subtitle); }
+
+a { color: var(--v-gold-bright); }
+img { max-width: 100%; height: auto; display: block; }
+
+/* The hidden attribute must always win, even over display rules. */
+[hidden] { display: none !important; }
+
+::selection { background: rgba(194, 162, 100, .35); }

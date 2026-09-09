@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Your Presentation Is Booked | Vitalis Tower</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="stylesheet" href="/css/brand.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/consultation/style.css?v=1">
+</head>
+<body>
+
+  <div class="announce" role="note">
+    <span class="announce-dot" aria-hidden="true"></span>
+    Appointment confirmed
+  </div>
+
+  <main>
+    <section class="csc-hero theme-dark section-photo" aria-labelledby="csc-heading">
+      <img class="section-bg" src="/images/renders/lobby.webp" alt="" style="object-position: 50% 45%" fetchpriority="high">
+      <div class="section-veil veil-photo" aria-hidden="true"></div>
+      <div class="dust" id="hero-dust" aria-hidden="true"></div>
+
+      <div class="cf-header rise rise-1" style="display:flex;justify-content:center;padding:12px 0 30px">
+        <a href="https://vitalistower.com" aria-label="Vitalis Tower home">
+          <img src="/images/brand/logo-gold.png" alt="Vitalis Tower" width="982" height="894" style="width:128px">
+        </a>
+      </div>
+
+      <div class="container">
+        <h1 id="csc-heading">
+          <span class="h1-line rise rise-2">Your Presentation</span>
+          <span class="h1-line h1-shimmer rise rise-3">Is Booked.</span>
+        </h1>
+        <p class="cs-lede rise rise-4">The details below tell you exactly what happens next. Your booking confirmation &mdash; with the date, the meeting link or address, and reschedule and cancellation links &mdash; is in your email now.</p>
+
+        <div class="csc-card rise rise-5">
+          <ul class="csc-list">
+            <li>
+              <span class="csc-ico" aria-hidden="true">1</span>
+              <p><strong>Check your booking confirmation email.</strong> It carries your appointment date and time, the meeting format (video call or in person at the Sales Center), and its own calendar invitation &mdash; this appointment is a separate event from your webinar session.</p>
+            </li>
+            <li>
+              <span class="csc-ico" aria-hidden="true">2</span>
+              <p><strong>Need to move it?</strong> The reschedule and cancellation links in that email update everything automatically &mdash; no need to call.</p>
+            </li>
+            <li>
+              <span class="csc-ico" aria-hidden="true">3</span>
+              <p><strong>Come with context.</strong> Owner-users: practice type, rough square footage, and timing. Investors: your questions on tenants, leases, and structure. Either way, the team tailors the hour to you.</p>
+            </li>
+            <li>
+              <span class="csc-ico" aria-hidden="true">4</span>
+              <p><strong>Meeting in person?</strong> The Sales Center is at <strong>2820 NE 214th St, Suite 903, Aventura, FL 33180</strong> &mdash; visitor parking available.</p>
+            </li>
+          </ul>
+        </div>
+
+        <p class="disclosure disclosure-center rise rise-6" role="note">Private presentation &middot; approximately 30 minutes &middot; no obligation. If anything about your registration needs correcting, just reply to your confirmation email.</p>
+      </div>
+    </section>
+
+    <div class="seam seam-dark-cream" aria-hidden="true"></div>
+
+    <section class="section theme-cream" aria-labelledby="mean-heading">
+      <div class="palm-drift" aria-hidden="true"></div>
+      <div class="container container-narrow" style="position:relative;z-index:2;text-align:center">
+        <h2 id="mean-heading">Until Then</h2>
+        <p class="section-lede">Keep your webinar date if it hasn&rsquo;t happened yet &mdash; the presentation lands better after the session. And if you want a head start:</p>
+        <div class="rp-next-grid" data-reveal-group style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto;text-align:left">
+          <article class="fit-card" data-reveal>
+            <p class="fit-kicker">Bring your numbers</p>
+            <p style="margin:0;font-size:14.5px;color:rgba(35,38,42,.72)">Your current rent, lease renewal date, and rough space needs make the own-vs-lease conversation concrete on the spot.</p>
+          </article>
+          <article class="fit-card" data-reveal>
+            <p class="fit-kicker">Bring your questions</p>
+            <p style="margin:0;font-size:14.5px;color:rgba(35,38,42,.72)">There are no off-limits topics &mdash; pricing, structure, timeline, the district. Write them down; the team will work through the list.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="seam seam-cream-dark" aria-hidden="true"></div>
+  </main>
+
+  <footer class="site-footer theme-dark">
+    <div class="container">
+      <div class="footer-logo"><img src="/images/brand/logo-gold.png" alt="Vitalis Tower" width="982" height="894" loading="lazy"></div>
+      <p class="footer-district">Aventura Medical District</p>
+      <p class="copyright">&copy; <span id="year"></span> Vitalis Tower. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/config/funnel.js"></script>
+  <script src="/js/attribution.js" defer></script>
+  <script src="/js/core.js" defer></script>
+  <script>
+    (function () {
+      var C = window.VITALIS_CORE;
+      if (!C) return;
+      C.initDust('hero-dust', 18);
+      C.initReveals();
+      C.initCtaTracking();
+      C.fillYear();
+      C.confetti(60);
+      C.track('funnel_page_view', { funnel_page: 'consultation-confirmed' });
+      C.track('view_content', { content_name: 'consultation-confirmed' });
+      C.pixel('ViewContent', { content_name: 'consultation-confirmed' });
+      // The provider (GHL/Calendly) redirecting here is the browser-side
+      // signal that a booking completed; the authoritative record is the
+      // provider→CRM sync (see /crm/README.md — never double-count this
+      // against the postMessage conversion on the booking page).
+      C.track('booking_confirmed_page');
+    })();
+  </script>
+</body>
+</html>
