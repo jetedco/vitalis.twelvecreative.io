@@ -13,6 +13,8 @@ return [
   'DOMAIN'         => 'https://vitalis.twelvecreative.io',
 
   'EVENT_TITLE'    => 'Vitalis Tower: An Introduction to Medical Office Ownership in Aventura',
+  // Used when the invite is requested with ?v=pro (professional variant)
+  'EVENT_TITLE_PRO'=> 'Vitalis Tower: An Introduction to Professional Office Ownership in Aventura',
   'EVENT_MINUTES'  => 60,
 
   // How attendees join. 'room' => the funnel's own live room;

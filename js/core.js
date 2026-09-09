@@ -270,15 +270,19 @@
            z(x.getUTCHours()) + z(x.getUTCMinutes()) + z(x.getUTCSeconds()) + 'Z';
   }
 
-  function calendarModel(session) {
+  // `variant` ('pro') swaps the event title for the professional-positioning
+  // registration page — same session, same links, different framing.
+  function calendarModel(session, variant) {
     var minutes = (CFG.EVENT && CFG.EVENT.MINUTES) || 60;
     var end = new Date(session.getTime() + minutes * 60000);
     var domain = (CFG.PROJECT && CFG.PROJECT.DOMAIN) || '';
     var join = joinUrl(session);
     var joinAbs = /^https?:/i.test(join) ? join : domain + join;
-    var confirmAbs = domain + '/webinar/confirmed/?session=' + encodeURIComponent(session.toISOString());
+    var confirmAbs = domain + '/webinar/confirmed/?session=' + encodeURIComponent(session.toISOString()) +
+      (variant ? '&v=' + encodeURIComponent(variant) : '');
     return {
-      title: (CFG.EVENT && CFG.EVENT.TITLE) || 'Vitalis Tower Webinar',
+      title: (variant === 'pro' && CFG.EVENT && CFG.EVENT.TITLE_PRO) ||
+             (CFG.EVENT && CFG.EVENT.TITLE) || 'Vitalis Tower Webinar',
       start: session, end: end,
       joinUrl: joinAbs,
       description:
@@ -290,8 +294,8 @@
     };
   }
 
-  function calendarLinks(session) {
-    var m = calendarModel(session);
+  function calendarLinks(session, variant) {
+    var m = calendarModel(session, variant);
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     var gParams =
       'text=' + encodeURIComponent(m.title) +
@@ -315,14 +319,15 @@
       office365: 'https://outlook.office.com/calendar/0/deeplink/compose?' + msParams,
       // Served .ics (event.php): the reliable Apple/iOS path — data: URIs
       // are ignored by iOS Safari and most in-app browsers.
-      ics: '/webinar/confirmed/event.php?session=' + encodeURIComponent(m.start.toISOString())
+      ics: '/webinar/confirmed/event.php?session=' + encodeURIComponent(m.start.toISOString()) +
+        (variant ? '&v=' + encodeURIComponent(variant) : '')
     };
   }
 
   // Client-built .ics blob — fallback for "Other calendar" and for local
   // preview where PHP isn't running. Same UID as event.php.
-  function icsBlobUrl(session) {
-    var m = calendarModel(session);
+  function icsBlobUrl(session, variant) {
+    var m = calendarModel(session, variant);
     var cal = CFG.CALENDAR || {};
     var host = (m.domain || 'vitalistower.com').replace(/^https?:\/\//, '');
     var lines = [

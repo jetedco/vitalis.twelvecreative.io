@@ -27,8 +27,12 @@
      SESSION — from ?session= (no recalculation)
      ========================================================== */
   var session = C.sessionFromParam(null); // even a past session still renders
-  var interest = '';
-  try { interest = new URLSearchParams(location.search).get('interest') || ''; } catch (e) {}
+  var interest = '', variant = '';
+  try {
+    var qp0 = new URLSearchParams(location.search);
+    interest = qp0.get('interest') || '';
+    variant = qp0.get('v') || ''; // 'pro' = professional-positioning variant
+  } catch (e) {}
   if (!interest) {
     var reg = C.getRegistration();
     if (reg) {
@@ -92,14 +96,14 @@
      ========================================================== */
   function buildCalendarLinks() {
     if (!session) return;
-    var links = C.calendarLinks(session);
+    var links = C.calendarLinks(session, variant);
     $('cal-google').href = links.google;
     $('cal-outlook').href = links.outlookLive;
     $('cal-office365').href = links.office365;
     $('cal-apple').href = links.ics; // served .ics via event.php (iOS-safe)
     // "Other" downloads a client-built .ics (identical UID) — works even
     // where PHP isn't available, e.g. local preview.
-    try { $('cal-other').href = C.icsBlobUrl(session); } catch (e) { $('cal-other').href = links.ics; }
+    try { $('cal-other').href = C.icsBlobUrl(session, variant); } catch (e) { $('cal-other').href = links.ics; }
     // Static hosts (GitHub Pages, local preview) can't run event.php —
     // detect that once and quietly reroute the Apple button to the
     // client-built .ics so the tap still lands in a calendar.
@@ -109,7 +113,7 @@
     }).catch(function () {
       try {
         var apple = $('cal-apple');
-        apple.href = C.icsBlobUrl(session);
+        apple.href = C.icsBlobUrl(session, variant);
         apple.setAttribute('download', 'vitalis-webinar.ics');
       } catch (e) {}
     });

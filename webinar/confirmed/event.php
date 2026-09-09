@@ -29,9 +29,13 @@ if ($cfg['ACCESS_MODE'] === 'external' && $cfg['JOIN_URL'] !== '') {
 } else {
   $join = $domain . $cfg['ROOM_PATH'] . '?session=' . rawurlencode($iso);
 }
-$page  = $domain . '/webinar/confirmed/?session=' . rawurlencode($iso);
+$variant = isset($_GET['v']) ? $_GET['v'] : '';
+$page  = $domain . '/webinar/confirmed/?session=' . rawurlencode($iso)
+       . ($variant !== '' ? '&v=' . rawurlencode($variant) : '');
 
-$title = $cfg['EVENT_TITLE'];
+$title = ($variant === 'pro' && !empty($cfg['EVENT_TITLE_PRO']))
+       ? $cfg['EVENT_TITLE_PRO']
+       : $cfg['EVENT_TITLE'];
 $desc  = 'Join the session here: ' . $join
        . '\n\nPresented by the ' . $cfg['PROJECT_NAME'] . ' team · '
        . $cfg['EVENT_MINUTES'] . ' minutes.'

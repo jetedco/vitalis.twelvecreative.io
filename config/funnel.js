@@ -36,6 +36,9 @@ window.VITALIS = {
     // (sync php)
     TITLE: 'Vitalis Tower: An Introduction to Medical Office Ownership in Aventura',
     SHORT_TITLE: 'Medical Office Ownership in Aventura',
+    // Title used by the professional-positioning variant (/webinar/pro/) —
+    // same sessions, same CRM; only the framing differs. (sync php)
+    TITLE_PRO: 'Vitalis Tower: An Introduction to Professional Office Ownership in Aventura',
     MINUTES: 60,                                  // event length (sync php)
     // 'live' = real-time presentation · 'recorded' = scheduled broadcast of a
     // recording. Copy on every page adjusts so the format is never misstated.
