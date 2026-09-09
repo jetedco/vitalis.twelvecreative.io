@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Funnel Directory | Vitalis Tower</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="stylesheet" href="/css/brand.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <style>
+    /* ---------- Directory page ---------- */
+    .dir-hero { padding: 46px 0 60px; text-align: center; }
+    .dir-hero .header-logo img { width: 120px; margin: 0 auto 26px; }
+    .dir-hero h1 { font-size: clamp(34px, 5vw, 56px); }
+    .dir-lede { max-width: 620px; margin: 0 auto; color: rgba(242,236,223,.7); font-size: 16.5px; }
+    .dir-chip {
+      display: inline-flex; gap: 8px; align-items: center; margin-bottom: 18px;
+      padding: 7px 16px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--v-gold-bright);
+      background: rgba(194,162,100,.12); border: 1px solid rgba(194,162,100,.4);
+    }
+
+    /* Journey rail */
+    .journey { max-width: 940px; margin: 40px auto 0; }
+    .journey-rail {
+      display: flex; align-items: stretch; justify-content: center; gap: 0;
+      flex-wrap: wrap;
+    }
+    .j-step {
+      flex: 1 1 130px; max-width: 160px; position: relative; padding: 0 8px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      text-decoration: none;
+    }
+    .j-step:not(:last-child)::after {
+      content: ''; position: absolute; top: 21px; left: calc(50% + 26px);
+      right: calc(-50% + 26px); height: 2px;
+      background: linear-gradient(90deg, rgba(194,162,100,.55), rgba(194,162,100,.2));
+    }
+    .j-dot {
+      width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%;
+      background: rgba(30,34,38,.9); border: 1.5px solid rgba(194,162,100,.55);
+      font-size: 17px; margin-bottom: 10px; transition: transform .18s ease;
+    }
+    .j-step:hover .j-dot { transform: translateY(-3px); border-color: var(--v-gold-bright); }
+    .j-name { font-weight: 800; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--v-cream); }
+    .j-sub { font-size: 11px; color: rgba(242,236,223,.5); margin-top: 3px; }
+    @media (max-width: 900px) {
+      .j-step:not(:last-child)::after { display: none; }
+      .journey-rail { gap: 14px; }
+    }
+
+    /* Section headers */
+    .dir-h { text-align: center; margin-bottom: 8px; }
+    .dir-h + .section-lede { margin-bottom: 38px; }
+
+    /* Page cards */
+    .dir-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 860px) { .dir-grid { grid-template-columns: 1fr; } }
+    .dir-card {
+      position: relative; border-radius: var(--radius); overflow: hidden;
+      background: #fff; border: 1px solid rgba(154,126,69,.25);
+      box-shadow: 0 10px 30px rgba(30,25,10,.08);
+      display: flex; flex-direction: column;
+    }
+    .dir-card-img { position: relative; aspect-ratio: 21 / 9; overflow: hidden; }
+    .dir-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.3,1); }
+    .dir-card:hover .dir-card-img img { transform: scale(1.05); }
+    .dir-num {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%;
+      font-weight: 800; font-size: 14px; color: #1B1508;
+      background: linear-gradient(135deg, #D9BE85, #C2A264);
+      box-shadow: 0 6px 16px rgba(0,0,0,.3);
+    }
+    .dir-route {
+      position: absolute; bottom: 10px; left: 12px; z-index: 2;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+      color: #F6E7C4; background: rgba(21,23,26,.82); padding: 5px 12px; border-radius: 999px;
+      border: 1px solid rgba(194,162,100,.5);
+    }
+    .dir-card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .dir-card-body h3 { font-size: 17px; margin: 0; text-transform: none; letter-spacing: 0; color: #1E2126; }
+    .dir-card-body p { margin: 0; font-size: 14px; color: rgba(35,38,42,.72); }
+    .dir-states { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .dir-state {
+      font-size: 11px; font-weight: 700; letter-spacing: .05em; padding: 4px 11px;
+      border-radius: 999px; background: rgba(154,126,69,.1); border: 1px solid rgba(154,126,69,.3);
+      color: var(--v-gold-deep);
+    }
+    .dir-open {
+      margin-top: auto; align-self: flex-start;
+      font-weight: 800; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--v-gold-deep); text-decoration: none;
+      border-bottom: 2px solid rgba(154,126,69,.4); padding-bottom: 2px;
+    }
+    .dir-open:hover { color: #1E2126; border-color: #1E2126; }
+
+    /* Engine list */
+    .eng-list { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 900px) { .eng-list { grid-template-columns: 1fr; } }
+    .eng-card {
+      padding: 22px; border-radius: var(--radius);
+      background: rgba(21,23,26,.55); border: 1px solid rgba(194,162,100,.28);
+    }
+    .eng-card h3 { font-size: 13.5px; letter-spacing: .1em; margin: 0 0 8px; color: var(--v-gold-bright); }
+    .eng-card code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+      color: #F6E7C4; background: rgba(194,162,100,.12); padding: 2px 7px; border-radius: 6px;
+    }
+    .eng-card p { margin: 8px 0 0; font-size: 13.5px; color: rgba(242,236,223,.68); }
+
+    /* Live status board */
+    .status-board { max-width: 720px; margin: 0 auto; }
+    .status-row {
+      display: flex; align-items: center; gap: 14px; padding: 15px 18px;
+      background: #fff; border: 1px solid rgba(154,126,69,.22); border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+    }
+    .st-dot { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
+    .st-on { background: #4C8A57; box-shadow: 0 0 0 4px rgba(76,138,87,.16); }
+    .st-off { background: #C08A3E; box-shadow: 0 0 0 4px rgba(192,138,62,.16); }
+    .status-row .st-name { font-weight: 800; font-size: 14px; color: #1E2126; min-width: 170px; }
+    .status-row .st-note { font-size: 13px; color: rgba(35,38,42,.6); }
+    .status-foot { text-align: center; font-size: 12.5px; color: rgba(35,38,42,.55); margin-top: 16px; }
+    .status-foot code { font-family: ui-monospace, Menlo, monospace; font-size: 11.5px; background: rgba(154,126,69,.12); padding: 2px 7px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="announce" role="note">
+    <span class="announce-dot" aria-hidden="true"></span>
+    Internal directory &middot; not linked from the public journey
+  </div>
+
+  <main>
+    <!-- ============ Hero ============ -->
+    <section class="dir-hero theme-dark section-photo">
+      <img class="section-bg" src="/images/renders/district-aerial.webp" alt="" style="object-position:50% 30%">
+      <div class="section-veil veil-photo" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:2">
+        <a class="header-logo" href="/webinar/" aria-label="Vitalis Tower webinar">
+          <img src="/images/brand/logo-gold.png" alt="Vitalis Tower" width="982" height="894">
+        </a>
+        <p class="dir-chip">Funnel Directory</p>
+        <h1>The Funnel, <span class="h1-shimmer">Mapped.</span></h1>
+        <p class="dir-lede">Every page, endpoint, and moving part of the Vitalis Tower webinar funnel &mdash; what it does, when a visitor sees it, and what still needs connecting.</p>
+
+        <!-- Journey rail -->
+        <nav class="journey" aria-label="The visitor journey">
+          <div class="journey-rail">
+            <a class="j-step" href="#p1"><span class="j-dot">📣</span><span class="j-name">Ad / Referral</span><span class="j-sub">UTMs captured</span></a>
+            <a class="j-step" href="#p1"><span class="j-dot">📝</span><span class="j-name">Register</span><span class="j-sub">/webinar/</span></a>
+            <a class="j-step" href="#p2"><span class="j-dot">✅</span><span class="j-name">Confirm</span><span class="j-sub">+ calendar</span></a>
+            <a class="j-step" href="#p3"><span class="j-dot">🎥</span><span class="j-name">Attend</span><span class="j-sub">session room</span></a>
+            <a class="j-step" href="#p5"><span class="j-dot">🗓️</span><span class="j-name">Book</span><span class="j-sub">presentation</span></a>
+            <a class="j-step" href="#p6"><span class="j-dot">🤝</span><span class="j-name">Sales</span><span class="j-sub">CRM takes over</span></a>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <div class="seam seam-dark-cream" aria-hidden="true"></div>
+
+    <!-- ============ The public pages ============ -->
+    <section class="section theme-cream">
+      <div class="palm-drift" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:2">
+        <p class="eyebrow" style="text-align:center">Front of House</p>
+        <h2 class="dir-h">The Six Public Pages</h2>
+        <p class="section-lede">In the order a buyer meets them. Every date on every page comes from one schedule in the central config.</p>
+
+        <div class="dir-grid">
+          <article class="dir-card" id="p1">
+            <div class="dir-card-img">
+              <span class="dir-num">1</span>
+              <img src="/images/renders/exterior-hero.webp" alt="" loading="lazy">
+              <span class="dir-route">/webinar/</span>
+            </div>
+            <div class="dir-card-body">
+              <h3>Registration</h3>
+              <p>The front door. Shows the next open session (auto-rolls at the 15-minute cutoff), collects name, email, phone, SMS consent, and the interest selector &mdash; <em>practice / investment / both</em> &mdash; that personalizes everything downstream. Submits to the Vitalis GoHighLevel intake and only reports success once the CRM acknowledges it.</p>
+              <div class="dir-states">
+                <span class="dir-state">countdown + cutoff rollover</span>
+                <span class="dir-state">already-registered recovery</span>
+                <span class="dir-state">honest failure + retry</span>
+              </div>
+              <a class="dir-open" href="/webinar/">Open page →</a>
+            </div>
+          </article>
+
+          <article class="dir-card" id="p2">
+            <div class="dir-card-img">
+              <span class="dir-num">2</span>
+              <img src="/images/renders/dropoff.webp" alt="" loading="lazy">
+              <span class="dir-route">/webinar/confirmed/</span>
+            </div>
+            <div class="dir-card-body">
+              <h3>Confirmation</h3>
+              <p>Locks the date in. Keeps the registrant pinned to <em>their</em> session (via <code style="font-size:12px">?session=</code>) even after the public page rolls to next week. Five one-tap calendar actions &mdash; Google, Apple, Outlook.com, Microsoft&nbsp;365, universal .ics &mdash; all built from the same instant, plus a timed early-booking unlock and the live join link on session day.</p>
+              <div class="dir-states">
+                <span class="dir-state">5 calendar doors</span>
+                <span class="dir-state">countdown → join flip</span>
+                <span class="dir-state">timed booking unlock</span>
+              </div>
+              <a class="dir-open" href="/webinar/confirmed/">Open page →</a>
+            </div>
+          </article>
+
+          <article class="dir-card" id="p3">
+            <div class="dir-card-img">
+              <span class="dir-num">3</span>
+              <img src="/images/renders/conference.webp" alt="" loading="lazy">
+              <span class="dir-route">/webinar/live/</span>
+            </div>
+            <div class="dir-card-body">
+              <h3>Session Room</h3>
+              <p>Where the webinar plays. The broadcast is locked to the wall clock &mdash; everyone, including late joiners, sees the same moment, no scrubbing. Countdown before, ended slate after, and the private-presentation booking reveals itself mid-session. Side chat is moderated: messages go only to the team. The attendee counter is real presence or nothing &mdash; never simulated.</p>
+              <div class="dir-states">
+                <span class="dir-state">pre → live → post phases</span>
+                <span class="dir-state">mid-session CTA unlock</span>
+                <span class="dir-state">moderated chat</span>
+              </div>
+              <a class="dir-open" href="/webinar/live/">Open page →</a>
+            </div>
+          </article>
+
+          <article class="dir-card" id="p4">
+            <div class="dir-card-img">
+              <span class="dir-num">4</span>
+              <img src="/images/renders/exterior-lawn.webp" alt="" loading="lazy">
+              <span class="dir-route">/webinar/replay/</span>
+            </div>
+            <div class="dir-card-body">
+              <h3>Replay</h3>
+              <p>The safety net for no-shows and rewatchers. Resolves one of six states from the config &mdash; upcoming, live-now, replay pending, available, expired, or no registration found &mdash; and says so plainly. Watch time is measured by seconds actually played, so skipping to the end never counts as &ldquo;watched.&rdquo;</p>
+              <div class="dir-states">
+                <span class="dir-state">7-day window (config)</span>
+                <span class="dir-state">honest watch tracking</span>
+                <span class="dir-state">next-step CTAs</span>
+              </div>
+              <a class="dir-open" href="/webinar/replay/">Open page →</a>
+            </div>
+          </article>
+
+          <article class="dir-card" id="p5">
+            <div class="dir-card-img">
+              <span class="dir-num">5</span>
+              <img src="/images/renders/arrival.webp" alt="" loading="lazy">
+              <span class="dir-route">/consultation/</span>
+            </div>
+            <div class="dir-card-body">
+              <h3>Book a Private Presentation</h3>
+              <p>The commercial next step. Embeds the Vitalis sales calendar, carries known contact details and campaign attribution into the booking, and reorders its pitch for owner-users vs investors. A selected-but-unfinished slot becomes the CRM&rsquo;s abandoned-booking trigger; a confirmed booking is the funnel&rsquo;s primary conversion.</p>
+              <div class="dir-states">
+                <span class="dir-state">interest-adapted copy</span>
+                <span class="dir-state">prefill + attribution</span>
+                <span class="dir-state">primary conversion</span>
+              </div>
+              <a class="dir-open" href="/consultation/">Open page →</a>
+            </div>
+          </article>
+
+          <article class="dir-card" id="p6">
+            <div class="dir-card-img">
+              <span class="dir-num">6</span>
+              <img src="/images/renders/lobby.webp" alt="" loading="lazy">
+              <span class="dir-route">/consultation/confirmed/</span>
+            </div>
+            <div class="dir-card-body">
+              <h3>Appointment Confirmed</h3>
+              <p>Closes the loop: what happens next, how to reschedule, what to bring (numbers for owner-users, underwriting questions for investors), and the Sales Center address for in-person meetings. The appointment is a separate calendar event from the webinar &mdash; from here, the sales team and CRM follow-up take over.</p>
+              <div class="dir-states">
+                <span class="dir-state">prep checklist</span>
+                <span class="dir-state">reschedule guidance</span>
+                <span class="dir-state">handoff to sales</span>
+              </div>
+              <a class="dir-open" href="/consultation/confirmed/">Open page →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="seam seam-cream-panel" aria-hidden="true"></div>
+
+    <!-- ============ Engine room ============ -->
+    <section class="section theme-panel">
+      <div class="container">
+        <p class="eyebrow" style="text-align:center">Engine Room</p>
+        <h2 class="dir-h">Behind the Scenes</h2>
+        <p class="section-lede">Nothing here is visitor-facing &mdash; but every page above runs on it.</p>
+
+        <div class="eng-list">
+          <div class="eng-card">
+            <h3>Central Config</h3>
+            <p><code>/config/funnel.js</code> (+ PHP twin) &mdash; the single source of truth: schedule &amp; timezone, event title, cutoff, cancellations, access mode, booking calendar, CRM keys, analytics, replay window. Change it once; every page follows.</p>
+          </div>
+          <div class="eng-card">
+            <h3>Session Clock</h3>
+            <p><code>/js/core.js</code> &mdash; the shared engine. Computes the next open session in America/New_York with DST handled correctly, builds all five calendar links from one instant, and powers countdowns, reveals, and the motion system. 24 unit tests in <code>/tests/</code>.</p>
+          </div>
+          <div class="eng-card">
+            <h3>Attribution</h3>
+            <p><code>/js/attribution.js</code> &mdash; remembers the first ad touch (UTMs, click IDs) for 90 days and hands it to the CRM at registration and to the booking calendar at scheduling. Campaign data only; never personal info in analytics.</p>
+          </div>
+          <div class="eng-card">
+            <h3>Calendar File Server</h3>
+            <p><code>/webinar/confirmed/event.php</code> &mdash; serves the real .ics invite (the reliable iPhone path) with a stable event ID, so re-downloading never duplicates the event. On static hosting the pages quietly switch to a browser-built identical file.</p>
+          </div>
+          <div class="eng-card">
+            <h3>Chat &amp; Presence</h3>
+            <p><code>chat.php</code> + <code>presence.php</code> &mdash; attendee messages (send-only, with phone numbers for follow-up) and a real headcount heartbeat. Requires the PHP host; on static hosting the room says chat isn&rsquo;t connected rather than pretending.</p>
+          </div>
+          <div class="eng-card">
+            <h3>CRM Blueprint</h3>
+            <p><code>/crm/README.md</code> &mdash; the GoHighLevel build spec: custom fields, tags, pipeline, and 8 workflows (reminders, attendance marking, no-show, abandoned booking, nurture, reschedule runbook) with every email and SMS written out in <code>/crm/templates/</code>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="seam seam-panel-cream" aria-hidden="true"></div>
+
+    <!-- ============ Live status ============ -->
+    <section class="section theme-cream">
+      <div class="palm-drift" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:2">
+        <p class="eyebrow" style="text-align:center">Right Now</p>
+        <h2 class="dir-h">Connection Status</h2>
+        <p class="section-lede">Read live from the deployed config &mdash; this board updates itself the moment a setting is filled in.</p>
+
+        <div class="status-board" id="status-board"></div>
+        <p class="status-foot">Amber = waiting on a <code>[VITALIS-SETUP]</code> value in <code>/config/funnel.js</code>. Full launch checklist in the repo README.</p>
+      </div>
+    </section>
+
+    <div class="seam seam-cream-dark" aria-hidden="true"></div>
+
+    <!-- ============ Admin links ============ -->
+    <section class="section theme-dark" style="padding:56px 0">
+      <div class="container" style="text-align:center">
+        <h2 class="dir-h" style="font-size:22px">Admin &amp; Ops</h2>
+        <div class="dir-states" style="justify-content:center;margin-top:18px">
+          <a class="dir-state" style="text-decoration:none" href="/webinar/live/admin/">Chat console (key required)</a>
+          <a class="dir-state" style="text-decoration:none" href="https://github.com/jetedco/vitalis.twelvecreative.io" target="_blank" rel="noopener">GitHub repo</a>
+          <a class="dir-state" style="text-decoration:none" href="/webinar/">Public funnel entrance</a>
+        </div>
+        <p style="font-size:12.5px;color:rgba(242,236,223,.45);max-width:560px;margin:20px auto 0">Deploys automatically from the <strong>main</strong> branch. Static hosting today (GitHub Pages); adding the FTP secrets flips it to the PHP host and lights up the calendar file server, chat, and presence.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer theme-dark" style="padding-top:30px">
+    <div class="container">
+      <p class="copyright">&copy; <span id="year"></span> Vitalis Tower &middot; internal team page</p>
+    </div>
+  </footer>
+
+  <script src="/config/funnel.js"></script>
+  <script src="/js/core.js" defer></script>
+  <script defer>
+    window.addEventListener('DOMContentLoaded', function () {
+      var C = window.VITALIS_CORE, CFG = window.VITALIS || {};
+      if (C) { C.initReveals(); C.fillYear(); }
+
+      // Live status board — reads the same config the funnel runs on.
+      var G = CFG.GHL || {}, B = CFG.BOOKING || {}, A = CFG.ANALYTICS || {},
+          L = CFG.LIVE || {}, R = CFG.REPLAY || {}, P = CFG.PREVIEW || {};
+      var next = C && C.nextOpenSession();
+      var rows = [
+        ['Session schedule', true, next ? 'Next session: ' + C.sessionDisplay(next) : 'No open session found'],
+        ['CRM registration intake', !!(G.WEBHOOK_URL || (G.FORM_ID && G.LOCATION_ID)),
+          'GoHighLevel webhook — registrations flow into the Vitalis location', 'Set GHL.WEBHOOK_URL — form shows a "not connected" error until then'],
+        ['Sales booking calendar', !!B.URL,
+          'Presentation bookings enabled on confirmation, live room, and /consultation/', 'Set BOOKING.URL + PROVIDER — booking sections stay hidden or say so'],
+        ['Analytics (GTM)', !!(A.GTM_SRC && A.GTM_ID),
+          'Vitalis container loading; dataLayer events flowing', 'Set ANALYTICS.GTM_SRC + GTM_ID — events queue locally meanwhile'],
+        ['Webinar broadcast video', !!L.VIDEO_URL,
+          'Session room is armed', 'Set LIVE.VIDEO_URL — room shows "Broadcast Not Armed" during sessions'],
+        ['Replay video', !!R.VIDEO_URL,
+          'Replay plays for ' + (R.AVAILABLE_DAYS || 7) + ' days after each session', 'Set REPLAY.VIDEO_URL — replay page shows "being prepared"'],
+        ['Confirmation preview video', !!P.VIDEO_URL,
+          'Teaser plays on the confirmation page', 'Optional — section stays hidden until PREVIEW.VIDEO_URL is set']
+      ];
+      var board = document.getElementById('status-board');
+      rows.forEach(function (r) {
+        var on = r[1];
+        var div = document.createElement('div');
+        div.className = 'status-row';
+        div.innerHTML = '<span class="st-dot ' + (on ? 'st-on' : 'st-off') + '"></span>' +
+          '<span class="st-name"></span><span class="st-note"></span>';
+        div.querySelector('.st-name').textContent = r[0];
+        div.querySelector('.st-note').textContent = on ? r[2] : (r[3] || r[2]);
+        board.appendChild(div);
+      });
+    });
+  </script>
+</body>
+</html>
