@@ -162,3 +162,27 @@ a modified confirmation (E1-alt).
 All email copy: `templates/emails.md` · all SMS copy: `templates/sms.md`.
 Templates merge `{{contact.webinar_session_display}}` verbatim and build links
 from `{{contact.webinar_session_iso}}` — never re-format dates in GHL.
+
+## 9. On-demand variant (`/webinar/pro/`)
+The passive-income page has **no session date**. A silent preview loops
+behind a lock; registering in the pop-up unlocks the webinar in place.
+
+**Intake payload differences** (same inbound webhook as W1): no
+`webinar_session_*` fields; adds `webinar_format: on-demand` and
+`funnel_variant: professional`. Everything else (contact, `buyer_interest`,
+`sms_consent`, attribution) is identical.
+
+**W1-OD — On-demand intake** (branch W1 on `webinar_format = on-demand`):
+1. Create/update contact; tag `vitalis-webinar-ondemand` + `interest-…`.
+2. Send **E-OD1** (access email) immediately; **S-OD1** if `sms_consent=yes`.
+3. **Do not** enroll in W2 — there is no session to remind about.
+4. After 24 h with no `ondemand_watch_progress` feedback → **E-OD2** nudge.
+5. `ondemand_watch_progress ≥ 0.5` fed back from GTM → tag
+   `vitalis-ondemand-watched`, set `webinar_attendance=attended`,
+   `attendance_basis=watch-50pct`, then the "Attended, no booking" branch of W4.
+
+**Access link:** emails link to `/webinar/pro/?watch=1`, which unlocks the
+player on any device (the gate is soft by design — the lead is already
+captured). Watch-progress events carry `full_webinar: false` while the
+preview stands in for the unset `ONDEMAND.VIDEO_URL`; don't mark anyone
+"attended" from stand-in views.

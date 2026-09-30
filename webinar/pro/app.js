@@ -1,82 +1,232 @@
-/* Vitalis Tower — /webinar/pro/ registration logic.
-   The professional-positioning variant of /webinar/: identical machinery
-   (same session clock, same CRM intake, same duplicate recovery), quieter
-   surface. Differences from the flagship page:
-     · no marquee/dust/pulse/sticky — a single arrival fade is the motion
-     · countdown renders as one quiet text line, not chips
-     · submissions carry funnel_variant:"professional" for CRM segmentation
-     · the confirmation redirect appends &v=pro so calendar invitations use
-       EVENT.TITLE_PRO (professional title) instead of the medical framing */
+/* Vitalis Tower — /webinar/pro/ — on-demand gated webinar.
+
+   There is no session date: registration unlocks the webinar right here.
+     locked     a silent preview loops behind a lock; after
+                ONDEMAND.POPUP_DELAY_SECONDS of playback the registration
+                pop-up opens (once per visit — a dismissal is respected)
+     unlocking  CRM acknowledged the registration → the lock springs open
+     unlocked   the full webinar plays with sound and controls
+
+   Returning visitors (this browser) and email access links (?watch=1)
+   arrive unlocked. The gate is deliberately soft — the lead is captured
+   by the CRM intake; the video URL itself is public on a static host.
+
+   Honesty rules kept from the rest of the funnel:
+     · registration only "succeeds" after the CRM acknowledges it
+     · watch progress counts seconds actually played — seeking to the
+       end never registers as watched
+     · until ONDEMAND.VIDEO_URL is set, the unlocked player plays the
+       preview with sound (a stand-in, flagged in config) */
 (function () {
   'use strict';
   var C = window.VITALIS_CORE;
   if (!C) return;
   var CFG = C.CFG, track = C.track, pixel = C.pixel, $ = C.$;
-  var VARIANT = 'pro';
+  var OD = CFG.ONDEMAND || {};
+  var RM = C.REDUCED_MOTION;
+  var VARIANT = 'professional';
+  var ACCESS_KEY = 'vitalis.webinar.ondemand';
+  var DISMISS_KEY = 'vitalis.od.popupDismissed';
 
-  /* ---------- Session render (one clock, quiet output) ---------- */
-  var state = { session: null, rollTimer: 0 };
+  var player = $('player'), video = $('pv'), fill = $('pl-fill');
+  var dialog = $('reg-dialog'), dlgVideo = $('dlg-video');
+  var state = { unlocked: false, registered: false, autoOpened: false, previewPlayed: 0, loops: 0, lastT: null, interest: '' };
 
-  function render() {
-    var s = C.nextOpenSession();
-    if (!s) return;
-    state.session = s;
-    var dayDate = C.fmtET(s, { weekday: 'long', month: 'long', day: 'numeric' });
-    var time = C.fmtET(s, { hour: 'numeric', minute: '2-digit' });
-    // "September 30" and "at 7:00 PM ET" each stay whole, so a narrow
-    // screen breaks the line before "at" — never "September / 30" or a lone "ET".
-    C.setSessionText('hero', dayDate.replace(/ (\d+)$/, ' $1') +
-      ' at ' + time.replace(/\s/g, ' ') + ' ET');
-    C.setSessionText('reg-local', C.localEcho(s));
-    var iso = $('webinar_session_iso');
-    if (iso) iso.value = s.toISOString();
-
-    clearTimeout(state.rollTimer);
-    var cutoffMs = (CFG.SCHEDULE.CUTOFF_MINUTES || 15) * 60000;
-    var untilCutoff = s.getTime() - cutoffMs - Date.now() + 1000;
-    state.rollTimer = setTimeout(function () { render(); showAlready(); },
-      Math.max(Math.min(untilCutoff, 2147000000), 1000));
+  function readAccess() {
+    try { return JSON.parse(localStorage.getItem(ACCESS_KEY)); } catch (e) { return null; }
+  }
+  function storeAccess(interest, source) {
+    try {
+      localStorage.setItem(ACCESS_KEY, JSON.stringify({
+        at: new Date().toISOString(), interest: interest || '', source: source
+      }));
+    } catch (e) {}
+  }
+  function dismissedThisVisit() {
+    try { return sessionStorage.getItem(DISMISS_KEY) === '1'; } catch (e) { return false; }
   }
 
-  // "Begins in 2 days, 4 hours" — a sentence, not a scoreboard.
-  function tickCountdown() {
-    var el = $('p-countdown');
-    if (!el || !state.session) return;
-    var ms = state.session.getTime() - Date.now();
-    if (ms <= 0) { el.textContent = ''; return; }
-    var d = Math.floor(ms / 86400000);
-    var h = Math.floor(ms % 86400000 / 3600000);
-    var m = Math.floor(ms % 3600000 / 60000);
-    var parts = [];
-    if (d) parts.push(d + (d === 1 ? ' day' : ' days'));
-    if (h) parts.push(h + (h === 1 ? ' hour' : ' hours'));
-    if (!d && m) parts.push(m + (m === 1 ? ' minute' : ' minutes'));
-    el.textContent = parts.length ? 'Begins in ' + parts.join(', ') : 'Begins momentarily';
-    setTimeout(tickCountdown, 30000);
+  /* ==========================================================
+     PREVIEW — silent loop behind the lock
+     ========================================================== */
+  function startPreview() {
+    video.src = OD.PREVIEW_URL || '/media/bernardo-preview.mp4';
+    if (OD.PREVIEW_POSTER) video.poster = OD.PREVIEW_POSTER;
+    video.muted = true;
+    video.loop = true;
+    if (RM) return; // reduced motion: poster + lock only, no autoplay
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { /* autoplay blocked — poster stays up */ });
+    track('preview_autoplay', { funnel_variant: VARIANT });
   }
 
-  /* ---------- Already-registered recovery ---------- */
-  function showAlready() {
-    var card = $('already-card');
-    var reg = C.getRegistration();
-    if (!card || !reg || !state.session) return;
-    if (new Date(reg.session).getTime() !== state.session.getTime()) return;
-    card.hidden = false;
-    $('reg-form').style.display = 'none';
-    $('already-sub').textContent = C.sessionDisplay(new Date(reg.session));
-    $('already-link').href = '/webinar/confirmed/?session=' +
-      encodeURIComponent(reg.session) + '&v=' + VARIANT +
-      (reg.interest ? '&interest=' + encodeURIComponent(reg.interest) : '');
-    $('already-again').addEventListener('click', function () {
-      card.hidden = true;
-      $('reg-form').style.display = '';
-      track('registration_reopened', { funnel_variant: 'professional' });
+  function onTimeUpdate() {
+    var t = video.currentTime;
+    if (!state.unlocked) {
+      // Loop detection (currentTime jumps back to ~0 on each loop)
+      if (state.lastT != null && t < state.lastT - 1) {
+        state.loops++;
+        if (state.loops >= (OD.PREVIEW_MAX_LOOPS || 3)) { video.loop = false; }
+      }
+      if (state.lastT != null) {
+        var d = t - state.lastT;
+        if (d > 0 && d < 1.5) state.previewPlayed += d;
+      }
+      state.lastT = t;
+      // The filled segment tracks the preview; the striped rest reads "locked".
+      if (video.duration && fill) fill.style.width = (t / video.duration * 16).toFixed(2) + '%';
+      if (state.previewPlayed >= (OD.POPUP_DELAY_SECONDS || 6)) maybeAutoOpen();
+      return;
+    }
+    watchProgress();
+  }
+  video.addEventListener('timeupdate', onTimeUpdate);
+
+  function maybeAutoOpen() {
+    if (state.unlocked || state.autoOpened || dismissedThisVisit()) return;
+    state.autoOpened = true;
+    openDialog('auto');
+  }
+
+  /* ==========================================================
+     REGISTRATION POP-UP
+     ========================================================== */
+  function openDialog(trigger) {
+    if (state.unlocked) { playFromCta(); return; }
+    if (dialog.open) return;
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+    } else {
+      dialog.setAttribute('open', '');
+      dialog.classList.add('dlg-fallback');
+    }
+    if (dlgVideo && !RM) {
+      if (!dlgVideo.getAttribute('src')) dlgVideo.src = OD.PREVIEW_URL || '/media/bernardo-preview.mp4';
+      try { dlgVideo.currentTime = video.currentTime || 0; } catch (e) {}
+      var p = dlgVideo.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+    track('registration_popup_open', { popup_trigger: trigger, funnel_variant: VARIANT });
+  }
+
+  function closeDialog() {
+    if (typeof dialog.close === 'function' && dialog.open) dialog.close();
+    else { dialog.removeAttribute('open'); onDialogClosed(); }
+  }
+
+  function onDialogClosed() {
+    if (dlgVideo) dlgVideo.pause();
+    if (!state.unlocked && !state.registered) {
+      try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+      track('registration_popup_dismissed', { funnel_variant: VARIANT });
+    }
+  }
+  dialog.addEventListener('close', onDialogClosed);
+  $('dlg-close').addEventListener('click', closeDialog);
+  // A click on the backdrop (outside the panel) closes.
+  dialog.addEventListener('click', function (e) {
+    if (e.target !== dialog) return;
+    var r = dialog.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) closeDialog();
+  });
+
+  $('pl-lock').addEventListener('click', function () { openDialog('player'); });
+  document.querySelectorAll('[data-open-reg]').forEach(function (btn) {
+    btn.addEventListener('click', function () { openDialog(btn.getAttribute('data-open-reg')); });
+  });
+
+  /* ==========================================================
+     UNLOCK — the lock springs open, the webinar takes over
+     ========================================================== */
+  function fullVideoUrl() { return OD.VIDEO_URL || OD.PREVIEW_URL || '/media/bernardo-preview.mp4'; }
+
+  function unlock(source, autoplay, interest) {
+    if (state.unlocked) return;
+    state.unlocked = true;
+    state.interest = interest || '';
+    document.body.classList.add('is-unlocked');
+    document.querySelectorAll('[data-cta-label]').forEach(function (el) { el.textContent = 'Watch now'; });
+    var next = $('pl-next-link');
+    if (next && state.interest) next.href = '/consultation/?interest=' + encodeURIComponent(state.interest);
+    track('webinar_unlocked', { unlock_source: source, funnel_variant: VARIANT });
+
+    player.setAttribute('data-state', 'unlocking');
+    setTimeout(function () {
+      player.setAttribute('data-state', 'unlocked');
+      $('pl-next').hidden = false;
+      video.loop = false;
+      video.controls = true;
+      var src = fullVideoUrl();
+      if (video.getAttribute('src') !== src) video.src = src;
+      try { video.currentTime = 0; } catch (e) {}
+      resetProgress();
+      if (!autoplay) { video.pause(); video.muted = false; return; }
+      playWithSound();
+    }, RM ? 0 : 650);
+  }
+
+  function playWithSound() {
+    video.muted = false;
+    var p = video.play();
+    if (p && p.catch) p.catch(function () {
+      // Sound blocked (no fresh user gesture): play muted, offer sound.
+      video.muted = true;
+      video.play().catch(function () {});
+      $('pl-sound').hidden = false;
     });
   }
 
-  /* ---------- Form ---------- */
+  $('pl-sound').addEventListener('click', function () {
+    video.muted = false;
+    video.play().catch(function () {});
+    $('pl-sound').hidden = true;
+    track('webinar_sound_on', { funnel_variant: VARIANT });
+  });
+
+  function playFromCta() {
+    player.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'center' });
+    $('pl-sound').hidden = true;
+    playWithSound();
+  }
+
+  /* ==========================================================
+     WATCH PROGRESS — seconds actually played (seeks excluded)
+     ========================================================== */
+  var watch = { played: 0, lastT: null, fired: {}, started: false };
+  function resetProgress() { watch = { played: 0, lastT: null, fired: {}, started: false }; }
+  function watchProgress() {
+    var t = video.currentTime;
+    if (watch.lastT != null && !video.paused) {
+      var d = t - watch.lastT;
+      if (d > 0 && d < 2) watch.played += d;
+    }
+    watch.lastT = t;
+    if (!video.duration) return;
+    var pct = watch.played / video.duration;
+    [0.25, 0.5, 0.75, 0.95].forEach(function (m) {
+      if (pct >= m && !watch.fired[m]) {
+        watch.fired[m] = true;
+        track('ondemand_watch_progress', {
+          progress: m, funnel_variant: VARIANT,
+          full_webinar: !!OD.VIDEO_URL // false while the preview stands in
+        });
+      }
+    });
+  }
+  video.addEventListener('seeking', function () { if (state.unlocked) watch.lastT = null; });
+  video.addEventListener('play', function () {
+    if (state.unlocked && !watch.started) {
+      watch.started = true;
+      track('webinar_play', { funnel_variant: VARIANT, full_webinar: !!OD.VIDEO_URL });
+    }
+  });
+
+  /* ==========================================================
+     FORM — validate, submit to the CRM, unlock on acknowledgment
+     ========================================================== */
   var form = $('reg-form');
   var submitBtn = $('reg-submit');
+  var submitLabel = $('reg-submit-label');
   var formError = $('form-error');
   var busy = false, formStarted = false;
 
@@ -104,14 +254,11 @@
     if (firstBad) firstBad.focus();
     return !firstBad;
   }
-  function showFormError(msg) {
-    formError.textContent = msg;
-    formError.hidden = false;
-  }
+  function showFormError(msg) { formError.textContent = msg; formError.hidden = false; }
   function setBusy(on) {
     busy = on;
     submitBtn.disabled = on;
-    submitBtn.textContent = on ? 'Reserving…' : 'Reserve my seat';
+    submitLabel.textContent = on ? 'Unlocking…' : 'Unlock the webinar';
   }
   function selectedInterest() {
     var el = document.querySelector('input[name="buyer_interest"]:checked');
@@ -126,33 +273,24 @@
     if (hp && hp.value) return; // honeypot
     if (!validateAll()) return;
 
-    render(); // never register into a closed session
-    var session = state.session;
-    var iso = session.toISOString();
     var G = CFG.GHL || {};
-
     if (!G.WEBHOOK_URL && (!G.FORM_ID || !G.LOCATION_ID)) {
       showFormError('Registration isn’t connected yet. Please try again later, or reach us via vitalistower.com.');
-      track('webinar_registration_unconfigured', { funnel_variant: 'professional' });
+      track('webinar_registration_unconfigured', { funnel_variant: VARIANT, webinar_format: 'on-demand' });
       return;
     }
     setBusy(true);
 
-    var sessionEtDate = C.fmtET(session, { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
-    var sessionDisplay = C.sessionDisplay(session);
     var interest = selectedInterest();
     var smsConsent = $('sms_consent').checked ? 'yes' : 'no';
-
     var payload = {
       first_name: $('first_name').value.trim(),
       last_name: $('last_name').value.trim(),
       email: $('email').value.trim(),
       phone: $('phone').value.trim(),
-      funnel_variant: 'professional'
+      funnel_variant: VARIANT,
+      webinar_format: 'on-demand'
     };
-    payload[G.SESSION_FIELD_KEY || 'webinar_session_date'] = sessionEtDate;
-    payload[G.SESSION_DISPLAY_FIELD_KEY || 'webinar_session_display'] = sessionDisplay;
-    payload[G.SESSION_ISO_FIELD_KEY || 'webinar_session_iso'] = iso;
     payload[G.INTEREST_FIELD_KEY || 'buyer_interest'] = interest;
     payload[G.SMS_CONSENT_FIELD_KEY || 'sms_consent'] = smsConsent;
     var attr = C.attributionFields();
@@ -167,11 +305,9 @@
         '&phone=' + encodeURIComponent(payload.phone) +
         '&first_name=' + encodeURIComponent(payload.first_name) +
         '&last_name=' + encodeURIComponent(payload.last_name) +
-        '&webinar_session_date=' + encodeURIComponent(sessionEtDate) +
-        '&webinar_session_display=' + encodeURIComponent(sessionDisplay) +
         '&buyer_interest=' + encodeURIComponent(interest) +
         '&sms_consent=' + encodeURIComponent(smsConsent) +
-        '&funnel_variant=professional';
+        '&funnel_variant=' + VARIANT + '&webinar_format=on-demand';
       req = fetch(G.WEBHOOK_URL + qs, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -197,52 +333,85 @@
     req.then(function (res) {
       if (timer) clearTimeout(timer);
       if (res.type !== 'opaque' && !res.ok) throw new Error('HTTP ' + res.status);
-      C.storeRegistration(iso, interest);
+      state.registered = true;
+      storeAccess(interest, 'registration');
       track('webinar_registration_completed', {
-        webinar_session: iso, buyer_interest: interest, funnel_variant: 'professional'
+        webinar_format: 'on-demand', buyer_interest: interest, funnel_variant: VARIANT
       });
-      pixel('CompleteRegistration', { content_name: 'vitalis-webinar-pro' });
-      pixel('WebinarRegistrationCompleted', { webinar_session: iso }, true);
-      var url = '/webinar/confirmed/?session=' + encodeURIComponent(iso) +
-        '&interest=' + encodeURIComponent(interest) + '&v=' + VARIANT;
-      setTimeout(function () { location.href = url; }, 250);
+      pixel('CompleteRegistration', { content_name: 'vitalis-webinar-ondemand' });
+      submitBtn.classList.add('is-done');
+      submitLabel.textContent = 'Unlocked';
+      setTimeout(function () {
+        closeDialog();
+        unlock('registration', true, interest);
+      }, RM ? 150 : 700);
     }).catch(function () {
       if (timer) clearTimeout(timer);
       setBusy(false);
-      showFormError('We couldn’t complete your registration. Check your connection and tap “Reserve my seat” again — your details are still filled in.');
-      track('webinar_registration_failed', { funnel_variant: 'professional' });
+      showFormError('We couldn’t complete your registration. Check your connection and try again — your details are still filled in.');
+      track('webinar_registration_failed', { funnel_variant: VARIANT, webinar_format: 'on-demand' });
     });
   }
 
-  /* ---------- Boot ---------- */
-  render();
-  tickCountdown();
-  showAlready();
-  document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) { render(); tickCountdown(); }
+  form.addEventListener('submit', onSubmit);
+  form.addEventListener('input', function (e) {
+    if (!formStarted) {
+      formStarted = true;
+      track('registration_form_started', { funnel_variant: VARIANT, webinar_format: 'on-demand' });
+      pixel('RegistrationFormStarted', {}, true);
+    }
+    var t = e.target;
+    if (t && t.id) FIELDS.forEach(function (f) {
+      if (f.id === t.id && f.valid(t.value)) setFieldError(t.id, false);
+    });
   });
-  C.initCtaTracking();
-  C.fillYear();
-  C.fillPresenter();
 
-  if (form) {
-    form.addEventListener('submit', onSubmit);
-    form.addEventListener('input', function (e) {
-      if (!formStarted) {
-        formStarted = true;
-        track('registration_form_started', { funnel_variant: 'professional' });
-        pixel('RegistrationFormStarted', {}, true);
-      }
-      var t = e.target;
-      if (t && t.id) {
-        FIELDS.forEach(function (f) {
-          if (f.id === t.id && f.valid(t.value)) setFieldError(t.id, false);
+  /* ==========================================================
+     SPONSOR ROWS — clone each set so the loop is seamless on
+     wide screens (4 copies; the animation shifts by exactly half)
+     ========================================================== */
+  function buildMarquees() {
+    if (RM) return; // static, wrapped rows
+    document.querySelectorAll('[data-mq] .mq-track').forEach(function (trackEl) {
+      var originals = Array.prototype.slice.call(trackEl.children);
+      for (var copy = 0; copy < 3; copy++) {
+        originals.forEach(function (li) {
+          var c = li.cloneNode(true);
+          c.setAttribute('aria-hidden', 'true');
+          var img = c.querySelector('img');
+          if (img) img.alt = '';
+          trackEl.appendChild(c);
         });
       }
     });
   }
 
-  track('funnel_page_view', { funnel_page: 'webinar-register-pro', funnel_variant: 'professional' });
-  track('view_content', { content_name: 'webinar-register-pro' });
-  pixel('ViewContent', { content_name: 'webinar-register-pro' });
+  /* ==========================================================
+     BOOT
+     ========================================================== */
+  buildMarquees();
+  C.initCtaTracking();
+  C.fillYear();
+
+  var access = readAccess();
+  var qp = new URLSearchParams(location.search);
+  if (!access && qp.get('watch') === '1') {
+    storeAccess('', 'access-link');
+    access = readAccess();
+  }
+  if (access) {
+    video.src = fullVideoUrl();
+    if (OD.PREVIEW_POSTER) video.poster = OD.PREVIEW_POSTER;
+    unlock(access.source === 'access-link' ? 'access-link' : 'returning', false, access.interest);
+  } else {
+    startPreview();
+    // If autoplay is blocked (or reduced motion), open on a timer instead.
+    setTimeout(function () {
+      if (!state.unlocked && (video.paused || RM)) maybeAutoOpen();
+    }, ((OD.POPUP_DELAY_SECONDS || 6) + 2) * 1000);
+  }
+
+  track('funnel_page_view', { funnel_page: 'webinar-ondemand-pro', funnel_variant: VARIANT });
+  track('view_content', { content_name: 'webinar-ondemand-pro' });
+  pixel('ViewContent', { content_name: 'webinar-ondemand-pro' });
 })();

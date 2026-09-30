@@ -12,6 +12,11 @@ session clock.
 
 ---
 
+**S-OD1 — On-demand access** *(immediate; `/webinar/pro/` registrations only)*
+> Vitalis Tower: you're in! Watch the Passive Income Webinar anytime:
+> https://vitalis.twelvecreative.io/webinar/pro/?watch=1
+> Reply STOP to opt out.
+
 **S1 — Registration confirmation** *(immediate)*
 > Vitalis Tower: you're registered! 🎟 {{contact.webinar_session_display}}.
 > Your join link: {JOIN}

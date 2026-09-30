@@ -144,3 +144,33 @@ link to the next webinar date. No invented pricing, returns, or urgency.
 > update by itself — tap **[Add the new date]({.ics link})** and it will
 > replace the old event. Same access link as always:
 > **[Join the session]({join link})**. Sorry for the shuffle — see you there.
+
+---
+
+## On-demand variant (`/webinar/pro/`) — no session date
+
+Access link: `https://vitalis.twelvecreative.io/webinar/pro/?watch=1`
+(unlocks the player on any device). Never merge session-date fields here.
+
+## E-OD1 — Access *(immediate, transactional)*
+**Subject:** Your access: Passive Income Webinar
+**Preheader:** Watch now — or come back anytime.
+
+> {{contact.first_name}}, you're in.
+>
+> **Passive Income Webinar: Generating Passive Income Through Commercial
+> Real Estate Investing** — hosted by developer Bernardo Rieber.
+>
+> **[Watch the webinar](https://vitalis.twelvecreative.io/webinar/pro/?watch=1)**
+> This link works on any device, anytime.
+>
+> Want to talk specifics afterward?
+> **[Schedule a private presentation](https://vitalis.twelvecreative.io/consultation/?interest={{contact.buyer_interest}})**
+>
+> — The Vitalis Tower Team
+
+## E-OD2 — Not watched yet *(24 h after registration, no watch feedback)*
+**Subject:** Still saved for you
+> Your access to Bernardo Rieber's webinar on passive income through
+> commercial real estate is waiting —
+> **[pick up where you'd like](https://vitalis.twelvecreative.io/webinar/pro/?watch=1)**.

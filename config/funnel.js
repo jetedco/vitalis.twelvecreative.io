@@ -99,6 +99,20 @@ window.VITALIS = {
     VIDEO_URL: ''
   },
 
+  /* ---------- On-demand gated webinar (/webinar/pro/) ---------- */
+  ONDEMAND: {
+    // Silent looping preview shown behind the lock.
+    PREVIEW_URL: '/media/bernardo-preview.mp4',
+    PREVIEW_POSTER: '/images/webinar/preview-poster.jpg',
+    // [VITALIS-SETUP] the full webinar recording (mp4). Until it's set, the
+    // unlocked player plays the preview with sound as a stand-in.
+    VIDEO_URL: '',
+    // Seconds of preview playback before the registration pop-up opens.
+    POPUP_DELAY_SECONDS: 6,
+    // The preview stops after this many loops (no endless motion).
+    PREVIEW_MAX_LOOPS: 3
+  },
+
   /* ---------- Confirmation-page preview video (optional) ---------- */
   PREVIEW: {
     // [VITALIS-SETUP] short teaser mp4 for the confirmation page. Empty =

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Passive Income Webinar — Commercial Real Estate Investing | Vitalis Tower</title>
-  <meta name="description" content="A free webinar: learn how to generate passive income through commercial real estate investing — and where Vitalis Tower in Aventura fits.">
+  <meta name="description" content="Generating passive income through commercial real estate investing — a free, on-demand webinar hosted by developer Bernardo Rieber. Register and watch instantly.">
   <meta name="robots" content="noindex">
   <link rel="canonical" href="https://vitalis.twelvecreative.io/webinar/pro/">
   <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -13,12 +13,13 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vitalis.twelvecreative.io/webinar/pro/">
   <meta property="og:title" content="Passive Income Webinar — Commercial Real Estate Investing | Vitalis Tower">
-  <meta property="og:description" content="Learn how to generate passive income through commercial real estate investing. Free, online, 60 minutes.">
+  <meta property="og:description" content="A free, on-demand webinar hosted by developer Bernardo Rieber. Register and watch instantly.">
   <meta property="og:image" content="https://vitalis.twelvecreative.io/images/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
+  <link rel="preload" href="/images/webinar/preview-poster.jpg" as="image">
   <link rel="stylesheet" href="/css/brand.css">
-  <link rel="stylesheet" href="/webinar/pro/style.css?v=2">
+  <link rel="stylesheet" href="/webinar/pro/style.css?v=3">
 </head>
 <body class="pro">
 
@@ -30,109 +31,200 @@
 
   <main>
 
-    <section class="p-hero fade-in">
-      <h1>Passive Income Webinar:</h1>
-      <p class="p-subhead">Learn How to Generate Passive Income Through Commercial Real Estate Investing</p>
+    <!-- ============ Hero: copy + the locked player ============ -->
+    <section class="p-hero">
+      <div class="p-hero-copy fade-in">
+        <h1>Passive Income Webinar:</h1>
+        <p class="p-subhead">Generating Passive Income Through Commercial Real Estate Investing</p>
+        <p class="p-hosted">Hosted by <strong>Bernardo Rieber</strong>, Real Estate Developer</p>
+      </div>
 
-      <p class="p-when" data-session="hero">Loading the next session&hellip;</p>
-      <p class="p-meta"><span>Free &middot; Online &middot; 60 minutes</span><span id="p-countdown" aria-live="off"></span><span data-session="reg-local"></span></p>
+      <div class="p-hero-cta fade-in">
+        <button class="p-btn p-btn-lock" type="button" data-open-reg="hero">
+          <svg class="i-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span data-cta-label>Watch the webinar</span>
+        </button>
+        <p class="p-cta-note">Free &middot; Instant access</p>
+      </div>
 
-      <a class="p-btn" href="#register" data-cta="hero">Reserve my seat</a>
+      <div class="p-stage fade-in-late">
+        <div class="p-player" id="player" data-state="locked">
+          <video id="pv" muted loop playsinline preload="auto"
+                 poster="/images/webinar/preview-poster.jpg"
+                 disablepictureinpicture controlslist="nodownload noplaybackrate"
+                 aria-label="Webinar preview"></video>
+
+          <!-- The lock: the whole overlay is one big "register" button -->
+          <button class="pl-lock" id="pl-lock" type="button" aria-label="Register free to watch the full webinar">
+            <span class="pl-badge"><i aria-hidden="true"></i>Preview &middot; Sound off</span>
+            <span class="pl-center">
+              <span class="pl-ring" aria-hidden="true">
+                <svg class="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+              <span class="pl-cta">Register free to watch</span>
+            </span>
+            <span class="pl-bar" aria-hidden="true">
+              <svg viewBox="0 0 24 24" class="i-fill"><path d="M8 5.5v13l11-6.5z"/></svg>
+              <span class="pl-track"><i id="pl-fill"></i></span>
+              <svg viewBox="0 0 24 24" class="i-line"><path class="i-solid" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+            </span>
+          </button>
+
+          <button class="pl-sound" id="pl-sound" type="button" hidden>
+            <svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path class="i-solid" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+            Tap for sound
+          </button>
+        </div>
+        <p class="pl-next" id="pl-next" hidden>Ready to talk specifics? <a id="pl-next-link" href="/consultation/" data-cta="post-unlock">Schedule a private presentation &rarr;</a></p>
+      </div>
     </section>
 
-    <figure class="p-figure fade-in-late">
-      <img src="/images/renders/exterior-hero.webp" alt="Vitalis Tower — artist's conceptual rendering" width="2000" height="1145">
-      <figcaption>Vitalis Tower, Aventura &middot; Offices from 500 to 20,000 sq ft &middot; Occupancy Q1 2029 &middot; Artist&rsquo;s rendering</figcaption>
-    </figure>
+    <!-- ============ Sponsors: two rows, opposite directions ============ -->
+    <section class="p-sponsors" aria-labelledby="p-sp-h">
+      <h2 class="p-kicker" id="p-sp-h">Sponsors</h2>
+      <div class="mq" data-mq>
+        <ul class="mq-track">
+          <li><img src="/images/sponsors/vitalis-tower.png" alt="Vitalis Tower" width="141" height="144"></li>
+          <li><img src="/images/sponsors/arcadia.png" alt="Arcadia Real Estate Developers" width="160" height="144"></li>
+          <li><img src="/images/sponsors/caymares-martin.png" alt="Caymares Martin Architecture &amp; Engineering Design" width="136" height="144"></li>
+          <li><img src="/images/sponsors/fortune-development-sales.png" alt="Fortune Development Sales" width="208" height="144"></li>
+          <li><img src="/images/sponsors/fortin-leavy-skiles.png" alt="Fortin Leavy Skiles" width="141" height="144"></li>
+          <li><img src="/images/sponsors/hkare-architecture.png" alt="HKare Architecture" width="189" height="144"></li>
+        </ul>
+      </div>
+      <div class="mq mq-right" data-mq>
+        <ul class="mq-track">
+          <li><img src="/images/sponsors/us-century-bank.png" alt="U.S. Century Bank" width="198" height="144"></li>
+          <li><img src="/images/sponsors/q-kapital.png" alt="Q Kapital Mortgage Lender" width="196" height="144"></li>
+          <li><img src="/images/sponsors/luseo-engineering.png" alt="LUSEO Engineering" width="236" height="144"></li>
+          <li><img src="/images/sponsors/bin.png" alt="Sponsor" width="105" height="144"></li>
+          <li><img src="/images/sponsors/twelve-creative.png" alt="Twelve Creative" width="253" height="144"></li>
+        </ul>
+      </div>
+    </section>
 
-    <section class="p-section" aria-labelledby="p-learn-h">
-      <h2 class="p-kicker" id="p-learn-h">What you&rsquo;ll learn</h2>
+    <!-- ============ What we will discuss ============ -->
+    <section class="p-section p-narrow" aria-labelledby="p-disc-h">
+      <h2 class="p-kicker" id="p-disc-h">What we will discuss</h2>
       <ol class="p-list">
-        <li>How commercial property produces income</li>
+        <li>How commercial property produces passive income</li>
         <li>Tenants, leases, and triple-net terms</li>
         <li>Owning your office versus leasing</li>
         <li>Where Vitalis Tower fits</li>
       </ol>
     </section>
 
-    <section class="p-section p-register" id="register" aria-labelledby="p-reg-h">
-      <h2 id="p-reg-h">Reserve your seat</h2>
-      <p class="p-when" data-session="hero">Loading the next session&hellip;</p>
-
-      <!-- Shown instead of the form when this visitor already registered -->
-      <div class="p-already" id="already-card" hidden>
-        <p class="p-already-title">You&rsquo;re already registered.</p>
-        <p class="p-already-sub" id="already-sub"></p>
-        <a class="p-btn" id="already-link" href="/webinar/confirmed/">View confirmation</a>
-        <button class="p-textlink" id="already-again" type="button">Use different details</button>
+    <!-- ============ Host ============ -->
+    <section class="p-section p-host-wrap" aria-labelledby="p-host-h">
+      <div class="p-host">
+        <img class="p-host-photo" src="/images/webinar/bernardo-rieber.jpg" alt="Bernardo Rieber" width="800" height="1000" loading="lazy">
+        <div>
+          <p class="p-kicker p-kicker-left">Your host</p>
+          <h2 id="p-host-h">Bernardo Rieber</h2>
+          <p class="p-host-role">Real Estate Developer</p>
+          <ul class="p-creds">
+            <li>Has constructed and is now developing his third building in the Aventura Medical District</li>
+            <li>Developments across South Florida and Orlando</li>
+          </ul>
+        </div>
       </div>
+    </section>
 
-      <form id="reg-form" class="p-form" novalidate>
-        <input type="hidden" name="webinar_session_iso" id="webinar_session_iso" value="">
-
-        <div class="p-row">
-          <div class="p-field">
-            <label for="first_name">First name</label>
-            <input id="first_name" name="first_name" type="text" autocomplete="given-name" required aria-describedby="err-first_name">
-            <p class="p-err" id="err-first_name" hidden>Please enter your first name.</p>
-          </div>
-          <div class="p-field">
-            <label for="last_name">Last name</label>
-            <input id="last_name" name="last_name" type="text" autocomplete="family-name" required aria-describedby="err-last_name">
-            <p class="p-err" id="err-last_name" hidden>Please enter your last name.</p>
-          </div>
-        </div>
-
-        <div class="p-field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="err-email">
-          <p class="p-err" id="err-email" hidden>Please enter a valid email address.</p>
-        </div>
-
-        <div class="p-field">
-          <label for="phone">Mobile phone</label>
-          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="err-phone">
-          <p class="p-err" id="err-phone" hidden>Please enter a valid phone number.</p>
-        </div>
-
-        <fieldset class="p-interest">
-          <legend>I&rsquo;m interested in</legend>
-          <div class="p-seg">
-            <label><input type="radio" name="buyer_interest" value="investment" checked><span>Investing</span></label>
-            <label><input type="radio" name="buyer_interest" value="practice"><span>My own office</span></label>
-            <label><input type="radio" name="buyer_interest" value="both"><span>Both</span></label>
-          </div>
-        </fieldset>
-
-        <label class="p-consent">
-          <input type="checkbox" id="sms_consent" name="sms_consent">
-          <span>Text me reminders. Msg &amp; data rates may apply; reply STOP to opt out.</span>
-        </label>
-
-        <div class="hp-field" aria-hidden="true">
-          <label for="company">Company</label>
-          <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
-        </div>
-
-        <button type="submit" class="p-btn p-submit" id="reg-submit">Reserve my seat</button>
-        <div class="p-form-error" id="form-error" role="alert" hidden></div>
-        <p class="p-fine">We&rsquo;ll email your access link and reminders, plus the replay if you can&rsquo;t make it live.</p>
-      </form>
+    <!-- ============ Final call ============ -->
+    <section class="p-section p-final">
+      <p class="p-cta-note">Free &middot; Instant access</p>
+      <button class="p-btn p-btn-lock" type="button" data-open-reg="final">
+        <svg class="i-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <span data-cta-label>Watch the webinar</span>
+      </button>
     </section>
 
   </main>
 
   <footer class="p-footer">
-    <p>&copy; <span id="year"></span> Vitalis Tower &middot; Hosted by <span data-presenter="name">the Vitalis Tower Sales Team</span>. Renderings are artist&rsquo;s conceptual illustrations; details subject to change. Not an offer to sell where prohibited by law.</p>
+    <p>&copy; <span id="year"></span> Vitalis Tower. Renderings and videos are illustrative; details subject to change. Not an offer to sell where prohibited by law.</p>
   </footer>
 
+  <!-- ============ Registration pop-up ============ -->
+  <dialog class="p-dialog" id="reg-dialog" aria-labelledby="dlg-title">
+    <div class="dlg-grid">
+      <div class="dlg-media" aria-hidden="true">
+        <video id="dlg-video" muted loop playsinline preload="none" poster="/images/webinar/preview-poster.jpg"></video>
+        <div class="dlg-media-cap">
+          <span class="dlg-chip"><svg class="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Full webinar</span>
+          <p><strong>Bernardo Rieber</strong>Real Estate Developer</p>
+        </div>
+      </div>
+
+      <div class="dlg-body">
+        <button class="dlg-close" id="dlg-close" type="button" aria-label="Close">&times;</button>
+        <p class="dlg-kicker">Free &middot; Instant access</p>
+        <h2 id="dlg-title" tabindex="-1" autofocus>Unlock the full webinar</h2>
+        <p class="dlg-sub">Register once and start watching right away.</p>
+
+        <form id="reg-form" class="p-form" novalidate>
+          <div class="p-row">
+            <div class="p-field">
+              <label for="first_name">First name</label>
+              <input id="first_name" name="first_name" type="text" autocomplete="given-name" required aria-describedby="err-first_name">
+              <p class="p-err" id="err-first_name" hidden>Please enter your first name.</p>
+            </div>
+            <div class="p-field">
+              <label for="last_name">Last name</label>
+              <input id="last_name" name="last_name" type="text" autocomplete="family-name" required aria-describedby="err-last_name">
+              <p class="p-err" id="err-last_name" hidden>Please enter your last name.</p>
+            </div>
+          </div>
+
+          <div class="p-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="err-email">
+            <p class="p-err" id="err-email" hidden>Please enter a valid email address.</p>
+          </div>
+
+          <div class="p-field">
+            <label for="phone">Mobile phone</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="err-phone">
+            <p class="p-err" id="err-phone" hidden>Please enter a valid phone number.</p>
+          </div>
+
+          <fieldset class="p-interest">
+            <legend>I&rsquo;m interested in</legend>
+            <div class="p-seg">
+              <label><input type="radio" name="buyer_interest" value="investment" checked><span>Investing</span></label>
+              <label><input type="radio" name="buyer_interest" value="practice"><span>My own office</span></label>
+              <label><input type="radio" name="buyer_interest" value="both"><span>Both</span></label>
+            </div>
+          </fieldset>
+
+          <label class="p-consent">
+            <input type="checkbox" id="sms_consent" name="sms_consent">
+            <span>Text me the link. Msg &amp; data rates may apply; reply STOP to opt out.</span>
+          </label>
+
+          <div class="hp-field" aria-hidden="true">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button type="submit" class="p-btn p-btn-lock p-submit" id="reg-submit">
+            <svg class="i-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <span id="reg-submit-label">Unlock the webinar</span>
+          </button>
+          <div class="p-form-error" id="form-error" role="alert" hidden></div>
+          <p class="p-fine">We&rsquo;ll also email you a link so you can watch anytime.</p>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
   <noscript>
-    <div style="padding:18px;text-align:center;background:#111;color:#fff">This page needs JavaScript to show the next session date and register you.</div>
+    <div style="padding:18px;text-align:center;background:#111;color:#fff">This page needs JavaScript to play the webinar and register you.</div>
   </noscript>
 
   <script src="/config/funnel.js"></script>
   <script src="/js/attribution.js" defer></script>
   <script src="/js/core.js" defer></script>
-  <script src="/webinar/pro/app.js?v=2" defer></script>
+  <script src="/webinar/pro/app.js?v=3" defer></script>
 </body>
 </html>
