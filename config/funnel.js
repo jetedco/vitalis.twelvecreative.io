@@ -109,7 +109,7 @@ window.VITALIS = {
     // else the viewer's saved choice, else their device language, else DEFAULT_LANG.
     // (For launch-scale traffic, move these to a video CDN and swap the URLs.)
     VIDEOS: {
-      en: '/media/webinar-en.mp4',
+      en: '/media/webinar-en.mp4?v=2',
       es: '/media/webinar-es.mp4'
     },
     DEFAULT_LANG: 'en',
