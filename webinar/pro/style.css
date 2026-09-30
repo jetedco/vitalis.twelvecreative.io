@@ -489,24 +489,66 @@ body.is-registered .pl-ring .shackle,
 /* Confetti layer */
 .w-confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
 
-/* Language switch at the top of the player */
+/* Language switch at the top of the player — a physical 3D toggle:
+   recessed track, raised glossy knob that springs across, round flags */
 .w-lang {
   position: relative; display: grid; grid-template-columns: 1fr 1fr;
-  width: 244px; margin: 0 auto 14px; padding: 4px;
-  border: 1px solid #D5D5D5; background: #fff;
+  width: 292px; margin: 0 auto 20px; padding: 5px; border-radius: 999px;
+  background: linear-gradient(180deg, #DEDFE2 0%, #F3F3F5 100%);
+  box-shadow:
+    inset 0 2px 5px rgba(17,19,22,.22),     /* recess */
+    inset 0 -1px 1px rgba(255,255,255,.9),  /* lower lip catches light */
+    0 1px 0 rgba(255,255,255,.95),          /* bevel below the channel */
+    0 0 0 1px rgba(17,19,22,.07);
 }
 .w-lang-thumb {
-  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px);
-  background: var(--ink); transition: transform .32s cubic-bezier(.3,.9,.3,1);
+  position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px);
+  border-radius: 999px; overflow: hidden;
+  background: linear-gradient(180deg, #3A3D44 0%, #16181B 52%, #0B0C0E 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),    /* top edge highlight */
+    inset 0 -3px 5px rgba(0,0,0,.4),        /* rounded underside */
+    0 7px 14px -5px rgba(17,19,22,.6),      /* cast shadow */
+    0 2px 3px rgba(17,19,22,.32);
+  transition: transform .42s cubic-bezier(.34, 1.36, .44, 1);   /* a little spring */
+}
+.w-lang-thumb::after {                        /* gloss */
+  content: ''; position: absolute; left: 12%; right: 12%; top: 2px; height: 46%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,0));
 }
 .w-lang[data-active="es"] .w-lang-thumb { transform: translateX(100%); }
+
 .w-lang-btn {
-  position: relative; z-index: 1; padding: 10px 8px; margin: 0; border: 0; background: none;
+  position: relative; z-index: 1; margin: 0; padding: 9px 10px; border: 0; background: none;
+  display: flex; align-items: center; justify-content: center; gap: 9px;
   font-family: var(--font-brand); font-size: 12px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
-  cursor: pointer; transition: color .25s ease;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #6A6E75; text-shadow: 0 1px 0 rgba(255,255,255,.85);   /* engraved */
+  border-radius: 999px; cursor: pointer; transition: color .25s ease;
 }
-.w-lang-btn[aria-pressed="true"] { color: #fff; cursor: default; }
+.w-lang-btn[aria-pressed="true"] { color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.55); cursor: default; }
 .w-lang-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 @media (hover: hover) { .w-lang-btn[aria-pressed="false"]:hover { color: var(--ink); } }
-@media (prefers-reduced-motion: reduce) { .w-lang-thumb { transition: none; } }
+.w-lang-btn[aria-pressed="false"]:active { transform: translateY(1px); }
+
+.w-flag {
+  position: relative; flex: 0 0 auto; width: 22px; height: 22px;
+  border-radius: 50%; overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.14);
+  transition: filter .25s ease, transform .25s ease;
+}
+.w-flag svg { display: block; width: 100%; height: 100%; }
+.w-flag::after {                              /* domed, lens-like shine */
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.6), rgba(255,255,255,0) 48%),
+    radial-gradient(circle at 50% 120%, rgba(0,0,0,.28), rgba(0,0,0,0) 60%);
+}
+.w-lang-btn[aria-pressed="false"] .w-flag { filter: saturate(.55) brightness(1.02); }
+.w-lang-btn[aria-pressed="true"] .w-flag { transform: scale(1.06); box-shadow: 0 1px 3px rgba(0,0,0,.6), 0 0 0 1.5px rgba(255,255,255,.35); }
+@media (hover: hover) { .w-lang-btn[aria-pressed="false"]:hover .w-flag { filter: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .w-lang-thumb, .w-flag { transition: none; }
+}
