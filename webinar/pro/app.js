@@ -40,7 +40,14 @@
   function dismissedThisVisit() {
     try { return sessionStorage.getItem(DISMISS_KEY) === '1'; } catch (e) { return false; }
   }
-  function goWatch(extra) { location.href = WATCH + (extra || ''); }
+  // Carries a ?lang= choice (e.g. from a Spanish ad) through to the watch page.
+  function watchUrl(extra) {
+    var q = extra || '';
+    var lang = new URLSearchParams(location.search).get('lang');
+    if (lang) q += (q ? '&' : '?') + 'lang=' + encodeURIComponent(lang);
+    return WATCH + q;
+  }
+  function goWatch(extra) { location.href = watchUrl(extra); }
 
   /* ==========================================================
      PREVIEW — silent loop behind the lock
@@ -281,7 +288,7 @@
   var qp = new URLSearchParams(location.search);
   if (qp.get('watch') === '1') {
     // Legacy email link — forward to the watch page (which grants access).
-    location.replace(WATCH + '?watch=1');
+    location.replace(watchUrl('?watch=1'));
     return;
   }
 
