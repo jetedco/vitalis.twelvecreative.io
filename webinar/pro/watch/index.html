@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Watch — Passive Income Webinar | Vitalis Tower</title>
+  <meta name="description" content="Passive Income Webinar — generating passive income through commercial real estate investing, hosted by developer Bernardo Rieber.">
+  <meta name="robots" content="noindex">
+  <!-- Soft gate: no registration in this browser and no email access link
+       (?watch=1) → back to the registration page before anything renders. -->
+  <script>
+    (function () {
+      try {
+        var has = localStorage.getItem('vitalis.webinar.ondemand');
+        if (!has && !/[?&]watch=1(&|$)/.test(location.search)) location.replace('/webinar/pro/');
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <link rel="preload" href="/images/webinar/preview-poster.jpg" as="image">
+  <link rel="stylesheet" href="/css/brand.css">
+  <link rel="stylesheet" href="/webinar/pro/style.css?v=5">
+</head>
+<body class="pro">
+
+  <main>
+
+    <!-- ============ Welcome ============ -->
+    <section class="w-hero fade-in">
+      <p class="p-kicker">Passive Income Webinar</p>
+      <h1 class="p-title"><span class="t-serif">You&rsquo;re in<span class="t-colon">.</span></span></h1>
+      <span class="p-rule" aria-hidden="true"></span>
+      <p class="p-hosted">Hosted by <strong>Bernardo&nbsp;Rieber</strong>, Real&nbsp;Estate&nbsp;Developer</p>
+    </section>
+
+    <!-- ============ The webinar + three actions ============ -->
+    <section class="w-stage fade-in-late" aria-label="The webinar">
+      <div class="w-player">
+        <video id="wv" playsinline controls preload="auto"
+               poster="/images/webinar/preview-poster.jpg"
+               controlslist="nodownload" disablepictureinpicture
+               aria-label="Passive Income Webinar"></video>
+        <button class="pl-sound" id="w-sound" type="button" hidden>
+          <svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path class="i-solid" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+          Tap for sound
+        </button>
+      </div>
+
+      <div class="w-actions">
+        <button class="w-action" id="w-share" type="button" aria-controls="w-share-panel" aria-expanded="false">
+          <svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 3v12"/><path d="M7.5 7.5 12 3l4.5 4.5"/><path d="M8.5 10.5h-2A1.5 1.5 0 0 0 5 12v7.5A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V12a1.5 1.5 0 0 0-1.5-1.5h-2"/></svg>
+          <span class="w-action-text">
+            <span class="w-action-label">Save or share the link</span>
+            <span class="w-action-sub" id="w-share-sub">Send it to a friend</span>
+          </span>
+        </button>
+
+        <a class="w-action" id="w-dropbox" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4.2l1.8 2H19a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M3.5 11h17"/></svg>
+          <span class="w-action-text">
+            <span class="w-action-label">Vitalis Tower Dropbox</span>
+            <span class="w-action-sub" id="w-dropbox-sub">Learn more about the project</span>
+          </span>
+        </a>
+
+        <a class="w-action" id="w-contact" href="/media/vitalis-tower.vcf">
+          <svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><circle cx="9.5" cy="10.5" r="2.4"/><path d="M5.8 16.5c.6-1.7 2-2.7 3.7-2.7s3.1 1 3.7 2.7"/><path d="M15 10h3.5M15 13h3.5"/></svg>
+          <span class="w-action-text">
+            <span class="w-action-label">Save our number</span>
+            <span class="w-action-sub" id="w-contact-sub">(305) 395-3416 &middot; Vitalis Tower</span>
+          </span>
+        </a>
+
+        <!-- Shown only where the browser has no native share sheet -->
+        <div class="w-share-panel" id="w-share-panel" hidden>
+          <div class="w-share-row">
+            <button type="button" id="w-copy">Copy link</button>
+            <a id="w-email" href="#">Email</a>
+            <a id="w-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
+            <a id="w-sms" href="#">Text message</a>
+          </div>
+          <input class="w-share-url" id="w-share-url" type="text" readonly aria-label="Link to share">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Sponsors: two rows, opposite directions ============ -->
+    <section class="p-sponsors" aria-labelledby="w-sp-h" style="margin-top:72px">
+      <h2 class="p-kicker" id="w-sp-h">Sponsors</h2>
+      <div class="mq" data-mq>
+        <ul class="mq-track">
+          <li><img src="/images/sponsors/vitalis-tower.png" alt="Vitalis Tower" width="141" height="144"></li>
+          <li><img src="/images/sponsors/arcadia.png" alt="Arcadia Real Estate Developers" width="160" height="144"></li>
+          <li><img src="/images/sponsors/caymares-martin.png" alt="Caymares Martin Architecture &amp; Engineering Design" width="136" height="144"></li>
+          <li><img src="/images/sponsors/fortune-development-sales.png" alt="Fortune Development Sales" width="208" height="144"></li>
+          <li><img src="/images/sponsors/fortin-leavy-skiles.png" alt="Fortin Leavy Skiles" width="141" height="144"></li>
+          <li><img src="/images/sponsors/hkare-architecture.png" alt="HKare Architecture" width="189" height="144"></li>
+        </ul>
+      </div>
+      <div class="mq mq-right" data-mq>
+        <ul class="mq-track">
+          <li><img src="/images/sponsors/us-century-bank.png" alt="U.S. Century Bank" width="198" height="144"></li>
+          <li><img src="/images/sponsors/q-kapital.png" alt="Q Kapital Mortgage Lender" width="196" height="144"></li>
+          <li><img src="/images/sponsors/luseo-engineering.png" alt="LUSEO Engineering" width="236" height="144"></li>
+          <li><img src="/images/sponsors/bin.png" alt="Sponsor" width="105" height="144"></li>
+          <li><img src="/images/sponsors/twelve-creative.png" alt="Twelve Creative" width="253" height="144"></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="p-footer" style="border-top:0">
+    <p>&copy; <span id="year"></span> Vitalis Tower. Renderings and videos are illustrative; details subject to change. Not an offer to sell where prohibited by law.</p>
+  </footer>
+
+  <script src="/config/funnel.js"></script>
+  <script src="/js/attribution.js" defer></script>
+  <script src="/js/core.js" defer></script>
+  <script src="/webinar/pro/marquee.js?v=1" defer></script>
+  <script src="/webinar/pro/watch/app.js?v=1" defer></script>
+</body>
+</html>

@@ -1,22 +1,16 @@
-/* Vitalis Tower — /webinar/pro/ — on-demand gated webinar.
+/* Vitalis Tower — /webinar/pro/ — on-demand registration page.
 
-   There is no session date: registration unlocks the webinar right here.
-     locked     a silent preview loops behind a lock; after
-                ONDEMAND.POPUP_DELAY_SECONDS of playback the registration
-                pop-up opens (once per visit — a dismissal is respected)
-     unlocking  CRM acknowledged the registration → the lock springs open
-     unlocked   the full webinar plays with sound and controls
+   There is no session date. A silent preview loops behind a lock; after
+   ONDEMAND.POPUP_DELAY_SECONDS of playback the registration pop-up opens
+   (once per visit — a dismissal is respected). A CRM-acknowledged
+   registration springs the lock and takes the visitor to the watch page
+   (ONDEMAND.WATCH_PATH), where confetti greets them and the webinar plays.
 
-   Returning visitors (this browser) and email access links (?watch=1)
-   arrive unlocked. The gate is deliberately soft — the lead is captured
-   by the CRM intake; the video URL itself is public on a static host.
-
-   Honesty rules kept from the rest of the funnel:
-     · registration only "succeeds" after the CRM acknowledges it
-     · watch progress counts seconds actually played — seeking to the
-       end never registers as watched
-     · until ONDEMAND.VIDEO_URL is set, the unlocked player plays the
-       preview with sound (a stand-in, flagged in config) */
+   Visitors who already registered in this browser see "Continue to the
+   webinar" instead of the pop-up. Legacy /webinar/pro/?watch=1 email
+   links forward to the watch page. The gate is deliberately soft — the
+   lead is captured by the CRM intake; video URLs are public on a static
+   host. Registration only "succeeds" after the CRM acknowledges it. */
 (function () {
   'use strict';
   var C = window.VITALIS_CORE;
@@ -27,10 +21,11 @@
   var VARIANT = 'professional';
   var ACCESS_KEY = 'vitalis.webinar.ondemand';
   var DISMISS_KEY = 'vitalis.od.popupDismissed';
+  var WELCOME_KEY = 'vitalis.od.justRegistered';
+  var WATCH = OD.WATCH_PATH || '/webinar/pro/watch/';
 
-  var player = $('player'), video = $('pv'), fill = $('pl-fill');
-  var dialog = $('reg-dialog'), dlgVideo = $('dlg-video');
-  var state = { unlocked: false, registered: false, autoOpened: false, previewPlayed: 0, loops: 0, lastT: null, interest: '' };
+  var video = $('pv'), fill = $('pl-fill'), dialog = $('reg-dialog'), dlgVideo = $('dlg-video');
+  var state = { registered: false, autoOpened: false, previewPlayed: 0, loops: 0, lastT: null };
 
   function readAccess() {
     try { return JSON.parse(localStorage.getItem(ACCESS_KEY)); } catch (e) { return null; }
@@ -45,6 +40,7 @@
   function dismissedThisVisit() {
     try { return sessionStorage.getItem(DISMISS_KEY) === '1'; } catch (e) { return false; }
   }
+  function goWatch(extra) { location.href = WATCH + (extra || ''); }
 
   /* ==========================================================
      PREVIEW — silent loop behind the lock
@@ -54,36 +50,29 @@
     if (OD.PREVIEW_POSTER) video.poster = OD.PREVIEW_POSTER;
     video.muted = true;
     video.loop = true;
-    if (RM) return; // reduced motion: poster + lock only, no autoplay
+    if (RM) return; // reduced motion: poster + lock only
     var p = video.play();
-    if (p && p.catch) p.catch(function () { /* autoplay blocked — poster stays up */ });
-    track('preview_autoplay', { funnel_variant: VARIANT });
+    if (p && p.catch) p.catch(function () { /* autoplay blocked — poster stays */ });
   }
 
-  function onTimeUpdate() {
+  video.addEventListener('timeupdate', function () {
     var t = video.currentTime;
-    if (!state.unlocked) {
-      // Loop detection (currentTime jumps back to ~0 on each loop)
-      if (state.lastT != null && t < state.lastT - 1) {
-        state.loops++;
-        if (state.loops >= (OD.PREVIEW_MAX_LOOPS || 3)) { video.loop = false; }
-      }
-      if (state.lastT != null) {
-        var d = t - state.lastT;
-        if (d > 0 && d < 1.5) state.previewPlayed += d;
-      }
-      state.lastT = t;
-      // The filled segment tracks the preview; the striped rest reads "locked".
-      if (video.duration && fill) fill.style.width = (t / video.duration * 16).toFixed(2) + '%';
-      if (state.previewPlayed >= (OD.POPUP_DELAY_SECONDS || 6)) maybeAutoOpen();
-      return;
+    if (state.lastT != null && t < state.lastT - 1) {
+      state.loops++;
+      if (state.loops >= (OD.PREVIEW_MAX_LOOPS || 3)) video.loop = false;
     }
-    watchProgress();
-  }
-  video.addEventListener('timeupdate', onTimeUpdate);
+    if (state.lastT != null) {
+      var d = t - state.lastT;
+      if (d > 0 && d < 1.5) state.previewPlayed += d;
+    }
+    state.lastT = t;
+    // The filled segment tracks the preview; the striped rest reads "locked".
+    if (video.duration && fill) fill.style.width = (t / video.duration * 16).toFixed(2) + '%';
+    if (state.previewPlayed >= (OD.POPUP_DELAY_SECONDS || 6)) maybeAutoOpen();
+  });
 
   function maybeAutoOpen() {
-    if (state.unlocked || state.autoOpened || dismissedThisVisit()) return;
+    if (state.registered || state.autoOpened || dismissedThisVisit()) return;
     state.autoOpened = true;
     openDialog('auto');
   }
@@ -92,14 +81,10 @@
      REGISTRATION POP-UP
      ========================================================== */
   function openDialog(trigger) {
-    if (state.unlocked) { playFromCta(); return; }
+    if (state.registered) { goWatch(); return; }
     if (dialog.open) return;
-    if (typeof dialog.showModal === 'function') {
-      dialog.showModal();
-    } else {
-      dialog.setAttribute('open', '');
-      dialog.classList.add('dlg-fallback');
-    }
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else { dialog.setAttribute('open', ''); dialog.classList.add('dlg-fallback'); }
     if (dlgVideo && !RM) {
       if (!dlgVideo.getAttribute('src')) dlgVideo.src = OD.PREVIEW_URL || '/media/bernardo-preview.mp4';
       try { dlgVideo.currentTime = video.currentTime || 0; } catch (e) {}
@@ -113,17 +98,15 @@
     if (typeof dialog.close === 'function' && dialog.open) dialog.close();
     else { dialog.removeAttribute('open'); onDialogClosed(); }
   }
-
   function onDialogClosed() {
     if (dlgVideo) dlgVideo.pause();
-    if (!state.unlocked && !state.registered) {
+    if (!state.registered) {
       try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
       track('registration_popup_dismissed', { funnel_variant: VARIANT });
     }
   }
   dialog.addEventListener('close', onDialogClosed);
   $('dlg-close').addEventListener('click', closeDialog);
-  // A click on the backdrop (outside the panel) closes.
   dialog.addEventListener('click', function (e) {
     if (e.target !== dialog) return;
     var r = dialog.getBoundingClientRect();
@@ -135,94 +118,18 @@
     btn.addEventListener('click', function () { openDialog(btn.getAttribute('data-open-reg')); });
   });
 
-  /* ==========================================================
-     UNLOCK — the lock springs open, the webinar takes over
-     ========================================================== */
-  function fullVideoUrl() { return OD.VIDEO_URL || OD.PREVIEW_URL || '/media/bernardo-preview.mp4'; }
-
-  function unlock(source, autoplay, interest) {
-    if (state.unlocked) return;
-    state.unlocked = true;
-    state.interest = interest || '';
-    document.body.classList.add('is-unlocked');
+  /* Registered in this browser: every CTA leads to the watch page. */
+  function showRegistered() {
+    state.registered = true;
+    document.body.classList.add('is-registered');
     document.querySelectorAll('[data-cta-label]').forEach(function (el) { el.textContent = 'Watch now'; });
-    var next = $('pl-next-link');
-    if (next && state.interest) next.href = '/consultation/?interest=' + encodeURIComponent(state.interest);
-    track('webinar_unlocked', { unlock_source: source, funnel_variant: VARIANT });
-
-    player.setAttribute('data-state', 'unlocking');
-    setTimeout(function () {
-      player.setAttribute('data-state', 'unlocked');
-      $('pl-next').hidden = false;
-      video.loop = false;
-      video.controls = true;
-      var src = fullVideoUrl();
-      if (video.getAttribute('src') !== src) video.src = src;
-      try { video.currentTime = 0; } catch (e) {}
-      resetProgress();
-      if (!autoplay) { video.pause(); video.muted = false; return; }
-      playWithSound();
-    }, RM ? 0 : 650);
-  }
-
-  function playWithSound() {
-    video.muted = false;
-    var p = video.play();
-    if (p && p.catch) p.catch(function () {
-      // Sound blocked (no fresh user gesture): play muted, offer sound.
-      video.muted = true;
-      video.play().catch(function () {});
-      $('pl-sound').hidden = false;
-    });
-  }
-
-  $('pl-sound').addEventListener('click', function () {
-    video.muted = false;
-    video.play().catch(function () {});
-    $('pl-sound').hidden = true;
-    track('webinar_sound_on', { funnel_variant: VARIANT });
-  });
-
-  function playFromCta() {
-    player.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'center' });
-    $('pl-sound').hidden = true;
-    playWithSound();
+    var cta = document.querySelector('.pl-cta');
+    if (cta) cta.textContent = 'Continue to the webinar';
+    $('pl-lock').setAttribute('aria-label', 'Continue to the full webinar');
   }
 
   /* ==========================================================
-     WATCH PROGRESS — seconds actually played (seeks excluded)
-     ========================================================== */
-  var watch = { played: 0, lastT: null, fired: {}, started: false };
-  function resetProgress() { watch = { played: 0, lastT: null, fired: {}, started: false }; }
-  function watchProgress() {
-    var t = video.currentTime;
-    if (watch.lastT != null && !video.paused) {
-      var d = t - watch.lastT;
-      if (d > 0 && d < 2) watch.played += d;
-    }
-    watch.lastT = t;
-    if (!video.duration) return;
-    var pct = watch.played / video.duration;
-    [0.25, 0.5, 0.75, 0.95].forEach(function (m) {
-      if (pct >= m && !watch.fired[m]) {
-        watch.fired[m] = true;
-        track('ondemand_watch_progress', {
-          progress: m, funnel_variant: VARIANT,
-          full_webinar: !!OD.VIDEO_URL // false while the preview stands in
-        });
-      }
-    });
-  }
-  video.addEventListener('seeking', function () { if (state.unlocked) watch.lastT = null; });
-  video.addEventListener('play', function () {
-    if (state.unlocked && !watch.started) {
-      watch.started = true;
-      track('webinar_play', { funnel_variant: VARIANT, full_webinar: !!OD.VIDEO_URL });
-    }
-  });
-
-  /* ==========================================================
-     FORM — validate, submit to the CRM, unlock on acknowledgment
+     FORM — validate, submit to the CRM, go on acknowledgment
      ========================================================== */
   var form = $('reg-form');
   var submitBtn = $('reg-submit');
@@ -335,16 +242,15 @@
       if (res.type !== 'opaque' && !res.ok) throw new Error('HTTP ' + res.status);
       state.registered = true;
       storeAccess(interest, 'registration');
+      try { sessionStorage.setItem(WELCOME_KEY, '1'); } catch (e) {}
       track('webinar_registration_completed', {
         webinar_format: 'on-demand', buyer_interest: interest, funnel_variant: VARIANT
       });
       pixel('CompleteRegistration', { content_name: 'vitalis-webinar-ondemand' });
       submitBtn.classList.add('is-done');
       submitLabel.textContent = 'Unlocked';
-      setTimeout(function () {
-        closeDialog();
-        unlock('registration', true, interest);
-      }, RM ? 150 : 700);
+      // Let the lock spring open, then the watch page takes over.
+      setTimeout(function () { goWatch(); }, RM ? 150 : 750);
     }).catch(function () {
       if (timer) clearTimeout(timer);
       setBusy(false);
@@ -367,47 +273,25 @@
   });
 
   /* ==========================================================
-     SPONSOR ROWS — clone each set so the loop is seamless on
-     wide screens (4 copies; the animation shifts by exactly half)
-     ========================================================== */
-  function buildMarquees() {
-    if (RM) return; // static, wrapped rows
-    document.querySelectorAll('[data-mq] .mq-track').forEach(function (trackEl) {
-      var originals = Array.prototype.slice.call(trackEl.children);
-      for (var copy = 0; copy < 3; copy++) {
-        originals.forEach(function (li) {
-          var c = li.cloneNode(true);
-          c.setAttribute('aria-hidden', 'true');
-          var img = c.querySelector('img');
-          if (img) img.alt = '';
-          trackEl.appendChild(c);
-        });
-      }
-    });
-  }
-
-  /* ==========================================================
      BOOT
      ========================================================== */
-  buildMarquees();
   C.initCtaTracking();
   C.fillYear();
 
-  var access = readAccess();
   var qp = new URLSearchParams(location.search);
-  if (!access && qp.get('watch') === '1') {
-    storeAccess('', 'access-link');
-    access = readAccess();
+  if (qp.get('watch') === '1') {
+    // Legacy email link — forward to the watch page (which grants access).
+    location.replace(WATCH + '?watch=1');
+    return;
   }
-  if (access) {
-    video.src = fullVideoUrl();
-    if (OD.PREVIEW_POSTER) video.poster = OD.PREVIEW_POSTER;
-    unlock(access.source === 'access-link' ? 'access-link' : 'returning', false, access.interest);
+
+  startPreview();
+  if (readAccess()) {
+    showRegistered();
   } else {
-    startPreview();
     // If autoplay is blocked (or reduced motion), open on a timer instead.
     setTimeout(function () {
-      if (!state.unlocked && (video.paused || RM)) maybeAutoOpen();
+      if (!state.registered && (video.paused || RM)) maybeAutoOpen();
     }, ((OD.POPUP_DELAY_SECONDS || 6) + 2) * 1000);
   }
 

@@ -27,8 +27,8 @@ window.VITALIS = {
     SITE_ADDRESS: '21291 NE 28th Ave, Aventura, FL 33180',
     // [VITALIS-SETUP] monitored inbox for registrant corrections / help
     CONTACT_EMAIL: 'info@vitalistower.com',
-    // [VITALIS-SETUP] sales line (shown on help/error states)
-    CONTACT_PHONE: ''
+    // Sales line — also the "Save our number" contact card on the watch page
+    CONTACT_PHONE: '(305) 395-3416'
   },
 
   /* ---------- The webinar event ---------- */
@@ -105,12 +105,23 @@ window.VITALIS = {
     PREVIEW_URL: '/media/bernardo-preview.mp4',
     PREVIEW_POSTER: '/images/webinar/preview-poster.jpg',
     // [VITALIS-SETUP] the full webinar recording (mp4). Until it's set, the
-    // unlocked player plays the preview with sound as a stand-in.
+    // watch page plays the preview with sound as a stand-in.
     VIDEO_URL: '',
     // Seconds of preview playback before the registration pop-up opens.
     POPUP_DELAY_SECONDS: 6,
     // The preview stops after this many loops (no endless motion).
-    PREVIEW_MAX_LOOPS: 3
+    PREVIEW_MAX_LOOPS: 3,
+    // Where registrants land (confetti + the webinar playing).
+    WATCH_PATH: '/webinar/pro/watch/',
+    // [VITALIS-SETUP] the Vitalis Tower Dropbox link for "Learn more".
+    // Until set, the watch-page button shows as pending (never a dead link).
+    DROPBOX_URL: '',
+    // Contact card behind "Save our number".
+    CONTACT_CARD: '/media/vitalis-tower.vcf',
+    // What "Save or share" sends: the REGISTRATION page, so a friend
+    // registers too — tagged so referred leads are attributable.
+    SHARE_URL: 'https://vitalis.twelvecreative.io/webinar/pro/?utm_source=share&utm_medium=referral&utm_campaign=passive-income-webinar',
+    SHARE_TEXT: 'Passive Income Webinar — generating passive income through commercial real estate investing, hosted by developer Bernardo Rieber. Free to watch:'
   },
 
   /* ---------- Confirmation-page preview video (optional) ---------- */

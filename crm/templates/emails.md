@@ -149,7 +149,7 @@ link to the next webinar date. No invented pricing, returns, or urgency.
 
 ## On-demand variant (`/webinar/pro/`) — no session date
 
-Access link: `https://vitalis.twelvecreative.io/webinar/pro/?watch=1`
+Access link: `https://vitalis.twelvecreative.io/webinar/pro/watch/?watch=1`
 (unlocks the player on any device). Never merge session-date fields here.
 
 ## E-OD1 — Access *(immediate, transactional)*
@@ -161,7 +161,7 @@ Access link: `https://vitalis.twelvecreative.io/webinar/pro/?watch=1`
 > **Passive Income Webinar: Generating Passive Income Through Commercial
 > Real Estate Investing** — hosted by developer Bernardo Rieber.
 >
-> **[Watch the webinar](https://vitalis.twelvecreative.io/webinar/pro/?watch=1)**
+> **[Watch the webinar](https://vitalis.twelvecreative.io/webinar/pro/watch/?watch=1)**
 > This link works on any device, anytime.
 >
 > Want to talk specifics afterward?
@@ -173,4 +173,4 @@ Access link: `https://vitalis.twelvecreative.io/webinar/pro/?watch=1`
 **Subject:** Still saved for you
 > Your access to Bernardo Rieber's webinar on passive income through
 > commercial real estate is waiting —
-> **[pick up where you'd like](https://vitalis.twelvecreative.io/webinar/pro/?watch=1)**.
+> **[pick up where you'd like](https://vitalis.twelvecreative.io/webinar/pro/watch/?watch=1)**.

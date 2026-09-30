@@ -8,7 +8,7 @@ const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp',
   '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json',
-  '.woff2': 'font/woff2', '.mp4': 'video/mp4'
+  '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.vcf': 'text/vcard'
 };
 http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]);

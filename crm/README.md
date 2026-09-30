@@ -181,8 +181,19 @@ behind a lock; registering in the pop-up unlocks the webinar in place.
    `vitalis-ondemand-watched`, set `webinar_attendance=attended`,
    `attendance_basis=watch-50pct`, then the "Attended, no booking" branch of W4.
 
-**Access link:** emails link to `/webinar/pro/?watch=1`, which unlocks the
-player on any device (the gate is soft by design — the lead is already
-captured). Watch-progress events carry `full_webinar: false` while the
+**Flow:** registration → `/webinar/pro/watch/` (confetti, the webinar
+playing, then share / Dropbox / save-our-number actions). The watch page
+bounces anyone without a registration in that browser back to
+`/webinar/pro/`.
+
+**Access link:** emails link to `/webinar/pro/watch/?watch=1`, which
+unlocks the watch page on any device (the gate is soft by design — the
+lead is already captured). Old `/webinar/pro/?watch=1` links forward there.
+
+**Referrals:** the watch page's share button sends the *registration*
+page tagged `utm_source=share&utm_medium=referral` — map it to a
+"Referral" lead source so friends-of-registrants are attributable.
+Watch-page events: `share_open` / `share_channel` / `share_complete`,
+`dropbox_click`, `save_contact_click`. Watch-progress events carry `full_webinar: false` while the
 preview stands in for the unset `ONDEMAND.VIDEO_URL`; don't mark anyone
 "attended" from stand-in views.
