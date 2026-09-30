@@ -113,9 +113,9 @@ window.VITALIS = {
     PREVIEW_MAX_LOOPS: 3,
     // Where registrants land (confetti + the webinar playing).
     WATCH_PATH: '/webinar/pro/watch/',
-    // [VITALIS-SETUP] the Vitalis Tower Dropbox link for "Learn more".
-    // Until set, the watch-page button shows as pending (never a dead link).
-    DROPBOX_URL: '',
+    // Vitalis Tower Dropbox behind "Learn more" on the watch page.
+    // Empty = the button shows as pending (never a dead link).
+    DROPBOX_URL: 'https://www.dropbox.com/scl/fo/rznymtup6qvap7fa6484a/AHM5i5NPn0LzMCZy39_vZt0?rlkey=586pt1phk9bnpk9o22liv2mmh&st=llbk5m7f&e=2&dl=0',
     // Contact card behind "Save our number".
     CONTACT_CARD: '/media/vitalis-tower.vcf',
     // What "Save or share" sends: the REGISTRATION page, so a friend
