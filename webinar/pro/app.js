@@ -23,9 +23,10 @@
     state.session = s;
     var dayDate = C.fmtET(s, { weekday: 'long', month: 'long', day: 'numeric' });
     var time = C.fmtET(s, { hour: 'numeric', minute: '2-digit' });
-    C.setSessionText('hero', dayDate + ' at ' + time + ' ET');
-    C.setSessionText('reg-date', dayDate);
-    C.setSessionText('reg-time', time + ' Eastern Time · online · registration closes 15 minutes before start');
+    // "September 30" and "at 7:00 PM ET" each stay whole, so a narrow
+    // screen breaks the line before "at" — never "September / 30" or a lone "ET".
+    C.setSessionText('hero', dayDate.replace(/ (\d+)$/, ' $1') +
+      ' at ' + time.replace(/\s/g, ' ') + ' ET');
     C.setSessionText('reg-local', C.localEcho(s));
     var iso = $('webinar_session_iso');
     if (iso) iso.value = s.toISOString();
@@ -110,11 +111,11 @@
   function setBusy(on) {
     busy = on;
     submitBtn.disabled = on;
-    submitBtn.textContent = on ? 'Reserving Your Seat…' : 'Reserve My Seat';
+    submitBtn.textContent = on ? 'Reserving…' : 'Reserve my seat';
   }
   function selectedInterest() {
     var el = document.querySelector('input[name="buyer_interest"]:checked');
-    return el ? el.value : 'practice';
+    return el ? el.value : 'investment';
   }
 
   function onSubmit(e) {
@@ -208,7 +209,7 @@
     }).catch(function () {
       if (timer) clearTimeout(timer);
       setBusy(false);
-      showFormError('We couldn’t complete your registration. Please check your connection and tap “Reserve My Seat” again — your information is still filled in.');
+      showFormError('We couldn’t complete your registration. Check your connection and tap “Reserve my seat” again — your details are still filled in.');
       track('webinar_registration_failed', { funnel_variant: 'professional' });
     });
   }
