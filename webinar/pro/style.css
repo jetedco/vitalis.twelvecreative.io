@@ -32,13 +32,9 @@ html:has(dialog[open]) { overflow: hidden; }
   .fade-in, .fade-in-late { opacity: 1; animation: none; }
 }
 
-/* ---------- Header ---------- */
-.p-header { display: flex; justify-content: center; padding: 36px 24px 0; }
-.p-logo { width: 76px; height: auto; }
-
 /* ---------- Hero ---------- */
 .p-hero {
-  max-width: 1040px; margin: 0 auto; padding: 40px 24px 80px;
+  max-width: 1040px; margin: 0 auto; padding: 72px 24px 80px;
   display: grid; column-gap: 72px;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-rows: 1fr auto auto 1fr;
@@ -48,12 +44,25 @@ html:has(dialog[open]) { overflow: hidden; }
 .p-hero-cta { grid-area: cta; margin-top: 34px; }
 .p-stage { grid-area: stage; }
 
-.p-hero h1 {
-  font-size: clamp(38px, 5.4vw, 60px); font-weight: 300; line-height: 1.08;
-  margin: 0 0 18px; text-wrap: balance;
+/* Title: an italic serif line over a light sans line — one gold accent. */
+.p-title { margin: 0; }
+.p-title .t-serif {
+  display: block; font-family: var(--font-script); font-style: italic; font-weight: 500;
+  font-size: clamp(54px, 7.6vw, 86px); line-height: .96; letter-spacing: -0.01em;
 }
-.p-subhead { font-size: 20px; font-weight: 500; line-height: 1.45; margin: 0 0 20px; text-wrap: balance; }
-.p-hosted { font-size: 14.5px; color: var(--muted); margin: 0; }
+.p-title .t-sans {
+  display: block; margin-top: 8px;
+  font-family: var(--font-brand); font-weight: 300;
+  font-size: clamp(34px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -0.025em;
+}
+.p-title .t-colon { color: var(--focus); }
+.p-rule { display: block; width: 44px; height: 1px; background: var(--focus); margin: 30px 0 22px; }
+.p-subhead {
+  max-width: 430px; margin: 0 0 18px;
+  font-size: 19px; font-weight: 400; line-height: 1.5; letter-spacing: .005em;
+  color: #2B2E33; text-wrap: balance;
+}
+.p-hosted { font-size: 14.5px; color: var(--muted); margin: 0; text-wrap: balance; }
 .p-hosted strong { color: var(--ink); font-weight: 600; }
 .p-cta-note { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
 
@@ -61,9 +70,10 @@ html:has(dialog[open]) { overflow: hidden; }
   .p-hero {
     grid-template-columns: 1fr; grid-template-rows: none;
     grid-template-areas: "copy" "cta" "stage";
-    text-align: center; justify-items: center; padding-top: 34px;
+    text-align: center; justify-items: center; padding-top: 56px;
   }
   .p-hero-cta { margin: 28px 0 40px; }
+  .p-rule, .p-subhead { margin-left: auto; margin-right: auto; }
 }
 
 /* ---------- Buttons ---------- */
