@@ -228,7 +228,7 @@
     db.removeAttribute('target');
     db.setAttribute('role', 'link');
     db.setAttribute('aria-disabled', 'true');
-    $('w-dropbox-sub').innerHTML = '<span class="w-pending">Link pending</span>';
+    $('w-dropbox-go').textContent = 'Link pending';
   }
 
   /* ==========================================================
