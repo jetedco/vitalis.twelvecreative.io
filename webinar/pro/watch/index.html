@@ -20,7 +20,7 @@
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <link rel="preload" href="/images/webinar/preview-poster.jpg" as="image">
   <link rel="stylesheet" href="/css/brand.css">
-  <link rel="stylesheet" href="/webinar/pro/style.css?v=6">
+  <link rel="stylesheet" href="/webinar/pro/style.css?v=7">
 </head>
 <body class="pro">
 
@@ -36,6 +36,11 @@
 
     <!-- ============ The webinar + three actions ============ -->
     <section class="w-stage fade-in-late" aria-label="The webinar">
+      <div class="w-lang" id="w-lang" role="group" aria-label="Webinar language">
+        <span class="w-lang-thumb" aria-hidden="true"></span>
+        <button type="button" class="w-lang-btn" data-lang="en" aria-pressed="true" lang="en">English</button>
+        <button type="button" class="w-lang-btn" data-lang="es" aria-pressed="false" lang="es">Español</button>
+      </div>
       <div class="w-player">
         <video id="wv" playsinline controls preload="auto"
                poster="/images/webinar/preview-poster.jpg"
@@ -118,10 +123,10 @@
     <p>&copy; <span id="year"></span> Vitalis Tower. Renderings and videos are illustrative; details subject to change. Not an offer to sell where prohibited by law.</p>
   </footer>
 
-  <script src="/config/funnel.js?v=2"></script>
+  <script src="/config/funnel.js?v=3"></script>
   <script src="/js/attribution.js" defer></script>
   <script src="/js/core.js" defer></script>
   <script src="/webinar/pro/marquee.js?v=1" defer></script>
-  <script src="/webinar/pro/watch/app.js?v=2" defer></script>
+  <script src="/webinar/pro/watch/app.js?v=3" defer></script>
 </body>
 </html>

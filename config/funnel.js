@@ -104,9 +104,15 @@ window.VITALIS = {
     // Silent looping preview shown behind the lock.
     PREVIEW_URL: '/media/bernardo-preview.mp4',
     PREVIEW_POSTER: '/images/webinar/preview-poster.jpg',
-    // [VITALIS-SETUP] the full webinar recording (mp4). Until it's set, the
-    // watch page plays the preview with sound as a stand-in.
-    VIDEO_URL: '',
+    // The full webinar, one file per language. The watch page shows an
+    // English / Español switch above the player. Start language: ?lang=es|en,
+    // else the viewer's saved choice, else their device language, else DEFAULT_LANG.
+    // (For launch-scale traffic, move these to a video CDN and swap the URLs.)
+    VIDEOS: {
+      en: '/media/webinar-en.mp4',
+      es: '/media/webinar-es.mp4'
+    },
+    DEFAULT_LANG: 'en',
     // Seconds of preview playback before the registration pop-up opens.
     POPUP_DELAY_SECONDS: 6,
     // The preview stops after this many loops (no endless motion).

@@ -7,10 +7,13 @@
 
    · Access: the <head> script already bounced anyone without a
      registration in this browser or a ?watch=1 email link.
+   · Language: an English / Español switch sits above the player
+     (ONDEMAND.VIDEOS). Switching keeps the viewer's place in the talk
+     (proportionally — the two cuts differ in length) and is remembered.
    · Sound: browsers only allow sound after a tap on THIS page, so the
      video starts muted when needed and offers "Tap for sound".
-   · Watch progress counts seconds actually played (seeks excluded) and
-     is flagged full_webinar:false while the preview stands in.
+   · Watch progress counts seconds actually played (seeks excluded),
+     per language version.
    · Share sends the REGISTRATION page (tagged utm_source=share), so a
      friend registers too — never the watch page. */
 (function () {
@@ -44,10 +47,70 @@
   /* ==========================================================
      THE WEBINAR — plays on arrival
      ========================================================== */
-  var video = $('wv'), soundBtn = $('w-sound');
-  var FULL = !!OD.VIDEO_URL;
-  video.src = OD.VIDEO_URL || OD.PREVIEW_URL || '/media/bernardo-preview.mp4';
+  var video = $('wv'), soundBtn = $('w-sound'), langBox = $('w-lang');
+  var VIDEOS = OD.VIDEOS || {};
+  var LANGS = Object.keys(VIDEOS).filter(function (k) { return VIDEOS[k]; });
+  var FULL = LANGS.length > 0;
+  var LANG_KEY = 'vitalis.webinar.lang';
+
+  // ?lang= link → the viewer's saved choice → device language → default
+  function pickLang() {
+    var q = (new URLSearchParams(location.search).get('lang') || '').toLowerCase();
+    if (VIDEOS[q]) return q;
+    try {
+      var saved = localStorage.getItem(LANG_KEY);
+      if (saved && VIDEOS[saved]) return saved;
+    } catch (e) {}
+    if ((navigator.language || '').toLowerCase().indexOf('es') === 0 && VIDEOS.es) return 'es';
+    return VIDEOS[OD.DEFAULT_LANG] ? OD.DEFAULT_LANG : (LANGS[0] || '');
+  }
+  var lang = pickLang();
+
+  function srcFor(l) { return VIDEOS[l] || OD.PREVIEW_URL || '/media/bernardo-preview.mp4'; }
+  function paintSwitch() {
+    if (!langBox) return;
+    langBox.setAttribute('data-active', lang);
+    langBox.querySelectorAll('.w-lang-btn').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+    });
+    video.setAttribute('lang', lang || 'en');
+    video.setAttribute('aria-label', 'Passive Income Webinar (' + (lang === 'es' ? 'Español' : 'English') + ')');
+  }
+
+  if (langBox && LANGS.length < 2) langBox.hidden = true; // the switch needs both versions
+  video.src = srcFor(lang);
   if (OD.PREVIEW_POSTER) video.poster = OD.PREVIEW_POSTER;
+  paintSwitch();
+
+  function setLang(next) {
+    if (next === lang || !VIDEOS[next]) return;
+    var ratio = video.duration ? video.currentTime / video.duration : 0;
+    var from = lang;
+    lang = next;
+    paintSwitch();
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+    resetWatch();
+    video.src = srcFor(lang);
+    video.addEventListener('loadedmetadata', function resume() {
+      video.removeEventListener('loadedmetadata', resume);
+      // Same moment in the talk. The two cuts differ in length, so the
+      // position carries over proportionally rather than by timestamp.
+      if (ratio > 0.01 && ratio < 0.98) {
+        try { video.currentTime = ratio * video.duration; } catch (e) {}
+      }
+    });
+    // The tap on the switch is a user gesture: continue with sound.
+    video.muted = false;
+    soundBtn.hidden = true;
+    var p = video.play();
+    if (p && p.catch) p.catch(function () {});
+    track('webinar_language_switch', {
+      from: from, to: lang, at_ratio: Math.round(ratio * 100) / 100, funnel_variant: VARIANT
+    });
+  }
+  if (langBox) langBox.querySelectorAll('.w-lang-btn').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+  });
 
   function startPlayback() {
     video.muted = false;
@@ -67,11 +130,14 @@
   });
   video.addEventListener('volumechange', function () { if (!video.muted) soundBtn.hidden = true; });
 
-  var watch = { played: 0, lastT: null, fired: {}, started: false };
+  // Progress is per language version: a switch starts a fresh count.
+  var watch;
+  function resetWatch() { watch = { played: 0, lastT: null, fired: {}, started: false }; }
+  resetWatch();
   video.addEventListener('play', function () {
     if (watch.started) return;
     watch.started = true;
-    track('webinar_play', { funnel_variant: VARIANT, full_webinar: FULL });
+    track('webinar_play', { funnel_variant: VARIANT, full_webinar: FULL, language: lang });
   });
   video.addEventListener('seeking', function () { watch.lastT = null; });
   video.addEventListener('timeupdate', function () {
@@ -86,7 +152,7 @@
     [0.25, 0.5, 0.75, 0.95].forEach(function (m) {
       if (pct >= m && !watch.fired[m]) {
         watch.fired[m] = true;
-        track('ondemand_watch_progress', { progress: m, funnel_variant: VARIANT, full_webinar: FULL });
+        track('ondemand_watch_progress', { progress: m, funnel_variant: VARIANT, full_webinar: FULL, language: lang });
       }
     });
   });

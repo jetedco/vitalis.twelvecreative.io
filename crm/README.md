@@ -194,6 +194,7 @@ lead is already captured). Old `/webinar/pro/?watch=1` links forward there.
 page tagged `utm_source=share&utm_medium=referral` — map it to a
 "Referral" lead source so friends-of-registrants are attributable.
 Watch-page events: `share_open` / `share_channel` / `share_complete`,
-`dropbox_click`, `save_contact_click`. Watch-progress events carry `full_webinar: false` while the
-preview stands in for the unset `ONDEMAND.VIDEO_URL`; don't mark anyone
-"attended" from stand-in views.
+`dropbox_click`, `save_contact_click`. The watch page plays the full webinar in English or Spanish
+(viewer's switch); `webinar_play`, `ondemand_watch_progress`, and
+`webinar_language_switch` carry a `language` field (`en` / `es`) — use it
+to route Spanish-speaking viewers to Spanish follow-up.
