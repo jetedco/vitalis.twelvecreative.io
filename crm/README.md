@@ -198,3 +198,25 @@ Watch-page events: `share_open` / `share_channel` / `share_complete`,
 (viewer's switch); `webinar_play`, `ondemand_watch_progress`, and
 `webinar_language_switch` carry a `language` field (`en` / `es`) — use it
 to route Spanish-speaking viewers to Spanish follow-up.
+
+## 10. Open page (`/passive-income/`) — contact requests
+The same webinar with **no registration wall**, for sharing freely. Its
+optional "Have our team reach out" form posts to the same intake webhook
+as a **sales contact request** — treat it as a hot lead, not a webinar
+registration:
+
+| Field | Values |
+|---|---|
+| `request_type` | `contact-request` |
+| `preferred_contact` | `call` / `text` / `whatsapp` / `email` |
+| `webinar_language` | `en` / `es` — the version they were watching |
+| `buyer_interest`, `sms_consent` | as registration (text/WhatsApp requests always arrive with `sms_consent=yes` — the form requires it) |
+| `funnel_variant` | `open` |
+
+**W-CR — Contact request** (branch W1 on `request_type = contact-request`):
+tag `vitalis-contact-request` + `interest-…`; create the opportunity at
+"Contact requested"; notify the assigned owner immediately with the
+preferred channel and language; reach out via that channel (Spanish
+speakers in Spanish); skip webinar reminders. Browser events:
+`contact_request_started` / `_completed` (Meta `Lead`) / `_failed`, and
+`call_click` on the call-now link.

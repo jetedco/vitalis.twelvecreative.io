@@ -127,7 +127,10 @@ window.VITALIS = {
     // What "Save or share" sends: the REGISTRATION page, so a friend
     // registers too — tagged so referred leads are attributable.
     SHARE_URL: 'https://vitalis.twelvecreative.io/webinar/pro/?utm_source=share&utm_medium=referral&utm_campaign=passive-income-webinar',
-    SHARE_TEXT: 'Passive Income Webinar — generating passive income through commercial real estate investing, hosted by developer Bernardo Rieber. Free to watch:'
+    SHARE_TEXT: 'Passive Income Webinar — generating passive income through commercial real estate investing, hosted by developer Bernardo Rieber. Free to watch:',
+    // The open page (/passive-income/) has no registration wall, so its
+    // share button sends the open page itself.
+    OPEN_SHARE_URL: 'https://vitalis.twelvecreative.io/passive-income/?utm_source=share&utm_medium=referral&utm_campaign=passive-income-webinar'
   },
 
   /* ---------- Confirmation-page preview video (optional) ---------- */
