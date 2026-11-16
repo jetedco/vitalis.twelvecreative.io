@@ -156,9 +156,9 @@ window.VITALIS = {
 
   /* ---------- GoHighLevel (Vitalis sub-account ONLY) ---------- */
   GHL: {
-    // [VITALIS-SETUP] inbound-webhook URL of the Vitalis
+    // Inbound-webhook URL of the Vitalis Tower location's
     // "Webinar — Registration Intake" workflow (see /crm/README.md).
-    WEBHOOK_URL: '',
+    WEBHOOK_URL: 'https://services.leadconnectorhq.com/hooks/qYiD8Xr9CljUcCO1J7PF/webhook-trigger/e4fc6009-903e-4295-b8cc-f3e4850cdcdc',
     // [VITALIS-SETUP] fallback: native form endpoint IDs (Vitalis location!)
     ENDPOINT: 'https://backend.leadconnectorhq.com/forms/submit',
     FORM_ID: '',
