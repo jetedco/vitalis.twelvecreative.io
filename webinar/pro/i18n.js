@@ -1,7 +1,8 @@
-/* Vitalis Tower — /webinar/pro/watch/ — page language from the link.
+/* Vitalis Tower — /webinar/pro/ and /webinar/pro/watch/ — page language from the link.
 
-   ?lang=es shows the whole page in Spanish and plays the Spanish webinar;
-   ?lang=en (or no parameter) shows English. The choice is remembered in
+   Ads link to the registration page with ?lang=es or ?lang=en; the page
+   shows that language, carries ?lang= on to the watch page (which also
+   plays the matching webinar), and with no parameter shows English. The choice is remembered in
    this browser, so a later visit without ?lang= (e.g. the ?watch=1 email
    link) keeps the same language. English lives in the HTML; this file only
    swaps in Spanish:
@@ -15,8 +16,8 @@
   var LANG_KEY = 'vitalis.webinar.lang'; // shared with watch-kit.js (video choice)
 
   var ES = {
-    title: 'Ver el webinar — Ingresos Pasivos | Vitalis Tower',
-    description: 'Webinar de Ingresos Pasivos: cómo generar ingresos pasivos invirtiendo en bienes raíces comerciales, presentado por el desarrollador Bernardo Rieber.',
+    title_watch: 'Ver el webinar — Ingresos Pasivos | Vitalis Tower',
+    desc_watch: 'Webinar de Ingresos Pasivos: cómo generar ingresos pasivos invirtiendo en bienes raíces comerciales, presentado por el desarrollador Bernardo Rieber.',
 
     kicker: 'Webinar de Ingresos Pasivos',
     hero_title: 'Ya tiene acceso<span class="t-colon">.</span>',
@@ -122,6 +123,56 @@
     cta_btn: 'Obtener planos y precios',
     cta_note: 'Toma unos 30 segundos',
 
+    /* ---- Registration page (/webinar/pro/) ---- */
+    title_pro: 'Webinar de Ingresos Pasivos — Inversión en Bienes Raíces Comerciales | Vitalis Tower',
+    desc_pro: 'Cómo generar ingresos pasivos invirtiendo en bienes raíces comerciales: un webinar gratuito y bajo demanda presentado por el desarrollador Bernardo Rieber. Regístrese y véalo al instante.',
+    p_t1: 'Ingresos Pasivos',
+    p_subhead: 'Cómo generar ingresos pasivos invirtiendo en bienes raíces comerciales',
+    p_cta: 'Ver el webinar',
+    p_cta_registered: 'Ver ahora',
+    p_free: 'Gratis · Acceso inmediato',
+    p_video_label: 'Vista previa del webinar',
+    p_lock_label: 'Regístrese gratis para ver el webinar completo',
+    p_lock_label_registered: 'Continuar al webinar completo',
+    p_badge: '<i aria-hidden="true"></i>Vista previa · Sin sonido',
+    p_lock_cta: 'Regístrese gratis para verlo',
+    p_lock_cta_registered: 'Continuar al webinar',
+    p_disc: 'Lo que veremos',
+    p_disc1: 'Cómo una propiedad comercial genera ingresos pasivos',
+    p_disc2: 'Inquilinos, arrendamientos y contratos triple neto (NNN)',
+    p_disc3: 'Ser dueño de su oficina frente a alquilarla',
+    p_disc4: 'El lugar de Vitalis Tower en Aventura',
+    p_host_alt: 'Bernardo Rieber en el Sales Center de Vitalis Tower',
+    p_host_kicker: 'Su presentador',
+    p_role: 'Desarrollador inmobiliario',
+    p_cred1: 'Ha construido y ahora desarrolla su tercer edificio, Vitalis Tower, en el Distrito Médico de Aventura',
+    p_cred2: 'Desarrollos en el sur de Florida y Orlando',
+    p_cred3: 'Reconocido recientemente por la Ciudad de Aventura por sus contribuciones al desarrollo',
+    p_chip: 'Webinar completo',
+    p_cap: '<strong>Bernardo Rieber</strong>Desarrollador inmobiliario',
+    p_close: 'Cerrar',
+    p_dlg_title: 'Desbloquee el webinar completo',
+    p_dlg_sub: 'Regístrese una vez y empiece a verlo de inmediato.',
+    p_first: 'Nombre',
+    p_last: 'Apellido',
+    p_email: 'Correo electrónico',
+    p_phone: 'Teléfono móvil',
+    p_err_first: 'Por favor, ingrese su nombre.',
+    p_err_last: 'Por favor, ingrese su apellido.',
+    p_err_email: 'Por favor, ingrese un correo electrónico válido.',
+    p_err_phone: 'Por favor, ingrese un número de teléfono válido.',
+    p_interest: 'Me interesa',
+    p_int1: 'Invertir',
+    p_int2: 'Mi propia oficina',
+    p_int3: 'Ambos',
+    p_consent: 'Envíenme el enlace por mensaje de texto. Pueden aplicarse tarifas de mensajes y datos; responda STOP para cancelar.',
+    p_submit: 'Desbloquear el webinar',
+    p_submit_busy: 'Desbloqueando…',
+    p_submit_done: 'Desbloqueado',
+    p_fine: 'También le enviaremos un enlace por correo para que pueda verlo cuando quiera.',
+    p_err_unconfigured: 'El registro aún no está conectado. Inténtelo más tarde o contáctenos a través de vitalistower.com.',
+    p_err_failed: 'No pudimos completar su registro. Revise su conexión e inténtelo de nuevo; sus datos siguen completados.',
+
     footer: '&copy; <span id="year"></span> Vitalis Tower. Las imágenes y los videos son ilustrativos; los detalles están sujetos a cambios. Esto no constituye una oferta de venta donde la ley lo prohíba.'
   };
 
@@ -144,9 +195,6 @@
   document.documentElement.lang = lang;
   if (!DICT) return;
 
-  document.title = DICT.title;
-  var md = document.querySelector('meta[name="description"]');
-  if (md) md.setAttribute('content', DICT.description);
   document.querySelectorAll('[data-i18n]').forEach(function (el) {
     var v = DICT[el.getAttribute('data-i18n')];
     if (v != null) el.textContent = v;

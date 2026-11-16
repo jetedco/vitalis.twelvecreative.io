@@ -23,6 +23,9 @@
   var DISMISS_KEY = 'vitalis.od.popupDismissed';
   var WELCOME_KEY = 'vitalis.od.justRegistered';
   var WATCH = OD.WATCH_PATH || '/webinar/pro/watch/';
+  // Page language (?lang=, see /webinar/pro/i18n.js) and its strings.
+  var I18N = window.VITALIS_I18N || { lang: 'en', t: function (k, f) { return f; } };
+  var tr = I18N.t;
 
   var video = $('pv'), fill = $('pl-fill'), dialog = $('reg-dialog'), dlgVideo = $('dlg-video');
   var state = { registered: false, autoOpened: false, previewPlayed: 0, loops: 0, lastT: null };
@@ -43,7 +46,7 @@
   // Carries a ?lang= choice (e.g. from a Spanish ad) through to the watch page.
   function watchUrl(extra) {
     var q = extra || '';
-    var lang = new URLSearchParams(location.search).get('lang');
+    var lang = new URLSearchParams(location.search).get('lang') || (I18N.lang !== 'en' ? I18N.lang : '');
     if (lang) q += (q ? '&' : '?') + 'lang=' + encodeURIComponent(lang);
     return WATCH + q;
   }
@@ -129,10 +132,10 @@
   function showRegistered() {
     state.registered = true;
     document.body.classList.add('is-registered');
-    document.querySelectorAll('[data-cta-label]').forEach(function (el) { el.textContent = 'Watch now'; });
+    document.querySelectorAll('[data-cta-label]').forEach(function (el) { el.textContent = tr('p_cta_registered', 'Watch now'); });
     var cta = document.querySelector('.pl-cta');
-    if (cta) cta.textContent = 'Continue to the webinar';
-    $('pl-lock').setAttribute('aria-label', 'Continue to the full webinar');
+    if (cta) cta.textContent = tr('p_lock_cta_registered', 'Continue to the webinar');
+    $('pl-lock').setAttribute('aria-label', tr('p_lock_label_registered', 'Continue to the full webinar'));
   }
 
   /* ==========================================================
@@ -172,7 +175,7 @@
   function setBusy(on) {
     busy = on;
     submitBtn.disabled = on;
-    submitLabel.textContent = on ? 'Unlocking…' : 'Unlock the webinar';
+    submitLabel.textContent = on ? tr('p_submit_busy', 'Unlocking…') : tr('p_submit', 'Unlock the webinar');
   }
   function selectedInterest() {
     var el = document.querySelector('input[name="buyer_interest"]:checked');
@@ -189,7 +192,7 @@
 
     var G = CFG.GHL || {};
     if (!G.WEBHOOK_URL && (!G.FORM_ID || !G.LOCATION_ID)) {
-      showFormError('Registration isn’t connected yet. Please try again later, or reach us via vitalistower.com.');
+      showFormError(tr('p_err_unconfigured', 'Registration isn’t connected yet. Please try again later, or reach us via vitalistower.com.'));
       track('webinar_registration_unconfigured', { funnel_variant: VARIANT, webinar_format: 'on-demand' });
       return;
     }
@@ -203,7 +206,8 @@
       email: $('email').value.trim(),
       phone: $('phone').value.trim(),
       funnel_variant: VARIANT,
-      webinar_format: 'on-demand'
+      webinar_format: 'on-demand',
+      webinar_language: I18N.lang
     };
     payload[G.INTEREST_FIELD_KEY || 'buyer_interest'] = interest;
     payload[G.SMS_CONSENT_FIELD_KEY || 'sms_consent'] = smsConsent;
@@ -221,7 +225,8 @@
         '&last_name=' + encodeURIComponent(payload.last_name) +
         '&buyer_interest=' + encodeURIComponent(interest) +
         '&sms_consent=' + encodeURIComponent(smsConsent) +
-        '&funnel_variant=' + VARIANT + '&webinar_format=on-demand';
+        '&funnel_variant=' + VARIANT + '&webinar_format=on-demand' +
+        '&webinar_language=' + encodeURIComponent(I18N.lang);
       req = fetch(G.WEBHOOK_URL + qs, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -255,13 +260,13 @@
       });
       pixel('CompleteRegistration', { content_name: 'vitalis-webinar-ondemand' });
       submitBtn.classList.add('is-done');
-      submitLabel.textContent = 'Unlocked';
+      submitLabel.textContent = tr('p_submit_done', 'Unlocked');
       // Let the lock spring open, then the watch page takes over.
       setTimeout(function () { goWatch(); }, RM ? 150 : 750);
     }).catch(function () {
       if (timer) clearTimeout(timer);
       setBusy(false);
-      showFormError('We couldn’t complete your registration. Check your connection and try again — your details are still filled in.');
+      showFormError(tr('p_err_failed', 'We couldn’t complete your registration. Check your connection and try again — your details are still filled in.'));
       track('webinar_registration_failed', { funnel_variant: VARIANT, webinar_format: 'on-demand' });
     });
   }
