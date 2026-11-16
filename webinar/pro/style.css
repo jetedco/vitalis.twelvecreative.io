@@ -660,8 +660,23 @@ body.is-registered .pl-ring .shackle,
 
 /* Details (cream): amenities | building design + team */
 .w-proj-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; }
-.w-band-cream .w-proj-h3 { color: var(--muted-on-cream); margin-bottom: 6px; }
-.w-proj-team-h { margin-top: 40px; }
+/* Cream-band headings: bold navy with a short gold rule, as in the brochure's Details page */
+.pro .w-band-cream .w-proj-h3 {
+  position: relative; margin: 0 0 10px; padding-bottom: 14px;
+  font-size: 20px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em;
+  text-transform: none; color: var(--v-navy, #172030);
+}
+.pro .w-band-cream .w-proj-h3::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 32px; height: 2px; background: var(--focus);
+}
+/* Item marker: a short gold dash, echoing the gold rules used across the page */
+.pro .w-proj-list li, .pro .w-proj-team div { position: relative; padding-left: 28px; }
+.pro .w-proj-list li::before, .pro .w-proj-team div::before {
+  content: ""; position: absolute; left: 0; top: 22px;
+  width: 14px; height: 2px; background: var(--focus);
+}
+.pro .w-band-cream .w-proj-team-h { margin-top: 44px; }
 .w-proj-list { list-style: none; margin: 0; padding: 0; }
 .w-proj-list li { padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; line-height: 1.5; }
 .w-band-cream .w-proj-list li, .w-band-cream .w-proj-team div { border-color: var(--hair-on-cream); }
