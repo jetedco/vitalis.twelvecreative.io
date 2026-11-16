@@ -22,6 +22,10 @@
               'campaign_id', 'adset_id', 'ad_id', 'fbclid'];
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  function tr(key, fallback) {
+    var I = window.VITALIS_I18N;
+    return I && I.t ? I.t(key, fallback) : fallback;
+  }
   function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function track(name, data) {
@@ -49,7 +53,7 @@
   }
   function paint() {
     if (fill) fill.style.width = Math.min(100, (watched / NEED) * 100).toFixed(2) + '%';
-    if (count) count.textContent = clock(NEED - watched) + ' left';
+    if (count) count.textContent = tr('lock_left', '{t} left').replace('{t}', clock(NEED - watched));
   }
 
   function whenTypeform(cb) {
@@ -76,8 +80,8 @@
         medium: 'snippet',
         inlineOnMobile: true,
         transitiveSearchParams: PASS,
-        hidden: { lang: (video && video.getAttribute('lang')) || 'en' },
-        iframeProps: { title: 'Vitalis Tower – Floor plans & pricing' }
+        hidden: { lang: (video && video.getAttribute('lang')) || (window.VITALIS_I18N && window.VITALIS_I18N.lang) || 'en' },
+        iframeProps: { title: tr('tf_title', 'Vitalis Tower – Floor plans & pricing') }
       });
     });
   }
@@ -89,9 +93,9 @@
     save(KEY_UNLOCKED, '1');
     save(KEY_SECONDS, String(Math.round(watched)));
     paint();
-    if (count) count.textContent = 'Unlocked';
+    if (count) count.textContent = tr('lock_unlocked', 'Unlocked');
     if (lock) lock.classList.add('is-open');
-    if (status) status.textContent = 'The questionnaire is unlocked.';
+    if (status) status.textContent = tr('lock_status', 'The questionnaire is unlocked.');
     track('webinar_form_unlocked', { seconds_watched: Math.round(watched) });
     setTimeout(mount, RM ? 0 : 900);
   }

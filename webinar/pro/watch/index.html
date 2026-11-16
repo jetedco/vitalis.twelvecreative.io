@@ -29,29 +29,14 @@
 
     <!-- ============ Welcome ============ -->
     <section class="w-hero fade-in">
-      <p class="p-kicker">Passive Income Webinar</p>
-      <h1 class="p-title"><span class="t-serif">You&rsquo;re in<span class="t-colon">.</span></span></h1>
+      <p class="p-kicker" data-i18n="kicker">Passive Income Webinar</p>
+      <h1 class="p-title"><span class="t-serif" data-i18n-html="hero_title">You&rsquo;re in<span class="t-colon">.</span></span></h1>
       <span class="p-rule" aria-hidden="true"></span>
-      <p class="p-hosted">Hosted by <strong>Bernardo&nbsp;Rieber</strong>, Real&nbsp;Estate&nbsp;Developer</p>
+      <p class="p-hosted" data-i18n-html="hosted">Hosted by <strong>Bernardo&nbsp;Rieber</strong>, Real&nbsp;Estate&nbsp;Developer</p>
     </section>
 
     <!-- ============ The webinar + three actions ============ -->
-    <section class="w-stage fade-in-late" id="webinar" aria-label="The webinar">
-      <div class="w-lang" id="w-lang" role="group" aria-label="Webinar language">
-        <span class="w-lang-thumb" aria-hidden="true"></span>
-        <button type="button" class="w-lang-btn" data-lang="en" aria-pressed="true" lang="en">
-          <span class="w-flag" aria-hidden="true">
-            <svg viewBox="0 0 30 30"><rect width="30" height="30" fill="#fff"/><g fill="#B22234"><rect width="30" height="2.31"/><rect y="4.62" width="30" height="2.31"/><rect y="9.23" width="30" height="2.31"/><rect y="13.85" width="30" height="2.31"/><rect y="18.46" width="30" height="2.31"/><rect y="23.08" width="30" height="2.31"/><rect y="27.69" width="30" height="2.31"/></g><rect width="14.5" height="16.15" fill="#3C3B6E"/><g fill="#fff"><circle cx="3" cy="3" r=".85"/><circle cx="7.2" cy="3" r=".85"/><circle cx="11.4" cy="3" r=".85"/><circle cx="5.1" cy="6" r=".85"/><circle cx="9.3" cy="6" r=".85"/><circle cx="3" cy="9" r=".85"/><circle cx="7.2" cy="9" r=".85"/><circle cx="11.4" cy="9" r=".85"/><circle cx="5.1" cy="12" r=".85"/><circle cx="9.3" cy="12" r=".85"/></g></svg>
-          </span>
-          <span>English</span>
-        </button>
-        <button type="button" class="w-lang-btn" data-lang="es" aria-pressed="false" lang="es">
-          <span class="w-flag" aria-hidden="true">
-            <svg viewBox="0 0 30 30"><rect width="30" height="30" fill="#AA151B"/><rect y="7.5" width="30" height="15" fill="#F1BF00"/><rect x="7.4" y="10.2" width="4.4" height="1.3" rx=".5" fill="#C8A546"/><rect x="7.2" y="11.8" width="4.8" height="6.6" rx="1.4" fill="#AD1519"/><rect x="8.3" y="13" width="2.6" height="4.2" rx=".8" fill="#F1BF00" opacity=".55"/></svg>
-          </span>
-          <span>Español</span>
-        </button>
-      </div>
+    <section class="w-stage fade-in-late" id="webinar" aria-label="The webinar" data-i18n-attr="aria-label:stage_label">
       <div class="w-player">
         <video id="wv" playsinline controls preload="auto"
                poster="/images/webinar/preview-poster.jpg"
@@ -59,7 +44,7 @@
                aria-label="Passive Income Webinar"></video>
         <button class="pl-sound" id="w-sound" type="button" hidden>
           <svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path class="i-solid" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
-          Tap for sound
+          <span data-i18n="sound">Tap for sound</span>
         </button>
       </div>
 
@@ -67,61 +52,61 @@
         <button class="w-action" id="w-share" type="button" aria-controls="w-share-panel" aria-expanded="false">
           <span class="w-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="i-line"><path d="M12 3v12"/><path d="M7.5 7.5 12 3l4.5 4.5"/><path d="M8.5 10.5h-2A1.5 1.5 0 0 0 5 12v7.5A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V12a1.5 1.5 0 0 0-1.5-1.5h-2"/></svg></span>
           <span class="w-action-text">
-            <span class="w-action-label">Save or share the link</span>
-            <span class="w-action-sub" id="w-share-sub">Send it to a friend</span>
+            <span class="w-action-label" data-i18n="share_label">Save or share the link</span>
+            <span class="w-action-sub" id="w-share-sub" data-i18n="share_sub">Send it to a friend</span>
           </span>
-          <span class="w-go" aria-hidden="true"><span class="w-go-label">Share</span><svg viewBox="0 0 24 24" class="i-line w-arrow"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="w-go" aria-hidden="true"><span class="w-go-label" data-i18n="share_go">Share</span><svg viewBox="0 0 24 24" class="i-line w-arrow"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </button>
 
         <a class="w-action" id="w-dropbox" href="#" target="_blank" rel="noopener">
           <span class="w-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="i-line"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4.2l1.8 2H19a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M3.5 11h17"/></svg></span>
           <span class="w-action-text">
             <span class="w-action-label">Vitalis Tower Dropbox</span>
-            <span class="w-action-sub">Learn more about the project</span>
+            <span class="w-action-sub" data-i18n="dropbox_sub">Learn more about the project</span>
           </span>
-          <span class="w-go" aria-hidden="true"><span class="w-go-label" id="w-dropbox-go">Open Dropbox</span><svg viewBox="0 0 24 24" class="i-line w-arrow w-arrow-out"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <span class="w-go" aria-hidden="true"><span class="w-go-label" id="w-dropbox-go" data-i18n="dropbox_go">Open Dropbox</span><svg viewBox="0 0 24 24" class="i-line w-arrow w-arrow-out"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
         </a>
 
         <a class="w-action" id="w-contact" href="/media/vitalis-tower.vcf">
           <span class="w-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="i-line"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><circle cx="9.5" cy="10.5" r="2.4"/><path d="M5.8 16.5c.6-1.7 2-2.7 3.7-2.7s3.1 1 3.7 2.7"/><path d="M15 10h3.5M15 13h3.5"/></svg></span>
           <span class="w-action-text">
-            <span class="w-action-label">Save our number</span>
+            <span class="w-action-label" data-i18n="contact_label">Save our number</span>
             <span class="w-action-sub" id="w-contact-sub">(305) 395-3416 &middot; Vitalis Tower</span>
           </span>
-          <span class="w-go" aria-hidden="true"><span class="w-go-label">Save contact</span><svg viewBox="0 0 24 24" class="i-line w-arrow w-arrow-down"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
+          <span class="w-go" aria-hidden="true"><span class="w-go-label" data-i18n="contact_go">Save contact</span><svg viewBox="0 0 24 24" class="i-line w-arrow w-arrow-down"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
         </a>
 
         <!-- Shown only where the browser has no native share sheet -->
         <div class="w-share-panel" id="w-share-panel" hidden>
           <div class="w-share-row">
-            <button type="button" id="w-copy">Copy link</button>
-            <a id="w-email" href="#">Email</a>
+            <button type="button" id="w-copy" data-i18n="copy">Copy link</button>
+            <a id="w-email" href="#" data-i18n="email">Email</a>
             <a id="w-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
-            <a id="w-sms" href="#">Text message</a>
+            <a id="w-sms" href="#" data-i18n="sms">Text message</a>
           </div>
-          <input class="w-share-url" id="w-share-url" type="text" readonly aria-label="Link to share">
+          <input class="w-share-url" id="w-share-url" type="text" readonly aria-label="Link to share" data-i18n-attr="aria-label:share_url">
         </div>
       </div>
     </section>
 
     <!-- ============ Floor plans & pricing: Typeform ============ -->
     <section class="w-form" id="floor-plans" tabindex="-1" aria-labelledby="w-form-h">
-      <p class="p-kicker">Floor plans &amp; pricing</p>
+      <p class="p-kicker" data-i18n="plans_kicker">Floor plans &amp; pricing</p>
       <h2 class="p-title w-form-title" id="w-form-h">
-        <span class="t-serif">Get the floor plans</span>
-        <span class="t-sans">&amp; pricing<span class="t-colon">.</span></span>
+        <span class="t-serif" data-i18n="form_t1">Get the floor plans</span>
+        <span class="t-sans" data-i18n-html="form_t2">&amp; pricing<span class="t-colon">.</span></span>
       </h2>
       <span class="p-rule" aria-hidden="true"></span>
-      <p class="w-form-lede">Answer a few quick questions and we&rsquo;ll send you the Vitalis Tower floor plans and current pricing.</p>
+      <p class="w-form-lede" data-i18n="form_lede">Answer a few quick questions and we&rsquo;ll send you the Vitalis Tower floor plans and current pricing.</p>
       <!-- Locked until FORM_UNLOCK_SECONDS of the webinar have been watched (form-gate.js) -->
       <div class="w-form-embed is-locked" id="w-form-embed">
         <div class="w-lock" id="w-lock">
           <span class="w-lock-ring"><svg class="i-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
-          <p class="w-lock-title">Please watch the video for <span data-unlock-min>5</span>&nbsp;minutes to unlock the questionnaire.</p>
-          <p class="w-lock-text">It opens right here automatically, no reload needed.</p>
+          <p class="w-lock-title" data-i18n-html="lock_title">Please watch the video for <span data-unlock-min>5</span>&nbsp;minutes to unlock the questionnaire.</p>
+          <p class="w-lock-text" data-i18n="lock_text">It opens right here automatically, no reload needed.</p>
           <div class="w-lock-bar" aria-hidden="true"><span id="w-lock-fill"></span></div>
           <p class="w-lock-count" id="w-lock-count">5:00 left</p>
-          <a class="w-lock-btn" href="#webinar"><span>Watch the webinar</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+          <a class="w-lock-btn" href="#webinar"><span data-i18n="lock_btn">Watch the webinar</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
         </div>
         <span class="visually-hidden" id="w-lock-status" role="status"></span>
       </div>
@@ -129,7 +114,7 @@
 
     <!-- ============ Sponsors: two rows, opposite directions ============ -->
     <section class="p-sponsors" aria-labelledby="w-sp-h">
-      <h2 class="p-kicker" id="w-sp-h">Sponsors</h2>
+      <h2 class="p-kicker" id="w-sp-h" data-i18n="sponsors">Sponsors</h2>
       <div class="mq" data-mq>
         <ul class="mq-track">
           <li><img src="/images/sponsors/vitalis-tower.png" alt="Vitalis Tower" width="141" height="144"></li>
@@ -155,33 +140,33 @@
     <section class="w-proj" aria-labelledby="w-proj-h">
       <div class="w-band w-band-intro">
         <div class="w-band-in">
-          <p class="p-kicker">Professional offices &amp; retail for sale</p>
+          <p class="p-kicker" data-i18n="proj_kicker">Professional offices &amp; retail for sale</p>
           <h2 class="p-title w-proj-title" id="w-proj-h">
-            <span class="t-serif">A solid investment</span>
-            <span class="t-sans">in the right place<span class="t-colon">.</span></span>
+            <span class="t-serif" data-i18n="proj_t1">A solid investment</span>
+            <span class="t-sans" data-i18n-html="proj_t2">in the right place<span class="t-colon">.</span></span>
           </h2>
           <span class="p-rule" aria-hidden="true"></span>
-          <p class="w-proj-lede">A turnkey solution for those seeking passive income or those who want to own where they work.</p>
+          <p class="w-proj-lede" data-i18n="proj_lede">A turnkey solution for those seeking passive income or those who want to own where they work.</p>
 
-          <p class="w-proj-why-h">Why Vitalis?</p>
+          <p class="w-proj-why-h" data-i18n="why">Why Vitalis?</p>
           <ul class="w-proj-why">
-            <li><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Solid tenants</li>
-            <li><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Long-term leases</li>
-            <li><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>NNN contracts</li>
+            <li><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="why1">Solid tenants</span></li>
+            <li><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="why2">Long-term leases</span></li>
+            <li><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="why3">NNN contracts</span></li>
           </ul>
 
           <figure class="w-proj-hero">
-            <img src="/images/renders/exterior-day.webp" alt="Vitalis Tower exterior by day — artist's conceptual rendering" width="1600" height="1236" loading="lazy">
+            <img src="/images/renders/exterior-day.webp" alt="Vitalis Tower exterior by day — artist's conceptual rendering" data-i18n-attr="alt:alt_hero" width="1600" height="1236" loading="lazy">
           </figure>
         </div>
       </div>
       <div class="w-band w-band-dark w-band-stats">
         <div class="w-band-in">
           <ul class="w-proj-stats">
-            <li><span class="w-stat-num">Q1&nbsp;2029</span><span class="w-stat-label">Occupancy</span></li>
-            <li><span class="w-stat-num">12&#8209;ft</span><span class="w-stat-label">Ceiling heights</span></li>
-            <li><span class="w-stat-num">6.5&#8209;ft</span><span class="w-stat-label">Wide hallways</span></li>
-            <li><span class="w-stat-num">24/7</span><span class="w-stat-label">Building security</span></li>
+            <li><span class="w-stat-num" data-i18n="st1n">Q1&nbsp;2029</span><span class="w-stat-label" data-i18n="st1">Occupancy</span></li>
+            <li><span class="w-stat-num" data-i18n="st2n">12&#8209;ft</span><span class="w-stat-label" data-i18n="st2">Ceiling heights</span></li>
+            <li><span class="w-stat-num" data-i18n="st3n">6.5&#8209;ft</span><span class="w-stat-label" data-i18n="st3">Wide hallways</span></li>
+            <li><span class="w-stat-num">24/7</span><span class="w-stat-label" data-i18n="st4">Building security</span></li>
           </ul>
         </div>
       </div>
@@ -189,28 +174,28 @@
         <div class="w-band-in">
           <div class="w-proj-gallery">
             <figure>
-              <img src="/images/renders/gallery-lobby.webp" alt="Concierge lobby with an indoor tree and lounge seating — artist's conceptual rendering" width="1200" height="800" loading="lazy">
-              <figcaption>Concierge lobby</figcaption>
+              <img src="/images/renders/gallery-lobby.webp" alt="Concierge lobby with an indoor tree and lounge seating — artist's conceptual rendering" data-i18n-attr="alt:alt_g1" width="1200" height="800" loading="lazy">
+              <figcaption data-i18n="g1">Concierge lobby</figcaption>
             </figure>
             <figure>
-              <img src="/images/renders/gallery-offices.webp" alt="Fully finished private office with glass partitions — artist's conceptual rendering" width="1200" height="806" loading="lazy">
-              <figcaption>Fully finished offices</figcaption>
+              <img src="/images/renders/gallery-offices.webp" alt="Fully finished private office with glass partitions — artist's conceptual rendering" data-i18n-attr="alt:alt_g2" width="1200" height="806" loading="lazy">
+              <figcaption data-i18n="g2">Fully finished offices</figcaption>
             </figure>
             <figure>
-              <img src="/images/renders/gallery-conference.webp" alt="Multi-purpose conference room with a projection screen — artist's conceptual rendering" width="1200" height="799" loading="lazy">
-              <figcaption>Multi&#8209;purpose conference room</figcaption>
+              <img src="/images/renders/gallery-conference.webp" alt="Multi-purpose conference room with a projection screen — artist's conceptual rendering" data-i18n-attr="alt:alt_g3" width="1200" height="799" loading="lazy">
+              <figcaption data-i18n="g3">Multi&#8209;purpose conference room</figcaption>
             </figure>
             <figure>
-              <img src="/images/renders/gallery-leasing.webp" alt="Physicians and a leasing advisor walking through a finished office reception — artist's conceptual rendering" width="1200" height="806" loading="lazy">
-              <figcaption>Finished offices &amp; leasing support</figcaption>
+              <img src="/images/renders/gallery-leasing.webp" alt="Physicians and a leasing advisor walking through a finished office reception — artist's conceptual rendering" data-i18n-attr="alt:alt_g4" width="1200" height="806" loading="lazy">
+              <figcaption data-i18n="g4">Finished offices &amp; leasing support</figcaption>
             </figure>
             <figure>
-              <img src="/images/renders/gallery-culinary.webp" alt="On-site café and dining area — artist's conceptual rendering" width="1200" height="800" loading="lazy">
-              <figcaption>Culinary alternatives</figcaption>
+              <img src="/images/renders/gallery-culinary.webp" alt="On-site café and dining area — artist's conceptual rendering" data-i18n-attr="alt:alt_g5" width="1200" height="800" loading="lazy">
+              <figcaption data-i18n="g5">Culinary alternatives</figcaption>
             </figure>
             <figure>
-              <img src="/images/renders/gallery-wellness.webp" alt="Fitness and wellness space with floor-to-ceiling windows — artist's conceptual rendering" width="1200" height="800" loading="lazy">
-              <figcaption>Wellness spaces</figcaption>
+              <img src="/images/renders/gallery-wellness.webp" alt="Fitness and wellness space with floor-to-ceiling windows — artist's conceptual rendering" data-i18n-attr="alt:alt_g6" width="1200" height="800" loading="lazy">
+              <figcaption data-i18n="g6">Wellness spaces</figcaption>
             </figure>
           </div>
         </div>
@@ -219,32 +204,32 @@
         <div class="w-band-in">
           <div class="w-proj-details">
             <div>
-              <h3 class="w-proj-h3">Amenities &amp; Services</h3>
+              <h3 class="w-proj-h3" data-i18n="amen_h">Amenities &amp; Services</h3>
               <ul class="w-proj-list">
-                <li>24/7 building security</li>
-                <li>Dedicated conference &amp; telemedicine facilities</li>
-                <li>Comfortable lounge seating on every floor</li>
-                <li>First&#8209;class on&#8209;site restaurant</li>
-                <li>Complimentary Wi&#8209;Fi in all common areas</li>
-                <li>Valet parking for guests</li>
-                <li>Electric vehicle (EV) charging stations</li>
-                <li>Gym &amp; bike&#8209;friendly facilities</li>
-                <li>On&#8209;site showers &amp; lockers</li>
+                <li data-i18n="a1">24/7 building security</li>
+                <li data-i18n="a2">Dedicated conference &amp; telemedicine facilities</li>
+                <li data-i18n="a3">Comfortable lounge seating on every floor</li>
+                <li data-i18n="a4">First&#8209;class on&#8209;site restaurant</li>
+                <li data-i18n="a5">Complimentary Wi&#8209;Fi in all common areas</li>
+                <li data-i18n="a6">Valet parking for guests</li>
+                <li data-i18n="a7">Electric vehicle (EV) charging stations</li>
+                <li data-i18n="a8">Gym &amp; bike&#8209;friendly facilities</li>
+                <li data-i18n="a9">On&#8209;site showers &amp; lockers</li>
               </ul>
             </div>
             <div>
-              <h3 class="w-proj-h3">Building Design</h3>
+              <h3 class="w-proj-h3" data-i18n="design_h">Building Design</h3>
               <ul class="w-proj-list">
-                <li>12&#8209;ft ceiling heights for a spacious, modern environment</li>
-                <li>6.5&#8209;ft&#8209;wide hallways for efficient patient &amp; equipment movement</li>
-                <li>Covered patient drop&#8209;off &amp; pick&#8209;up areas</li>
-                <li>Elevated garage entrance for convenient access</li>
+                <li data-i18n="d1">12&#8209;ft ceiling heights for a spacious, modern environment</li>
+                <li data-i18n="d2">6.5&#8209;ft&#8209;wide hallways for efficient patient &amp; equipment movement</li>
+                <li data-i18n="d3">Covered patient drop&#8209;off &amp; pick&#8209;up areas</li>
+                <li data-i18n="d4">Elevated garage entrance for convenient access</li>
               </ul>
-              <h3 class="w-proj-h3 w-proj-team-h">Team</h3>
+              <h3 class="w-proj-h3 w-proj-team-h" data-i18n="team_h">Team</h3>
               <dl class="w-proj-team">
-                <div><dt>Developer</dt><dd>Arcadia Real Estate Developers</dd></div>
-                <div><dt>Architect &amp; design</dt><dd>Caymares Martin Architect</dd></div>
-                <div><dt>Sales team</dt><dd>Fortune Development Sales</dd></div>
+                <div><dt data-i18n="team1">Developer</dt><dd>Arcadia Real Estate Developers</dd></div>
+                <div><dt data-i18n="team2">Architect &amp; design</dt><dd>Caymares Martin Architect</dd></div>
+                <div><dt data-i18n="team3">Sales team</dt><dd>Fortune Development Sales</dd></div>
               </dl>
             </div>
           </div>
@@ -253,18 +238,18 @@
       <div class="w-band w-band-dark w-band-voices">
         <div class="w-band-in">
           <div class="vt-testimonials">
-            <h2 class="vt-title">Client <span>Testimonials</span></h2>
+            <h2 class="vt-title" data-i18n-html="vt_title">Client <span>Testimonials</span></h2>
             <div class="vt-grid">
               <article class="vt-card">
                 <div class="vt-head">
-                  <div class="vt-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div class="vt-stars" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                   <h3>Dr. Birman</h3>
                 </div>
                 <p class="vt-text">&ldquo;From its beautiful design to its perfect location in the heart of the Aventura medical community, Vitalis Tower feels like the natural next step for my practice. Deciding to own my office here is an investment in my future and, most importantly, a commitment to my patients. The tower provides a welcoming, world&#8209;class environment that mirrors the care and attention we give to everyone who walks through our doors. I am so proud to welcome our patients to this wonderful new space, where innovation and true wellness come together.&rdquo;</p>
               </article>
               <article class="vt-card">
                 <div class="vt-head">
-                  <div class="vt-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <div class="vt-stars" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                   <h3>Oksi M.</h3>
                 </div>
                 <p class="vt-text">&ldquo;Based on my own experience dealing with the builder, I found the process to be professional and easy to work with. The project stood out to me because of its medical use and strategic location near the hospital. From an investment standpoint, that made it feel like a strong opportunity with solid long&#8209;term potential. We decided to purchase two side&#8209;by&#8209;side units to give ourselves flexibility for either a larger office or two separate tenants. That said, every buyer should do their own due diligence, carefully review the numbers, and make sure the opportunity matches their own risk tolerance.&rdquo;</p>
@@ -276,12 +261,12 @@
       <div class="w-band w-band-place">
         <div class="w-band-in">
           <div class="w-proj-place">
-            <img class="w-proj-map" src="/images/renders/district-aerial.webp" alt="Aerial view of the Aventura Medical District with Vitalis Tower marked" width="1800" height="1433" loading="lazy">
+            <img class="w-proj-map" src="/images/renders/district-aerial.webp" alt="Aerial view of the Aventura Medical District with Vitalis Tower marked" data-i18n-attr="alt:alt_map" width="1800" height="1433" loading="lazy">
             <div class="w-proj-place-copy">
-              <p class="p-kicker p-kicker-left">Location</p>
-              <h3>Aventura Medical District</h3>
-              <p class="w-proj-place-lede">Situated in Aventura, one of Miami&rsquo;s newest and most desired communities: a premier destination for professionals and wellness practitioners to work, connect, and grow.</p>
-              <p class="w-proj-near-h">Minutes from the district&rsquo;s anchors</p>
+              <p class="p-kicker p-kicker-left" data-i18n="loc_kicker">Location</p>
+              <h3 data-i18n="loc_h">Aventura Medical District</h3>
+              <p class="w-proj-place-lede" data-i18n="loc_lede">Situated in Aventura, one of Miami&rsquo;s newest and most desired communities: a premier destination for professionals and wellness practitioners to work, connect, and grow.</p>
+              <p class="w-proj-near-h" data-i18n="loc_near">Minutes from the district&rsquo;s anchors</p>
               <ul class="w-proj-chips">
                 <li>Aventura Hospital &amp; Medical Center</li>
                 <li>Aventura Medical Tower</li>
@@ -298,14 +283,14 @@
     <!-- ============ Closing CTA (desktop): back up to the form ============ -->
     <section class="w-cta" aria-labelledby="w-cta-h">
       <div class="w-cta-in">
-        <p class="p-kicker">Floor plans &amp; pricing</p>
+        <p class="p-kicker" data-i18n="plans_kicker">Floor plans &amp; pricing</p>
         <h2 class="p-title w-cta-title" id="w-cta-h">
-          <span class="t-serif">See the floor plans</span>
-          <span class="t-sans">&amp; current pricing<span class="t-colon">.</span></span>
+          <span class="t-serif" data-i18n="cta_t1">See the floor plans</span>
+          <span class="t-sans" data-i18n-html="cta_t2">&amp; current pricing<span class="t-colon">.</span></span>
         </h2>
-        <p class="w-cta-lede">Answer a few quick questions and get floor plans, pricing and availability.</p>
-        <a class="w-cta-btn" href="#floor-plans"><span>Get plans &amp; pricing</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
-        <p class="w-cta-note">Takes about 30 seconds</p>
+        <p class="w-cta-lede" data-i18n="cta_lede">Answer a few quick questions and get floor plans, pricing and availability.</p>
+        <a class="w-cta-btn" href="#floor-plans"><span data-i18n="cta_btn">Get plans &amp; pricing</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+        <p class="w-cta-note" data-i18n="cta_note">Takes about 30 seconds</p>
       </div>
     </section>
 
@@ -314,15 +299,16 @@
   <!-- Mobile: glass dock with the same CTA; shown once the form is scrolled past -->
   <div class="w-dock" id="w-dock" aria-hidden="true">
     <div class="w-dock-glass">
-      <a class="w-dock-btn" href="#floor-plans" tabindex="-1"><span>Get plans &amp; pricing</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+      <a class="w-dock-btn" href="#floor-plans" tabindex="-1"><span data-i18n="cta_btn">Get plans &amp; pricing</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
     </div>
   </div>
 
   <footer class="p-footer" style="border-top:0">
-    <p>&copy; <span id="year"></span> Vitalis Tower. Renderings and videos are illustrative; details subject to change. Not an offer to sell where prohibited by law.</p>
+    <p data-i18n-html="footer">&copy; <span id="year"></span> Vitalis Tower. Renderings and videos are illustrative; details subject to change. Not an offer to sell where prohibited by law.</p>
   </footer>
 
   <script src="/config/funnel.js?v=5"></script>
+  <script src="/webinar/pro/watch/i18n.js?v=1"></script>
   <script src="/js/attribution.js" defer></script>
   <script src="/js/core.js" defer></script>
   <script src="/webinar/pro/marquee.js?v=1" defer></script>

@@ -48,14 +48,20 @@
     var lang = pickLang();
 
     function srcFor(l) { return VIDEOS[l] || OD.PREVIEW_URL || '/media/bernardo-preview.mp4'; }
+    // Optional page translation (watch page): window.VITALIS_I18N.t(key, english)
+    function tr(key, fallback) {
+      var I = window.VITALIS_I18N;
+      return I && I.t ? I.t(key, fallback) : fallback;
+    }
     function paintSwitch() {
+      video.setAttribute('lang', lang || 'en');
+      video.setAttribute('aria-label', lang === 'es'
+        ? tr('video_label', 'Passive Income Webinar (Español)') : 'Passive Income Webinar (English)');
       if (!langBox) return;
       langBox.setAttribute('data-active', lang);
       langBox.querySelectorAll('.w-lang-btn').forEach(function (b) {
         b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
       });
-      video.setAttribute('lang', lang || 'en');
-      video.setAttribute('aria-label', 'Passive Income Webinar (' + (lang === 'es' ? 'Español' : 'English') + ')');
     }
 
     if (langBox && LANGS.length < 2) langBox.hidden = true; // the switch needs both versions
@@ -143,7 +149,12 @@
        1 · SAVE OR SHARE THE LINK
        ========================================================== */
     var shareUrl = opts.shareUrl || OD.SHARE_URL || (location.origin + '/webinar/pro/');
-    var shareText = opts.shareText || OD.SHARE_TEXT || 'Passive Income Webinar';
+    // Keep the viewer's page language on the shared link (watch page translation).
+    var I18N = window.VITALIS_I18N;
+    if (I18N && I18N.lang && I18N.lang !== 'en' && !/[?&]lang=/.test(shareUrl)) {
+      shareUrl += (shareUrl.indexOf('?') < 0 ? '?' : '&') + 'lang=' + I18N.lang;
+    }
+    var shareText = opts.shareText || tr('share_text', OD.SHARE_TEXT || 'Passive Income Webinar');
     var shareBtn = $('w-share'), sharePanel = $('w-share-panel'), shareSub = $('w-share-sub');
 
     if (shareBtn) {
@@ -154,7 +165,7 @@
         setTimeout(function () { shareBtn.classList.remove('is-copied'); shareSub.textContent = shareSubDefault; }, 2400);
       };
       var copyLink = function () {
-        function done() { flash('Link copied ✓'); track('share_channel', { channel: 'copy', funnel_variant: VARIANT }); }
+        function done() { flash(tr('copied', 'Link copied ✓')); track('share_channel', { channel: 'copy', funnel_variant: VARIANT }); }
         function legacyCopy() {
           var input = $('w-share-url');
           input.select();
@@ -166,7 +177,7 @@
       };
 
       $('w-share-url').value = shareUrl;
-      $('w-email').href = 'mailto:?subject=' + encodeURIComponent('Passive Income Webinar') +
+      $('w-email').href = 'mailto:?subject=' + encodeURIComponent(tr('email_subject', 'Passive Income Webinar')) +
         '&body=' + encodeURIComponent(shareText + '\n\n' + shareUrl);
       $('w-whatsapp').href = 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + shareUrl);
       $('w-sms').href = 'sms:?&body=' + encodeURIComponent(shareText + ' ' + shareUrl);
@@ -180,7 +191,7 @@
       shareBtn.addEventListener('click', function () {
         if (navigator.share) {
           track('share_open', { method: 'native', funnel_variant: VARIANT });
-          navigator.share({ title: 'Passive Income Webinar', text: shareText, url: shareUrl })
+          navigator.share({ title: tr('share_title', 'Passive Income Webinar'), text: shareText, url: shareUrl })
             .then(function () { track('share_complete', { method: 'native', funnel_variant: VARIANT }); })
             .catch(function () { /* closed without sharing */ });
           return;
@@ -206,7 +217,7 @@
         db.removeAttribute('target');
         db.setAttribute('role', 'link');
         db.setAttribute('aria-disabled', 'true');
-        $('w-dropbox-go').textContent = 'Link pending';
+        $('w-dropbox-go').textContent = tr('link_pending', 'Link pending');
       }
     }
 
