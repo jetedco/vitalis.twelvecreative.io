@@ -121,7 +121,7 @@ window.VITALIS = {
     WATCH_PATH: '/webinar/pro/watch/',
     // Vitalis Tower Dropbox behind "Learn more" on the watch page.
     // Empty = the button shows as pending (never a dead link).
-    DROPBOX_URL: 'https://www.dropbox.com/scl/fo/rznymtup6qvap7fa6484a/AHM5i5NPn0LzMCZy39_vZt0?rlkey=586pt1phk9bnpk9o22liv2mmh&st=llbk5m7f&e=2&dl=0',
+    DROPBOX_URL: 'https://www.dropbox.com/scl/fo/u2mlu6ktnw2uinubk48em/AMy6Js8EqINLfTzEMCz_5lU?rlkey=ux6wr759u22lgv4q9294c6zfy&st=5hb4ud52&dl=0',
     // Contact card behind "Save our number".
     CONTACT_CARD: '/media/vitalis-tower.vcf',
     // What "Save or share" sends: the REGISTRATION page, so a friend
