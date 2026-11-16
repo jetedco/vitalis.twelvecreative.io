@@ -653,7 +653,7 @@ body.is-registered .pl-ring .shackle,
 
 /* Photos (white) */
 .w-band-gallery .w-band-in { padding-top: 56px; padding-bottom: 64px; }
-.w-proj-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.w-proj-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 16px; }
 .w-proj-gallery figure { margin: 0; }
 .w-proj-gallery img { aspect-ratio: 3 / 2; object-fit: cover; }
 .w-proj-gallery figcaption { margin-top: 12px; font-size: 14px; line-height: 1.45; color: var(--muted); }
@@ -744,7 +744,8 @@ body.is-registered .pl-ring .shackle,
   .w-proj-stats li { padding: 28px 10px; }
   .w-proj-stats li:nth-child(3) { border-left: 0; }
   .w-proj-stats li:nth-child(n+3) { border-top: 1px solid var(--on-dark-hair); }
-  .w-proj-gallery { grid-template-columns: 1fr; gap: 28px; }
+  .w-proj-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
+  .w-proj-gallery figcaption { margin-top: 8px; font-size: 13px; }
   .w-proj-details, .w-proj-quotes { grid-template-columns: 1fr; gap: 40px; }
   .w-proj-place { grid-template-columns: 1fr; gap: 32px; }
 }
