@@ -703,7 +703,10 @@ body.is-registered .pl-ring .shackle,
   text-transform: uppercase; color: var(--muted);
 }
 /* District anchors as pills (the brochure labels its photos the same way) */
-.w-proj-chips { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.w-proj-chips {
+  list-style: none; margin: 12px 0 0; padding: 0;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+}
 .w-proj-chips li {
   display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px;
   border: 1px solid #DADADA; border-radius: 999px; font-size: 14px; line-height: 1.3; color: var(--ink);
