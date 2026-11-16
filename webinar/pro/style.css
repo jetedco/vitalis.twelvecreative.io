@@ -592,10 +592,10 @@ body.is-registered .pl-ring .shackle,
 .o-thanks p { margin: 0; color: var(--muted); }
 
 /* ---------- Watch page: the project (latest brochure) ----------
-   Full-width bands in the brochure palette: white → charcoal stats →
-   white photos → cream details → charcoal testimonials → white location. */
+   Full-width bands in the brochure palette: white → navy stats →
+   white photos → cream details → navy testimonials → white location. */
 .w-proj {
-  --band-dark: var(--v-ink);
+  --band-dark: var(--v-navy, #172030);
   --band-cream: var(--v-cream);
   --on-dark: var(--v-cream);
   --on-dark-soft: rgba(242, 236, 223, .64);

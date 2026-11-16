@@ -21,6 +21,7 @@
   --v-gold-deep:  #9A7E45;   /* pressed gold */
   --v-palm:       #4C5D4A;   /* landscape green accent */
   --v-palm-deep:  #33402F;
+  --v-navy:       #172030;   /* brochure cover band (latest brochure) */
 
   /* ---- Semantic aliases ---- */
   --color-bg:      var(--v-ink);
