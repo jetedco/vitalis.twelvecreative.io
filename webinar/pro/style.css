@@ -641,16 +641,60 @@ body.is-registered .pl-ring .shackle,
   margin: 0; font-size: 30px; font-weight: 300; line-height: 1.15;
   text-transform: none; letter-spacing: -0.02em; color: var(--ink);
 }
-.w-proj-addr { margin: 8px 0 26px; font-size: 15px; color: var(--muted); }
+.w-proj-place-lede { margin: 12px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--ink); text-wrap: pretty; }
+.w-proj-addr { margin: 10px 0 26px; font-size: 15px; color: var(--muted); }
 .w-proj-near-h {
   margin: 0 0 4px; font-size: 11px; font-weight: 600; letter-spacing: .18em;
   text-transform: uppercase; color: var(--muted);
 }
 .w-proj-near { list-style: none; margin: 0; padding: 0; }
-.w-proj-near li { padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; }
+.w-proj-near, .w-proj-list { list-style: none; margin: 0; padding: 0; }
+.w-proj-near li, .w-proj-list li { padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; line-height: 1.5; }
 .w-proj-sales { margin: 24px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
 .w-proj-sales strong { font-weight: 600; color: var(--ink); }
 .w-proj-note { max-width: 640px; margin: 48px auto 0; font-size: 12px; line-height: 1.7; color: #9A9EA4; }
+
+/* Why Vitalis: three checked reasons under the lede */
+.w-proj-why-h, .w-proj-h3 {
+  margin: 0; font-size: 11px; font-weight: 600; line-height: 1.4; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
+.w-proj-why-h { margin-top: 34px; }
+.w-proj-why {
+  list-style: none; margin: 14px auto 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 32px;
+}
+.w-proj-why li { display: inline-flex; align-items: center; gap: 9px; font-size: 16px; font-weight: 500; color: var(--ink); }
+.w-proj-why svg { width: 18px; height: 18px; color: var(--focus); stroke-width: 2.2; }
+
+/* Details: amenities | building design + team */
+.w-proj-details {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px;
+  margin: 72px 0 0; padding-top: 72px; border-top: 1px solid var(--hair); text-align: left;
+}
+.w-proj-h3 { margin-bottom: 6px; }
+.w-proj-team-h { margin-top: 40px; }
+.w-proj-team { margin: 0; }
+.w-proj-team div {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15px; line-height: 1.5;
+}
+.w-proj-team dt { color: var(--muted); }
+.w-proj-team dd { margin: 0; text-align: right; color: var(--ink); }
+
+/* Client testimonials, verbatim from the brochure */
+.w-proj-voices { margin: 72px 0 0; padding-top: 72px; border-top: 1px solid var(--hair); }
+.w-proj-quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; text-align: left; }
+.w-quote { margin: 0; }
+.w-quote blockquote { margin: 0; }
+.w-quote p { margin: 0; font-size: 16px; line-height: 1.75; color: var(--ink); text-wrap: pretty; }
+.w-quote figcaption {
+  margin-top: 20px; font-family: var(--font-script); font-style: italic; font-weight: 500;
+  font-size: 24px; line-height: 1.2; color: var(--ink);
+}
+.w-quote figcaption::before {
+  content: ""; display: block; width: 32px; height: 1px; margin-bottom: 14px; background: var(--focus);
+}
 
 @media (max-width: 760px) {
   .w-proj { margin-top: 72px; padding-top: 56px; }
@@ -659,4 +703,6 @@ body.is-registered .pl-ring .shackle,
   .w-proj-stats li:nth-child(n+3) { border-top: 1px solid var(--hair); }
   .w-proj-gallery { grid-template-columns: 1fr; gap: 28px; }
   .w-proj-place { grid-template-columns: 1fr; gap: 32px; margin-top: 56px; padding-top: 56px; }
+  .w-proj-details, .w-proj-quotes { grid-template-columns: 1fr; gap: 40px; }
+  .w-proj-details, .w-proj-voices { margin-top: 56px; padding-top: 56px; }
 }
