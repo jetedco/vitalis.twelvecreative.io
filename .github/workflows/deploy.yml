@@ -10,11 +10,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  # The `secrets` context can't be used in a job-level `if`, so this job
+  # reads the secret inside a step and hands the answer to `deploy`.
+  check:
+    name: Check FTP secrets
+    runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.ftp.outputs.configured }}
+    steps:
+      - name: Is FTP_SERVER set?
+        id: ftp
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        run: |
+          if [ -n "$FTP_SERVER" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=FTP deploy skipped::FTP_SERVER secret is not set; the site is served by GitHub Pages from main."
+          fi
+
   deploy:
     name: FTP Deploy
     # Skips cleanly until the Vitalis FTP secrets are configured — until
     # then the site is served by GitHub Pages from the main branch.
-    if: ${{ secrets.FTP_SERVER != '' }}
+    needs: check
+    if: ${{ needs.check.outputs.configured == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
