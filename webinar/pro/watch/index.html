@@ -104,7 +104,7 @@
     </section>
 
     <!-- ============ Floor plans & pricing: Typeform ============ -->
-    <section class="w-form" aria-labelledby="w-form-h">
+    <section class="w-form" id="floor-plans" tabindex="-1" aria-labelledby="w-form-h">
       <p class="p-kicker">Floor plans &amp; pricing</p>
       <h2 class="p-title w-form-title" id="w-form-h">
         <span class="t-serif">Get the floor plans</span>
@@ -269,7 +269,28 @@
       </div>
     </section>
 
+    <!-- ============ Closing CTA (desktop): back up to the form ============ -->
+    <section class="w-cta" aria-labelledby="w-cta-h">
+      <div class="w-cta-in">
+        <p class="p-kicker">Floor plans &amp; pricing</p>
+        <h2 class="p-title w-cta-title" id="w-cta-h">
+          <span class="t-serif">See the floor plans</span>
+          <span class="t-sans">&amp; current pricing<span class="t-colon">.</span></span>
+        </h2>
+        <p class="w-cta-lede">Answer 3 quick questions and get floor plans, pricing and availability.</p>
+        <a class="w-cta-btn" href="#floor-plans"><span>Get plans &amp; pricing</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+        <p class="w-cta-note">Takes about 30 seconds</p>
+      </div>
+    </section>
+
   </main>
+
+  <!-- Mobile: glass dock with the same CTA; shown once the form is scrolled past -->
+  <div class="w-dock" id="w-dock" aria-hidden="true">
+    <div class="w-dock-glass">
+      <a class="w-dock-btn" href="#floor-plans" tabindex="-1"><span>Get plans &amp; pricing</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+    </div>
+  </div>
 
   <footer class="p-footer" style="border-top:0">
     <p>&copy; <span id="year"></span> Vitalis Tower. Renderings and videos are illustrative; details subject to change. Not an offer to sell where prohibited by law.</p>
@@ -281,6 +302,7 @@
   <script src="/webinar/pro/marquee.js?v=1" defer></script>
   <script src="/webinar/pro/watch-kit.js?v=1" defer></script>
   <script src="/webinar/pro/watch/app.js?v=4" defer></script>
+  <script src="/webinar/pro/watch/cta.js?v=1" defer></script>
   <script src="https://embed.typeform.com/next/embed.js" defer></script>
 </body>
 </html>

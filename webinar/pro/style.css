@@ -781,3 +781,61 @@ body.is-registered .pl-ring .shackle,
   .w-form { padding: 72px 24px 64px; }
   .w-form-embed { height: 620px; margin-top: 32px; }
 }
+
+/* ---------- Watch page: closing CTA (desktop) ---------- */
+.w-form { scroll-margin-top: 8px; }
+.w-form:focus { outline: none; }
+.w-cta { background: #001329; color: var(--v-cream); text-align: center; }
+.w-cta-in { max-width: 760px; margin: 0 auto; padding: 96px 24px 104px; }
+.pro .w-cta .p-kicker { color: var(--v-gold-bright); margin-bottom: 18px; }
+.pro .w-cta-title .t-serif { color: #fff; font-size: clamp(40px, 5.4vw, 60px); }
+.pro .w-cta-title .t-sans { color: var(--v-cream); font-size: clamp(26px, 3.2vw, 36px); margin-top: 6px; }
+.w-cta-lede { max-width: 480px; margin: 22px auto 0; font-size: 17px; line-height: 1.65; color: rgba(242, 236, 223, .72); }
+.w-cta-btn, .w-dock-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--focus); color: #fff; text-decoration: none;
+  font-family: var(--font-brand); font-weight: 700; letter-spacing: .01em;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.w-cta-btn svg, .w-dock-btn svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.w-cta-btn {
+  margin-top: 36px; padding: 18px 34px; border-radius: 999px; font-size: 16px;
+  box-shadow: 0 18px 40px -18px rgba(197, 139, 53, .7);
+}
+.w-cta-btn:hover { background: #AB8139; transform: translateY(-2px); }
+.w-cta-btn:focus-visible, .w-dock-btn:focus-visible { outline: 2px solid var(--v-gold-bright); outline-offset: 3px; }
+.w-cta-note { margin: 16px 0 0; font-size: 13px; color: rgba(242, 236, 223, .55); }
+
+/* ---------- Watch page: glass CTA dock (phones) ---------- */
+.w-dock {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  padding: 0 max(12px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  transform: translateY(calc(100% + 24px)); opacity: 0; pointer-events: none;
+  transition: transform .5s cubic-bezier(.2, .9, .25, 1), opacity .3s ease;
+}
+.w-dock.is-on { transform: none; opacity: 1; pointer-events: auto; }
+.w-dock-glass {
+  padding: 8px; border-radius: 26px;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid rgba(255, 255, 255, .7);
+  box-shadow: 0 12px 34px -10px rgba(0, 19, 41, .45), inset 0 1px 0 rgba(255, 255, 255, .6);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .w-dock-glass {
+    background: rgba(255, 255, 255, .42);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+            backdrop-filter: blur(22px) saturate(180%);
+  }
+}
+.w-dock-btn { width: 100%; height: 52px; border-radius: 19px; font-size: 16px; }
+.w-dock-btn:active { transform: scale(.98); }
+
+@media (min-width: 761px) { .w-dock { display: none; } }
+@media (max-width: 760px) {
+  .w-cta { display: none; }
+  .pro .p-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .w-dock { transition: opacity .2s ease; }
+  .w-cta-btn:hover { transform: none; }
+}
