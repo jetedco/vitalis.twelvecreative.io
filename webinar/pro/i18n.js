@@ -19,7 +19,6 @@
     title_watch: 'Ver el webinar — Ingresos Pasivos | Vitalis Tower',
     desc_watch: 'Webinar de Ingresos Pasivos: cómo generar ingresos pasivos invirtiendo en bienes raíces comerciales, presentado por el desarrollador Bernardo Rieber.',
 
-    logo_alt: 'Vitalis Tower — Distrito Médico de Aventura',
     kicker: 'Webinar de Ingresos Pasivos',
     hero_title: 'Ya tiene acceso<span class="t-colon">.</span>',
     hosted: 'Presentado por <strong>Bernardo&nbsp;Rieber</strong>, desarrollador inmobiliario',
