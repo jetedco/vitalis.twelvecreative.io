@@ -591,11 +591,27 @@ body.is-registered .pl-ring .shackle,
 }
 .o-thanks p { margin: 0; color: var(--muted); }
 
-/* ---------- Watch page: the project (brochure facts, renders, location) ---------- */
+/* ---------- Watch page: the project (latest brochure) ----------
+   Full-width bands in the brochure palette: white → charcoal stats →
+   white photos → cream details → charcoal testimonials → white location. */
 .w-proj {
-  max-width: 1040px; margin: 96px auto 0; padding: 72px 24px 0;
-  border-top: 1px solid var(--hair); text-align: center;
+  --band-dark: var(--v-ink);
+  --band-cream: var(--v-cream);
+  --on-dark: var(--v-cream);
+  --on-dark-soft: rgba(242, 236, 223, .64);
+  --on-dark-hair: rgba(242, 236, 223, .14);
+  --gold-on-dark: var(--v-gold-bright);
+  --muted-on-cream: #5E6268;
+  --hair-on-cream: rgba(17, 19, 22, .12);
+  margin-top: 96px;
 }
+.w-band-in { max-width: 1040px; margin: 0 auto; padding: 72px 24px; }
+.w-band-dark { background: var(--band-dark); color: var(--on-dark); }
+.w-band-cream { background: var(--band-cream); }
+
+/* Intro (white): kicker, title, lede, why, then the render sits on the stats band */
+.w-band-intro { border-top: 1px solid var(--hair); text-align: center; }
+.w-band-intro .w-band-in { padding-bottom: 0; }
 .w-proj .p-kicker { margin-bottom: 18px; }
 .w-proj-title .t-serif { font-size: clamp(40px, 5.4vw, 60px); }
 .w-proj-title .t-sans { font-size: clamp(26px, 3.2vw, 36px); margin-top: 6px; }
@@ -604,37 +620,77 @@ body.is-registered .pl-ring .shackle,
   max-width: 560px; margin: 0 auto; font-size: 17px; line-height: 1.65;
   color: var(--muted); text-wrap: pretty;
 }
+.w-proj-why-h, .w-proj-h3 {
+  margin: 0; font-size: 11px; font-weight: 600; line-height: 1.4; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
+.w-proj-why-h { margin-top: 34px; }
+.w-proj-why {
+  list-style: none; margin: 14px auto 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 32px;
+}
+.w-proj-why li { display: inline-flex; align-items: center; gap: 9px; font-size: 16px; font-weight: 500; color: var(--ink); }
+.w-proj-why svg { width: 18px; height: 18px; color: var(--focus); stroke-width: 2.2; }
 .w-proj-hero { margin: 48px 0 0; }
 .w-proj-hero img, .w-proj-gallery img, .w-proj-map { display: block; width: 100%; height: auto; }
 
+/* Stats (charcoal): gold figures */
+.w-band-stats .w-band-in { padding-top: 0; padding-bottom: 0; }
 .w-proj-stats {
-  list-style: none; margin: 0; padding: 0;
+  list-style: none; margin: 0; padding: 0; text-align: center;
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-bottom: 1px solid var(--hair);
 }
-.w-proj-stats li { display: flex; flex-direction: column; gap: 6px; padding: 28px 12px; }
-.w-proj-stats li + li { border-left: 1px solid var(--hair); }
+.w-proj-stats li { display: flex; flex-direction: column; gap: 8px; padding: 36px 12px; }
+.w-proj-stats li + li { border-left: 1px solid var(--on-dark-hair); }
 .w-stat-num {
-  font-size: clamp(22px, 2.6vw, 30px); font-weight: 300; line-height: 1.1;
-  letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--ink);
+  font-size: clamp(24px, 2.8vw, 34px); font-weight: 300; line-height: 1.1;
+  letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--gold-on-dark);
 }
 .w-stat-label {
   font-size: 11px; font-weight: 600; letter-spacing: .18em;
-  text-transform: uppercase; color: var(--muted);
+  text-transform: uppercase; color: var(--on-dark-soft);
 }
 
-.w-proj-gallery {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
-  margin: 40px 0 0; text-align: left;
-}
+/* Photos (white) */
+.w-band-gallery .w-band-in { padding-top: 56px; padding-bottom: 64px; }
+.w-proj-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .w-proj-gallery figure { margin: 0; }
 .w-proj-gallery img { aspect-ratio: 3 / 2; object-fit: cover; }
 .w-proj-gallery figcaption { margin-top: 12px; font-size: 14px; line-height: 1.45; color: var(--muted); }
 
+/* Details (cream): amenities | building design + team */
+.w-proj-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; }
+.w-band-cream .w-proj-h3 { color: var(--muted-on-cream); margin-bottom: 6px; }
+.w-proj-team-h { margin-top: 40px; }
+.w-proj-near, .w-proj-list { list-style: none; margin: 0; padding: 0; }
+.w-proj-near li, .w-proj-list li { padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; line-height: 1.5; }
+.w-band-cream .w-proj-list li, .w-band-cream .w-proj-team div { border-color: var(--hair-on-cream); }
+.w-proj-team { margin: 0; }
+.w-proj-team div {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15px; line-height: 1.5;
+}
+.w-proj-team dt { color: var(--muted-on-cream); }
+.w-proj-team dd { margin: 0; text-align: right; color: var(--ink); }
+
+/* Testimonials (charcoal) */
+.w-band-voices .w-band-in { padding-top: 80px; padding-bottom: 80px; }
+.pro .w-band-voices .p-kicker { color: var(--on-dark-soft); margin-bottom: 36px; }
+.w-proj-quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; }
+.w-quote { margin: 0; }
+.w-quote blockquote { margin: 0; }
+.w-quote p { margin: 0; font-size: 16px; line-height: 1.75; color: var(--on-dark); text-wrap: pretty; }
+.w-quote figcaption {
+  margin-top: 20px; font-family: var(--font-script); font-style: italic; font-weight: 500;
+  font-size: 24px; line-height: 1.2; color: var(--gold-on-dark);
+}
+.w-quote figcaption::before {
+  content: ""; display: block; width: 32px; height: 1px; margin-bottom: 14px; background: var(--v-gold);
+}
+
+/* Location (white) */
 .w-proj-place {
-  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px;
-  align-items: center; margin: 72px 0 0; padding-top: 72px;
-  border-top: 1px solid var(--hair); text-align: left;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center;
 }
 .pro .w-proj-place .p-kicker-left { text-align: left; }
 .w-proj-place h3 {
@@ -647,62 +703,23 @@ body.is-registered .pl-ring .shackle,
   margin: 0 0 4px; font-size: 11px; font-weight: 600; letter-spacing: .18em;
   text-transform: uppercase; color: var(--muted);
 }
-.w-proj-near { list-style: none; margin: 0; padding: 0; }
-.w-proj-near, .w-proj-list { list-style: none; margin: 0; padding: 0; }
-.w-proj-near li, .w-proj-list li { padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; line-height: 1.5; }
 .w-proj-sales { margin: 24px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
 .w-proj-sales strong { font-weight: 600; color: var(--ink); }
-.w-proj-note { max-width: 640px; margin: 48px auto 0; font-size: 12px; line-height: 1.7; color: #9A9EA4; }
-
-/* Why Vitalis: three checked reasons under the lede */
-.w-proj-why-h, .w-proj-h3 {
-  margin: 0; font-size: 11px; font-weight: 600; line-height: 1.4; letter-spacing: .18em;
-  text-transform: uppercase; color: var(--muted);
+.w-proj-note {
+  max-width: 640px; margin: 48px auto 0; text-align: center;
+  font-size: 12px; line-height: 1.7; color: #9A9EA4;
 }
-.w-proj-why-h { margin-top: 34px; }
-.w-proj-why {
-  list-style: none; margin: 14px auto 0; padding: 0;
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 32px;
-}
-.w-proj-why li { display: inline-flex; align-items: center; gap: 9px; font-size: 16px; font-weight: 500; color: var(--ink); }
-.w-proj-why svg { width: 18px; height: 18px; color: var(--focus); stroke-width: 2.2; }
-
-/* Details: amenities | building design + team */
-.w-proj-details {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px;
-  margin: 72px 0 0; padding-top: 72px; border-top: 1px solid var(--hair); text-align: left;
-}
-.w-proj-h3 { margin-bottom: 6px; }
-.w-proj-team-h { margin-top: 40px; }
-.w-proj-team { margin: 0; }
-.w-proj-team div {
-  display: flex; justify-content: space-between; gap: 16px;
-  padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15px; line-height: 1.5;
-}
-.w-proj-team dt { color: var(--muted); }
-.w-proj-team dd { margin: 0; text-align: right; color: var(--ink); }
-
-/* Client testimonials, verbatim from the brochure */
-.w-proj-voices { margin: 72px 0 0; padding-top: 72px; border-top: 1px solid var(--hair); }
-.w-proj-quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; text-align: left; }
-.w-quote { margin: 0; }
-.w-quote blockquote { margin: 0; }
-.w-quote p { margin: 0; font-size: 16px; line-height: 1.75; color: var(--ink); text-wrap: pretty; }
-.w-quote figcaption {
-  margin-top: 20px; font-family: var(--font-script); font-style: italic; font-weight: 500;
-  font-size: 24px; line-height: 1.2; color: var(--ink);
-}
-.w-quote figcaption::before {
-  content: ""; display: block; width: 32px; height: 1px; margin-bottom: 14px; background: var(--focus);
-}
+.w-band-place .w-band-in { padding-bottom: 0; }
 
 @media (max-width: 760px) {
-  .w-proj { margin-top: 72px; padding-top: 56px; }
+  .w-proj { margin-top: 72px; }
+  .w-band-in { padding-top: 56px; padding-bottom: 56px; }
+  .w-band-voices .w-band-in { padding-top: 64px; padding-bottom: 64px; }
   .w-proj-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .w-proj-stats li { padding: 28px 10px; }
   .w-proj-stats li:nth-child(3) { border-left: 0; }
-  .w-proj-stats li:nth-child(n+3) { border-top: 1px solid var(--hair); }
+  .w-proj-stats li:nth-child(n+3) { border-top: 1px solid var(--on-dark-hair); }
   .w-proj-gallery { grid-template-columns: 1fr; gap: 28px; }
-  .w-proj-place { grid-template-columns: 1fr; gap: 32px; margin-top: 56px; padding-top: 56px; }
   .w-proj-details, .w-proj-quotes { grid-template-columns: 1fr; gap: 40px; }
-  .w-proj-details, .w-proj-voices { margin-top: 56px; padding-top: 56px; }
+  .w-proj-place { grid-template-columns: 1fr; gap: 32px; }
 }
