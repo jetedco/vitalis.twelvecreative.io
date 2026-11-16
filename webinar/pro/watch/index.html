@@ -21,6 +21,7 @@
   <link rel="preload" href="/images/webinar/preview-poster.jpg" as="image">
   <link rel="stylesheet" href="/css/brand.css">
   <link rel="stylesheet" href="/webinar/pro/style.css?v=10">
+  <link rel="stylesheet" href="https://embed.typeform.com/next/css/widget.css">
 </head>
 <body class="pro">
 
@@ -35,7 +36,7 @@
     </section>
 
     <!-- ============ The webinar + three actions ============ -->
-    <section class="w-stage fade-in-late" aria-label="The webinar">
+    <section class="w-stage fade-in-late" id="webinar" aria-label="The webinar">
       <div class="w-lang" id="w-lang" role="group" aria-label="Webinar language">
         <span class="w-lang-thumb" aria-hidden="true"></span>
         <button type="button" class="w-lang-btn" data-lang="en" aria-pressed="true" lang="en">
@@ -112,13 +113,18 @@
       </h2>
       <span class="p-rule" aria-hidden="true"></span>
       <p class="w-form-lede">Answer a few quick questions and we&rsquo;ll send you the Vitalis Tower floor plans and current pricing.</p>
-      <div class="w-form-embed"
-           data-tf-widget="oMuG2Ph4"
-           data-tf-opacity="100"
-           data-tf-iframe-props="title=Vitalis Tower – Floor plans &amp; pricing"
-           data-tf-transitive-search-params="lang,utm_source,utm_medium,utm_campaign,utm_term,utm_content,campaign_id,adset_id,ad_id,fbclid"
-           data-tf-medium="snippet"
-           data-tf-inline-on-mobile></div>
+      <!-- Locked until FORM_UNLOCK_SECONDS of the webinar have been watched (form-gate.js) -->
+      <div class="w-form-embed is-locked" id="w-form-embed">
+        <div class="w-lock" id="w-lock">
+          <span class="w-lock-ring"><svg class="i-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+          <p class="w-lock-title">Please watch the video for <span data-unlock-min>5</span>&nbsp;minutes to unlock the questionnaire.</p>
+          <p class="w-lock-text">It opens right here automatically, no reload needed.</p>
+          <div class="w-lock-bar" aria-hidden="true"><span id="w-lock-fill"></span></div>
+          <p class="w-lock-count" id="w-lock-count">5:00 left</p>
+          <a class="w-lock-btn" href="#webinar"><span>Watch the webinar</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+        </div>
+        <span class="visually-hidden" id="w-lock-status" role="status"></span>
+      </div>
     </section>
 
     <!-- ============ Sponsors: two rows, opposite directions ============ -->
@@ -277,7 +283,7 @@
           <span class="t-serif">See the floor plans</span>
           <span class="t-sans">&amp; current pricing<span class="t-colon">.</span></span>
         </h2>
-        <p class="w-cta-lede">Answer 3 quick questions and get floor plans, pricing and availability.</p>
+        <p class="w-cta-lede">Answer a few quick questions and get floor plans, pricing and availability.</p>
         <a class="w-cta-btn" href="#floor-plans"><span>Get plans &amp; pricing</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
         <p class="w-cta-note">Takes about 30 seconds</p>
       </div>
@@ -304,5 +310,6 @@
   <script src="/webinar/pro/watch/app.js?v=4" defer></script>
   <script src="/webinar/pro/watch/cta.js?v=1" defer></script>
   <script src="https://embed.typeform.com/next/embed.js" defer></script>
+  <script src="/webinar/pro/watch/form-gate.js?v=1" defer></script>
 </body>
 </html>
