@@ -886,3 +886,18 @@ body.is-registered .pl-ring .shackle,
 @media (prefers-reduced-motion: reduce) {
   .w-lock-bar span { transition: none; }
 }
+
+/* ---------- Brand header (both pages): logo only, not a link ---------- */
+.p-top {
+  display: flex; justify-content: center;
+  padding: 28px max(24px, env(safe-area-inset-right, 0px)) 0 max(24px, env(safe-area-inset-left, 0px));
+}
+.p-top-logo { display: block; width: auto; height: 84px; user-select: none; -webkit-user-drag: none; }
+.p-top + main .p-hero { padding-top: 40px; }
+.p-top + main .w-hero { padding-top: 28px; }
+@media (max-width: 760px) {
+  .p-top { padding-top: 20px; }
+  .p-top-logo { height: 54px; }
+  .p-top + main .p-hero { padding-top: 24px; }
+  .p-top + main .w-hero { padding-top: 20px; }
+}
