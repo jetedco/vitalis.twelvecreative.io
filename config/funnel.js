@@ -183,8 +183,8 @@ window.VITALIS = {
     //   GTM_SRC: full script src, e.g. 'https://www.googletagmanager.com/gtm.js'
     //            or a Vitalis server-side tagging URL
     //   GTM_ID:  the container/query id appended as ?id=…
-    GTM_SRC: '',
-    GTM_ID: ''
+    GTM_SRC: 'https://www.googletagmanager.com/gtm.js',
+    GTM_ID: 'GTM-PQVPV2TX'   // "Vitalis Tower" GTM account — NOT the Twelve Creative container
   },
 
   /* ---------- Calendar invitations ---------- */
