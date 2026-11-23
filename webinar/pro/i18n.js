@@ -47,12 +47,6 @@
     form_t1: 'Reciba los planos',
     form_t2: 'y precios<span class="t-colon">.</span>',
     form_lede: 'Responda unas breves preguntas y le enviaremos los planos y los precios actuales de Vitalis Tower.',
-    lock_title: 'Por favor, vea el video durante <span data-unlock-min>5</span>&nbsp;minutos para desbloquear el cuestionario.',
-    lock_text: 'Se abrirá aquí automáticamente, sin necesidad de recargar la página.',
-    lock_btn: 'Ver el webinar',
-    lock_left: '{t} restantes',
-    lock_unlocked: 'Desbloqueado',
-    lock_status: 'El cuestionario está desbloqueado.',
     tf_title: 'Vitalis Tower – Planos y precios',
 
     sponsors: 'Patrocinadores',

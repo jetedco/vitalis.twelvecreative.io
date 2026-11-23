@@ -103,18 +103,7 @@
       </h2>
       <span class="p-rule" aria-hidden="true"></span>
       <p class="w-form-lede" data-i18n="form_lede">Answer a few quick questions and we&rsquo;ll send you the Vitalis Tower floor plans and current pricing.</p>
-      <!-- Locked until FORM_UNLOCK_SECONDS of the webinar have been watched (form-gate.js) -->
-      <div class="w-form-embed is-locked" id="w-form-embed">
-        <div class="w-lock" id="w-lock">
-          <span class="w-lock-ring"><svg class="i-lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
-          <p class="w-lock-title" data-i18n-html="lock_title">Please watch the video for <span data-unlock-min>5</span>&nbsp;minutes to unlock the questionnaire.</p>
-          <p class="w-lock-text" data-i18n="lock_text">It opens right here automatically, no reload needed.</p>
-          <div class="w-lock-bar" aria-hidden="true"><span id="w-lock-fill"></span></div>
-          <p class="w-lock-count" id="w-lock-count">5:00 left</p>
-          <a class="w-lock-btn" href="#webinar"><span data-i18n="lock_btn">Watch the webinar</span><svg viewBox="0 0 24 24" class="i-line" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
-        </div>
-        <span class="visually-hidden" id="w-lock-status" role="status"></span>
-      </div>
+      <div class="w-form-embed" id="w-form-embed"></div>
     </section>
 
     <!-- ============ Sponsors: two rows, opposite directions ============ -->
@@ -321,6 +310,6 @@
   <script src="/webinar/pro/watch/app.js?v=4" defer></script>
   <script src="/webinar/pro/watch/cta.js?v=1" defer></script>
   <script src="https://embed.typeform.com/next/embed.js" defer></script>
-  <script src="/webinar/pro/watch/form-gate.js?v=1" defer></script>
+  <script src="/webinar/pro/watch/form.js?v=1" defer></script>
 </body>
 </html>

@@ -119,10 +119,8 @@ window.VITALIS = {
     PREVIEW_MAX_LOOPS: 3,
     // Where registrants land (confetti + the webinar playing).
     WATCH_PATH: '/webinar/pro/watch/',
-    // Floor plans & pricing Typeform on the watch page. It stays locked until
-    // the viewer has actually watched FORM_UNLOCK_SECONDS of the webinar.
+    // Floor plans & pricing Typeform on the watch page (open right away).
     TYPEFORM_ID: 'gmgeoPQq',
-    FORM_UNLOCK_SECONDS: 300,
     // Vitalis Tower Dropbox behind "Learn more" on the watch page.
     // Empty = the button shows as pending (never a dead link).
     DROPBOX_URL: 'https://www.dropbox.com/scl/fo/u2mlu6ktnw2uinubk48em/AMy6Js8EqINLfTzEMCz_5lU?rlkey=ux6wr759u22lgv4q9294c6zfy&st=5hb4ud52&dl=0',

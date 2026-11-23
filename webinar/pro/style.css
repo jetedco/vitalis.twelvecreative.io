@@ -840,52 +840,9 @@ body.is-registered .pl-ring .shackle,
   .w-cta-btn:hover { transform: none; }
 }
 
-/* ---------- Watch page: form lock (until 5 min of the webinar) ---------- */
-.visually-hidden {
-  position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
+/* ---------- Watch page: Typeform container ---------- */
 .w-form-embed { position: relative; }
-.w-form-embed.is-locked { display: grid; place-items: center; }
 .w-form-tf, .w-form-tf > div { width: 100%; height: 100%; }
-.w-lock {
-  width: min(100%, 460px); padding: 40px 28px;
-  display: flex; flex-direction: column; align-items: center; text-align: center; color: #F2F1F0;
-}
-.w-lock-ring {
-  display: grid; place-items: center; width: 78px; height: 78px; border-radius: 50%;
-  color: #C89450; background: rgba(200, 148, 80, .08); border: 1px solid rgba(200, 148, 80, .5);
-  transition: background .4s ease, border-color .4s ease;
-}
-.w-lock-ring svg { width: 30px; height: 30px; }
-.w-lock.is-open .w-lock-ring { background: rgba(200, 148, 80, .18); border-color: #C89450; }
-.w-lock.is-open .shackle { transform: translateY(-2px) rotate(-32deg); }
-.w-lock-title {
-  margin: 26px 0 0; font-size: 21px; font-weight: 600; line-height: 1.4;
-  color: #fff; text-wrap: balance;
-}
-.w-lock-text { margin: 10px 0 0; font-size: 15px; line-height: 1.6; color: rgba(242, 241, 240, .68); }
-.w-lock-bar {
-  width: 100%; max-width: 320px; height: 4px; margin-top: 30px; border-radius: 4px;
-  background: rgba(242, 241, 240, .14); overflow: hidden;
-}
-.w-lock-bar span { display: block; width: 0; height: 100%; background: #C89450; transition: width .6s linear; }
-.w-lock-count {
-  margin: 10px 0 0; font-size: 13px; letter-spacing: .06em;
-  color: rgba(242, 241, 240, .62); font-variant-numeric: tabular-nums;
-}
-.w-lock-btn {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; padding: 13px 22px;
-  border-radius: 999px; border: 1px solid rgba(200, 148, 80, .6);
-  color: #C89450; font-size: 14.5px; font-weight: 600; text-decoration: none;
-  transition: background .2s ease, color .2s ease;
-}
-.w-lock-btn svg { width: 16px; height: 16px; stroke-width: 2.2; }
-.w-lock-btn:hover { background: #C89450; color: #091733; }
-.w-lock-btn:focus-visible { outline: 2px solid #C89450; outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) {
-  .w-lock-bar span { transition: none; }
-}
 
 /* ---------- Brand header (both pages): logo only, not a link ---------- */
 .p-top {
